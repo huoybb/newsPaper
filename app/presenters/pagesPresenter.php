@@ -20,7 +20,7 @@ class pagesPresenter extends myPresenter
     }
     public function title()
     {
-        return '参考消息  '.$this->entity->getIssue()->present()->title.' 第'.$this->entity->page_num.'版';
+        return '参考消息  '.$this->entity->getIssue()->present()->date.' 第'.$this->entity->page_num.'版';
     }
 
 }
