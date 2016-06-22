@@ -111,7 +111,6 @@ class Issues extends \App\myPlugins\myModel
             if($i != 2) $url = $path.$row->filter('a')->attr('href');
             if(preg_match('|[0-9]+|',$page_num)) $pages[] = compact('page_num','url');
         });
-
         foreach($pages as $page){
             $this->getPageImage($page);
         }
@@ -126,11 +125,16 @@ class Issues extends \App\myPlugins\myModel
             $crawler = myCrawler::getCrawler($url);
             if (preg_match('%http_ref\(\'(https?://.+?/mypoco/myphoto/.+jpg)\'\)%sm', $crawler->html(), $regs)) {
                 $url = $regs[1];
+            }else{
+                $url = $crawler->filter('img')->attr('src');
+            }
+            if($url){
                 $src = myTools::downloadImage($url);
                 $page_num = $page['page_num'];
                 $issue_id = $this->id;
                 $pager->save(compact('page_num','src','url','issue_id'));
             }
+
         }
         
     }
