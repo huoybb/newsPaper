@@ -10,6 +10,7 @@ namespace App\presenters;
 
 
 use App\myPlugins\myPresenter;
+use App\myPlugins\myTools;
 
 class pagesPresenter extends myPresenter
 {

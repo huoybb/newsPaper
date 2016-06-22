@@ -109,6 +109,8 @@ class myTools
         return $filename;
     }
     public static function downloadImage($url,$uploadDir = null){
+//        $url = urlencode($url);
+        $url = preg_replace('|\s|','%20',$url);//解决url中有空格的问题
         $file = file_get_contents($url);
         if($uploadDir == null){
             if(getMyEnv() == 'web') $uploadDir = 'files';

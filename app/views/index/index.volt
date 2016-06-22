@@ -6,7 +6,7 @@
 
     <ul>
         {% for issue in Issues  %}
-            <li><a href="{{ url(['for':'pages.show','page':issue.getFirstPage().id]) }}">{{ issue.present().title }}</a>  {{ issue.pages }}版</li>
+            <li><a href="{{ url(['for':'pages.show','page':issue.getFirstPage().id]) }}">{{ issue.present().date }}</a>  {{ issue.pages }}版</li>
         {% endfor %}
 
     </ul>

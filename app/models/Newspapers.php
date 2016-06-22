@@ -1,5 +1,6 @@
 <?php
 
+use App\myPlugins\myTools;
 use App\webParser\myCrawler;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -90,7 +91,7 @@ class Newspapers extends \App\myPlugins\myModel
     {
         return Issues::query()
             ->where('newspaper_id = :newspaper:',['newspaper'=>$this->id])
-            ->orderBy('title DESC')
+            ->orderBy('date DESC')
             ->execute();
     }
 
@@ -102,8 +103,10 @@ class Newspapers extends \App\myPlugins\myModel
         $downloadCount = 0;
 
         foreach($issues as $row){
-            $issue = \Issues::findOrNewByUrl($row['url']);
+//            $issue = \Issues::findOrNewByUrl($row['url']);
+            $issue = Issues::findOrNewByDateAndNewsPaper($row,$this->id);
             if(! $issue->id){ //如果没有下载过这一期，则
+                if($row['poster']) $row['poster'] = myTools::downloadImage($row['poster']);
                 $issue->save(array_merge($row,['newspaper_id'=>$this->id]));
                 $issue->getPagesFromWeb();
                 $downloadCount += 1;
