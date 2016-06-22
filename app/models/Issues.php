@@ -11,12 +11,22 @@ class Issues extends \App\myPlugins\myModel
      *
      * @var integer
      */
-    public $id;    /**
+    public $id;
     /**
      *
      * @var string
      */
     public $title;
+    /**
+     *
+     * @var string
+     */
+    public $date;
+    /**
+     *
+     * @var string
+     */
+    public $poster;
     /**
      *
      * @var integer
@@ -146,6 +156,7 @@ class Issues extends \App\myPlugins\myModel
     {
         return Pages::query()
             ->where('issue_id = :issue:',['issue'=>$this->id])
+            ->orderBy('page_num')
             ->execute();
     }
 
