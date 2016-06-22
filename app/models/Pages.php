@@ -146,5 +146,12 @@ class Pages extends \App\myPlugins\myModel
         $this->save();
 
     }
+    public function beforeDelete()
+    {
+        $file = $this->src;
+        if(getMyEnv() == 'web') $file = preg_replace('|public/|','',$file);
+        unlink($file);
+    }
+
 
 }

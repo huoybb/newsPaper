@@ -11,24 +11,23 @@ namespace {
     use Phalcon\Mvc\Url;
 
     exit("This file should not be included, only analyzed by your IDE");
-    class TagsCacheFacade extends myFacade{
+    class NewspaperParserFacade extends myFacade{
         /**
-         * @return bool
+         * @return array
          */
-        public static function isTagsExist( $user = null){}
+        public static function getLatestIssues(){}
+
         /**
-         * @param $data
-         * @return bool
+         * @param $url
+         * @return array
          */
-        public static function setTags($tags,$user = null){}
+        public static function getPageInfoForIssue($url){}
+
         /**
-         * @return \Tags[]
+         * @param $url
+         * @return string
          */
-        public static function getTags($user = null){}
-        /**
-         * @return bool
-         */
-        public static function deleteTags($user = null){}
+        public static function getImageSrc($url){}
 
     }
     class RedisFacade extends myFacade{

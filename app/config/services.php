@@ -21,7 +21,7 @@ $providers = [
     'dispatcher'        =>\App\serviceProviders\dispatcherProvider::class,
 
     //下面是自主加载的服务
-
+    'newspaperparser'   =>\App\serviceProviders\newpaperparserProvider::class,//获取报纸信息的服务；
     'myTools'           =>\App\serviceProviders\myToolsProvider::class,
 ];
 

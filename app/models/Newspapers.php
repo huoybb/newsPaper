@@ -80,19 +80,7 @@ class Newspapers extends \App\myPlugins\myModel
 
     public function getLatestIssuesFromWeb()
     {
-        $crawler = myCrawler::getCrawler('http://www.hqck.net/');
-        $newsPaper = [];
-        $crawler->filter('.baozhi-list li')->each(function($row) use(&$newsPaper) {
-
-            /** @var Crawler $row */
-            $url = $row->filter('a')->attr('href');
-            $title = trim($row->text());
-            if(preg_match('/'.$this->title.'.+([0-9]{4}-[0-9]{2}-[0-9]{2})/sm', $title, $regs)){
-                $date = $regs[1];
-                $newsPaper[]=compact('url','title','date');
-            }
-        });
-        return $newsPaper;
+        return NewspaperParserFacade::getLatestIssues();
     }
 
     /**
@@ -110,6 +98,7 @@ class Newspapers extends \App\myPlugins\myModel
     {
         set_time_limit(0);
         $issues = $this->getLatestIssuesFromWeb();
+        if(! count($issues)) throw new Exception('没有找到报纸的最近几期的信息');
         $downloadCount = 0;
 
         foreach($issues as $row){

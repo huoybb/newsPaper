@@ -99,18 +99,8 @@ class Issues extends \App\myPlugins\myModel
 
     public function getPagesFromWeb()
     {
-        $path = $this->getUrlPath($this->url);
-
-        $crawler = myCrawler::getCrawler($this->url);
-        $pages = [];
-        $crawler->filter('.paging')->first()->filter('li')->each(function($row,$i) use(&$pages,$path){
-            /** @var Crawler $row */
-            if($i == 0 || $i == 1) return ;
-            $page_num = $row->text();
-            $url = $this->url;
-            if($i != 2) $url = $path.$row->filter('a')->attr('href');
-            if(preg_match('|[0-9]+|',$page_num)) $pages[] = compact('page_num','url');
-        });
+        $pages = NewspaperParserFacade::getPageInfoForIssue($this->url);
+        if(! count($pages)) throw new Exception('没有找到报纸的页面信息');
         foreach($pages as $page){
             $this->getPageImage($page);
         }
@@ -122,25 +112,18 @@ class Issues extends \App\myPlugins\myModel
         $url = $page['url'];
         $pager = Pages::findOrNewByUrl($url);
         if(! $pager->src){
-            $crawler = myCrawler::getCrawler($url);
-            if (preg_match('%http_ref\(\'(https?://.+?/mypoco/myphoto/.+jpg)\'\)%sm', $crawler->html(), $regs)) {
-                $url = $regs[1];
-            }else{
-                $url = $crawler->filter('img')->attr('src');
+            $url = NewspaperParserFacade::getImageSrc($url);
+
+            if(! $url){
+                throw new Exception('没有找到图片的下载地址！');
             }
-            if($url){
-                $src = myTools::downloadImage($url);
-                $page_num = $page['page_num'];
-                $issue_id = $this->id;
-                $pager->save(compact('page_num','src','url','issue_id'));
-            }
+            $src = myTools::downloadImage($url);
+            $page_num = $page['page_num'];
+            $issue_id = $this->id;
+            $pager->save(compact('page_num','src','url','issue_id'));
 
         }
         
-    }
-    private function getUrlPath($url)
-    {
-        return str_replace(basename($url),'',$url);
     }
 
     /**
@@ -164,6 +147,14 @@ class Issues extends \App\myPlugins\myModel
             ->execute()->getFirst();
 
     }
+    public function beforeDelete()
+    {
+        $pages = $this->getPages();
+        foreach($pages as $page){
+            $page->delete();
+        }
+    }
+
 
 
 }
