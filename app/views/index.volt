@@ -14,8 +14,17 @@
     </head>
     <body>
         <div class="container">
+            <nav class="nav">
+                <div class="page-header">
+                    <h1><a href="{{ url(['for':'home']) }}">我的报纸</a>{% block title %}{% endblock %}</h1>
+                    {% block breadcrumbs %}{% endblock %}
+
+                </div>
+            </nav>
+
+
             {{ flash.output() }}
-            <h1><a href="{{ url(['for':'home']) }}">我的报纸</a>{% block title %}{% endblock %}</h1>
+
             {% block content %} {% endblock %}
         </div>
 

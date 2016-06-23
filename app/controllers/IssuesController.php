@@ -28,6 +28,13 @@ class IssuesController extends \App\myPlugins\myController
         $this->redirectBack();
     }
 
+    public function showPageAction(Issues $issue,Pages $page)
+    {
+        $this->view->page = $page;
+        $this->view->issue = $issue;
+    }
+
+
 
 
 }
