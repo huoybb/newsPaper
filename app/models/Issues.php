@@ -2,6 +2,7 @@
 
 use App\myPlugins\myTools;
 use App\webParser\myCrawler;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
 class Issues extends \App\myPlugins\myModel
@@ -123,11 +124,12 @@ class Issues extends \App\myPlugins\myModel
         $this->getPagesFromWeb();
     }
 
-    public function getPagesFromWeb()
+    public function getPagesFromWeb(OutputInterface $output = null)
     {
         $pages = NewspaperParserFacade::getPageInfoForIssue($this->url);
         if(! count($pages)) throw new Exception('没有找到报纸的页面信息');
         foreach($pages as $page){
+            if($output) $output->write($page['page_num'].' ');
             $this->getPageImage($page);
         }
         $this->save(['pages'=>count($pages)]);

@@ -109,20 +109,24 @@ class Newspapers extends \App\myPlugins\myModel
             ->execute();
     }
 
-    public function downloadIssuesFromWeb()
+    public function downloadIssuesFromWeb(\Symfony\Component\Console\Output\OutputInterface $output = null)
     {
         set_time_limit(0);
         $issues = $this->getLatestIssuesFromWeb();
-        if(! count($issues)) throw new Exception('没有找到报纸的最近几期的信息');
+        $totalCount = count($issues);
+        if(!$totalCount) throw new Exception('没有找到报纸的最近几期的信息');
         $downloadCount = 0;
+
+        if($output) $output->writeln("Have found {$totalCount} issues");
 
         foreach($issues as $row){
 //            $issue = \Issues::findOrNewByUrl($row['url']);
             $issue = Issues::findOrNewByDateAndNewsPaper($row,$this->id);
             if(! $issue->id){ //如果没有下载过这一期，则
+                $output->writeln('download Issue'.$row['date']);
                 if($row['poster']) $row['poster'] = myTools::downloadImage($row['poster']);
                 $issue->save(array_merge($row,['newspaper_id'=>$this->id]));
-                $issue->getPagesFromWeb();
+                $issue->getPagesFromWeb($output);
                 $downloadCount += 1;
             }
         }
