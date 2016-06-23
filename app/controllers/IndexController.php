@@ -3,11 +3,12 @@
 class IndexController extends \App\myPlugins\myController
 {
 
-    public function indexAction()
+    public function indexAction($page = 1)
     {
         $newsPaper = Newspapers::findOrNewByName('参考消息');
-        $Issues = $newsPaper->getIssues();
-        $this->view->Issues = $Issues;
+        
+        $page = $this->getPaginator($newsPaper->getIssues(),10,$page);
+        $this->view->Issues = $page->items;
     }
     
 

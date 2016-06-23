@@ -13,9 +13,10 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class hqcknet implements newspaperParserInterface
 {
-    public function getLatestIssues()
+    public function getLatestIssues($url)
     {
-        $crawler = myCrawler::getCrawler('http://www.hqck.net/');
+        $url ='http://www.hqck.net/';
+        $crawler = myCrawler::getCrawler($url);
         $newsPaper = [];
         $crawler->filter('.baozhi-list li')->each(function($row) use(&$newsPaper) {
 

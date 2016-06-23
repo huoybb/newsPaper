@@ -24,7 +24,12 @@ abstract class myController extends Controller
     }
 
 
-
+    /**
+     * @param $rowSets
+     * @param $limit
+     * @param $page
+     * @return mixed
+     */
     protected function getPaginator($rowSets, $limit, $page)
     {
         $paginator = new Model([

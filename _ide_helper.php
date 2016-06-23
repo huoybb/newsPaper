@@ -13,9 +13,10 @@ namespace {
     exit("This file should not be included, only analyzed by your IDE");
     class NewspaperParserFacade extends myFacade{
         /**
+         * @param $url
          * @return array
          */
-        public static function getLatestIssues(){}
+        public static function getLatestIssues($url){}
 
         /**
          * @param $url

@@ -140,11 +140,11 @@ class Issues extends \App\myPlugins\myModel
             if(! $url){
                 throw new Exception('没有找到图片的下载地址！');
             }
-//            $src = myTools::downloadImage($url);
+            //            $src = null;
+            $src = myTools::downloadImage($url);
             $page_num = $page['page_num'];
             $issue_id = $this->id;
             $pager->save(compact('page_num','src','url','issue_id'));
-
         }
         
     }

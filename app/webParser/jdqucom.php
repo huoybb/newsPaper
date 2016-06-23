@@ -15,9 +15,9 @@ use Symfony\Component\DomCrawler\Crawler;
 class jdqucom implements newspaperParserInterface
 {
 
-    public function getLatestIssues()
+    public function getLatestIssues($url)
     {
-        $url = 'http://www.jdqu.com/bklist-10.html';
+//        $url = 'http://www.jdqu.com/bklist-10.html';
         $path = str_replace(basename($url),'',$url);
         $crawler = myCrawler::getCrawler($url);
         $newsPaper = [];
@@ -41,12 +41,19 @@ class jdqucom implements newspaperParserInterface
 
         $crawler = myCrawler::getCrawler($url);
         $pages = [];
-        $crawler->filter('.paging')->first()->filter('li')->each(function($row,$i) use(&$pages,$path,$url){
+//        $crawler->filter('.paging')->first()->filter('li')->each(function($row,$i) use(&$pages,$path,$url){
+//            /** @var Crawler $row */
+//            if($i == 0 ) return ;
+//            $page_num = trim($row->text());
+//            if($i != 1 && $row->filter('a')->count()) $url = $path.$row->filter('a')->attr('href');
+//            if(preg_match('|^[0-9]{1,2}$|',$page_num)) $pages[] = compact('page_num','url');
+//        });
+
+        $crawler->filter('select')->first()->filter('option')->each(function($row,$i) use(&$pages,$path,$url){
             /** @var Crawler $row */
-            if($i == 0 ) return ;
-            $page_num = trim($row->text());
-            if($i != 1 && $row->filter('a')->count()) $url = $path.$row->filter('a')->attr('href');
-            if(preg_match('|^[0-9]{1,2}$|',$page_num)) $pages[] = compact('page_num','url');
+            $page_num = $row->html();
+            $url = $path.$row->attr('value');
+            $pages[] = compact('page_num','url');
         });
         return $pages;
     }
@@ -57,7 +64,7 @@ class jdqucom implements newspaperParserInterface
         if (preg_match('%http_ref\(\'(https?://.+?/mypoco/myphoto/.+jpg)\'\)%sm', $crawler->html(), $regs)) {
             $url = $regs[1];
         }else{
-            $url = $crawler->filter('img')->attr('src');
+            if($crawler->filter('img')->count()) $url = $crawler->filter('img')->attr('src');
         }
         return $url;
     }

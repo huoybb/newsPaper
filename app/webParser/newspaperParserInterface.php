@@ -9,7 +9,7 @@ namespace App\webParser;
 
 interface newspaperParserInterface
 {
-    public function getLatestIssues();
+    public function getLatestIssues($url);
 
     public function getPageInfoForIssue($url);
 

@@ -15,7 +15,7 @@ class issuesPresenter extends myPresenter
 {
     public function title()
     {
-        return preg_replace('/.+([0-9]{4}-[0-9]{2}-[0-9]{2})$/sm', '$1', $this->entity->title);
+        return preg_replace('/.+([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})$/sm', '$1', $this->entity->title);
     }
 
 }

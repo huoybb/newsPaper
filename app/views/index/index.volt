@@ -9,10 +9,11 @@
             <li>
 
                 <a href="{{ url(['for':'pages.show','page':issue.getFirstPage().id]) }}">
-                    <img src="{{ issue.present().poster }}" alt="Poster">
+                {#<a href="{{ url(['for':'issues.show','issue':issue.id]) }}">#}
+                    {#<img src="{{ issue.present().poster }}" alt="Poster">#}
                     {{ issue.present().date }}
                 </a>
-                {{ issue.pages }}版
+                {{ issue.pages }}版 <a href="{{ url(['for':'issues.show','issue':issue.id]) }}">管理</a>
             </li>
         {% endfor %}
 

@@ -23,6 +23,11 @@ class Newspapers extends \App\myPlugins\myModel
      *
      * @var string
      */
+    public $url;
+    /**
+     *
+     * @var string
+     */
     public $created_at;
 
     /**
@@ -81,7 +86,16 @@ class Newspapers extends \App\myPlugins\myModel
 
     public function getLatestIssuesFromWeb()
     {
-        return NewspaperParserFacade::getLatestIssues();
+        $url = $this->url;
+        return NewspaperParserFacade::getLatestIssues($url);
+//        $result = [];
+//        for($i = 1;$i<=18;$i++){
+//            $url = "http://www.jdqu.com/bklist-10-{$i}.html";
+//            foreach (NewspaperParserFacade::getLatestIssues($url) as $issue){
+//                $result[] = $issue;
+//            }
+//        }
+//        return $result;
     }
 
     /**
