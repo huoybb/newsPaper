@@ -23,7 +23,7 @@ class NewsPaper extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $paper = \Newspapers::findOrNewByName('参考消息');
-        $downloadCount = $paper->downloadIssuesFromWeb();
+        $downloadCount = $paper->downloadIssuesFromWeb($output);
         $output->writeln('download '.$downloadCount.' Issues');
     }
 }

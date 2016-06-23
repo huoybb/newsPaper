@@ -66,7 +66,7 @@ class Pages extends \App\myPlugins\myModel
     {
         $instance = static::query()
             ->where('issue_id = :issue:',['issue'=>$issue_id])
-            ->andWhere('page_num = :num:',['num'=>$page['num']])
+            ->andWhere('page_num = :num:',['num'=>$page['page_num']])
             ->execute()->getFirst();
         if(! $instance){
             $instance = new static;

@@ -123,7 +123,7 @@ class Newspapers extends \App\myPlugins\myModel
 //            $issue = \Issues::findOrNewByUrl($row['url']);
             $issue = Issues::findOrNewByDateAndNewsPaper($row,$this->id);
             if(! $issue->id){ //如果没有下载过这一期，则
-                $output->writeln('download Issue'.$row['date']);
+                if($output) $output->writeln('download Issue '.$row['date']);
                 if($row['poster']) $row['poster'] = myTools::downloadImage($row['poster']);
                 $issue->save(array_merge($row,['newspaper_id'=>$this->id]));
                 $issue->getPagesFromWeb($output);
