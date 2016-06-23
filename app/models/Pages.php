@@ -62,6 +62,19 @@ class Pages extends \App\myPlugins\myModel
         return $instance;
     }
 
+    public static function findOrNewByPageNumAndIssue($issue_id, $page)
+    {
+        $instance = static::query()
+            ->where('issue_id = :issue:',['issue'=>$issue_id])
+            ->andWhere('page_num = :num:',['num'=>$page['num']])
+            ->execute()->getFirst();
+        if(! $instance){
+            $instance = new static;
+            $instance->url = $page['url'];
+        }
+        return $instance;
+    }
+
     /**
      * Returns table name mapped in the model.
      *

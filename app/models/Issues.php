@@ -140,7 +140,8 @@ class Issues extends \App\myPlugins\myModel
         $url = NewspaperParserFacade::getImageSrc($page['url']);
         if(! $url) throw new Exception('没有找到图片的下载地址！');
 
-        $pager = Pages::findOrNewByUrl($url);
+//        $pager = Pages::findOrNewByUrl($url);
+        $pager = Pages::findOrNewByPageNumAndIssue($this->id,$page);
 
         if(! $pager->src){
             $src = myTools::downloadImage($url);
