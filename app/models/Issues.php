@@ -118,7 +118,10 @@ class Issues extends \App\myPlugins\myModel
         return parent::findFirst($parameters);
     }
 
-
+    public function updateFromWeb()
+    {
+        $this->getPagesFromWeb();
+    }
 
     public function getPagesFromWeb()
     {
@@ -132,15 +135,12 @@ class Issues extends \App\myPlugins\myModel
     }
     public function getPageImage(array $page)
     {
-        $url = $page['url'];
-        $pager = Pages::findOrNewByUrl($url);
-        if(! $pager->src){
-            $url = NewspaperParserFacade::getImageSrc($url);
+        $url = NewspaperParserFacade::getImageSrc($page['url']);
+        if(! $url) throw new Exception('没有找到图片的下载地址！');
 
-            if(! $url){
-                throw new Exception('没有找到图片的下载地址！');
-            }
-            //            $src = null;
+        $pager = Pages::findOrNewByUrl($url);
+
+        if(! $pager->src){
             $src = myTools::downloadImage($url);
             $page_num = $page['page_num'];
             $issue_id = $this->id;
@@ -178,6 +178,7 @@ class Issues extends \App\myPlugins\myModel
             $page->delete();
         }
     }
+
 
 
 

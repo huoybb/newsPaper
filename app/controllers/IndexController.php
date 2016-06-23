@@ -7,7 +7,7 @@ class IndexController extends \App\myPlugins\myController
     {
         $newsPaper = Newspapers::findOrNewByName('参考消息');
         
-        $page = $this->getPaginator($newsPaper->getIssues(),10,$page);
+        $page = $this->getPaginator($newsPaper->getIssues(),50,$page);
         $this->view->Issues = $page->items;
     }
     

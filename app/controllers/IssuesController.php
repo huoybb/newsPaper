@@ -21,6 +21,14 @@ class IssuesController extends \App\myPlugins\myController
         $this->redirectByRoute(['for'=>'home']);
     }
 
+    public function updateAction(Issues $issue)
+    {
+        set_time_limit(0);
+        $issue->updateFromWeb();
+        $this->redirectBack();
+    }
+
+
 
 }
 
