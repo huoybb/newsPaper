@@ -13,6 +13,12 @@ class NewspapersController extends \App\myPlugins\myController
         FlashFacade::notice('download '. $newspaper->downloadIssuesFromWeb() .' Issues');
         $this->redirectBack();
     }
+
+    public function showAction(Newspapers $newspaper)
+    {
+        dd($newspaper);
+    }
+
     
 }
 

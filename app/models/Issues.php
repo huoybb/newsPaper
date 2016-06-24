@@ -182,6 +182,12 @@ class Issues extends \App\myPlugins\myModel
         }
     }
 
+    public function getNewsPaper()
+    {
+        return Newspapers::findFirst($this->newspaper_id);
+    }
+
+
 
 
 

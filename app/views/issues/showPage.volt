@@ -22,6 +22,7 @@
 {% block breadcrumbs %}
     <ol class="breadcrumb">
         <li><a href="{{ url(['for':'home']) }}">Home</a></li>
+        <li><a href="{{ url(['for':'newspapers.show','newspaper':issue.getNewsPaper().id]) }}">{{ issue.getNewsPaper().title }}</a></li>
         <li><a href="{{ url(['for':'issues.show','issue':issue.id]) }}">{{ issue.present().date }}</a></li>
         <li class="active">第{{ page.present().page_num }}版</li>
     </ol>
