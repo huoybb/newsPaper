@@ -16,8 +16,9 @@
         <li><a href="{{ url(['for':'pages.show','page':page.nextPage().id]) }}">>></a></li>
     </ul>
 
-    {#<img src="{{ page.present().src }}" alt="{{ page.page_num }}">#}
-    <img src="{{ page.present().src }}" alt="{{ page.page_num }}">
+    <div class="box">
+        <img src="{{ page.present().src }}" alt="{{ page.page_num }}">
+    </div>
 
     <ul class="pagination">
         <li class="prev"><a href="{{ url(['for':'pages.show','page':page.prevPage().id]) }}"><<</a></li>

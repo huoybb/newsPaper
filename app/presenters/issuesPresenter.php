@@ -17,5 +17,11 @@ class issuesPresenter extends myPresenter
     {
         return preg_replace('/.+([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})$/sm', '$1', $this->entity->title);
     }
+    public function poster()
+    {
+        if(preg_match('|^public|',$this->entity->poster)) return preg_replace('|public|','',$this->entity->poster);
+        return $this->entity->poster;
+    }
+
 
 }

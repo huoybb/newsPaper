@@ -14,11 +14,16 @@ class NewspapersController extends \App\myPlugins\myController
         $this->redirectBack();
     }
 
-    public function showAction(Newspapers $newspaper)
+    public function showAction(Newspapers $newspaper,$page = 1)
     {
-        dd($newspaper);
+//        foreach (Issues::find() as $n){
+//            if(! preg_match('|^public|',$n->poster)) $n->save(['poster'=>\App\myPlugins\myTools::downloadImage($n->poster)]);
+//        }
+
+        $page = $this->getPaginator($newspaper->getIssues(),15,$page);
+        $this->view->page = $page;
+        $this->view->newspaper = $newspaper;
     }
 
-    
 }
 

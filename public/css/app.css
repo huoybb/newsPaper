@@ -6844,7 +6844,7 @@ pre {
   margin-right: 30px;
   clear: none;
 }
-.Card:nth-child(4n+1) {
+.Card:nth-child(5n+1) {
   clear: left;
 }
 .Card {
@@ -6855,7 +6855,7 @@ pre {
   border-right: 1px solid rgba(0, 0, 0, 0.1);
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  width: 22%;
+  width: 15%;
   overflow: hidden;
 }
 .Card__index {
@@ -6877,7 +6877,7 @@ pre {
   font-size: 14px;
 }
 .Card__image {
-  width: 100%;
+  width: 150px;
   display: block;
   position: relative;
 }
@@ -6934,4 +6934,10 @@ pre {
 }
 .thumbnail {
   width: 220px;
+}
+body {
+  padding: 0;
+}
+.page-header {
+  margin-top: 0;
 }
