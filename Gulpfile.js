@@ -35,4 +35,4 @@ gulp.task('watch',function () {
 
 });
 
-gulp.task('default',['watch']);
+gulp.task('default',['css','js','watch']);
