@@ -7,6 +7,7 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>{% block pageTitle %}我的报纸{% endblock %}</title>
         <link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" href="/css/main.css">
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="/js/jquery-2.1.4.min.js"></script>
         <!-- Latest compiled and minified JavaScript -->
