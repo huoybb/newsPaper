@@ -108,7 +108,9 @@ class myTools
 
         return $filename;
     }
-    public static function downloadImage($url,$uploadDir = null){
+    public static function downloadImage($url,$uploadDir = null,$isGetImage = true){
+        if(!$isGetImage) return null;//是否需要下载图片？
+//        return null;
 //        $url = urlencode($url);
         $url = preg_replace('|\s|','%20',$url);//解决url中有空格的问题
         $file = file_get_contents($url);
@@ -123,6 +125,10 @@ class myTools
         $url = md5(basename($url));
 
         $filename = $path . $time . $url . $ext;
+
+        if(!$file){
+            return null;
+        }
         file_put_contents($filename,$file);
 
         if(getMyEnv() == 'web') return 'public/'.$filename;

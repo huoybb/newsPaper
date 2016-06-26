@@ -1,7 +1,7 @@
 {% extends 'index.volt' %}
 {% block content %}
     <div class="page-header">
-        <h2>参考消息 <a href="{{ url(['for':'updateFromWeb','newspaper':1]) }}">更新</a> <a href="{{ newspaper.url }}">网站</a></h2>
+        <h2>{{ newspaper.title }} <a href="{{ url(['for':'updateFromWeb','newspaper':newspaper.id]) }}">更新</a> <a href="{{ newspaper.url }}">网站</a></h2>
     </div>
     <nav>
         <ul class="pager">

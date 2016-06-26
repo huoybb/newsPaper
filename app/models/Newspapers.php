@@ -122,12 +122,19 @@ class Newspapers extends \App\myPlugins\myModel
         foreach($issues as $row){
 //            $issue = \Issues::findOrNewByUrl($row['url']);
             $issue = Issues::findOrNewByDateAndNewsPaper($row,$this->id);
-            if(! $issue->id){ //如果没有下载过这一期，则
-                if($output) $output->writeln('download Issue '.$row['date']);
-                if($row['poster']) $row['poster'] = myTools::downloadImage($row['poster']);
+            if(! $issue->id || ! $issue->pages){ //如果没有下载过这一期，则
+                if($output) $output->write('download Issue '.$row['date'].': ');
+                if($row['poster']) $row['poster'] = myTools::downloadImage($row['poster'],null,true);
                 $issue->save(array_merge($row,['newspaper_id'=>$this->id]));
                 $issue->getPagesFromWeb($output);
                 $downloadCount += 1;
+            }
+            if(! $issue->poster || ! is_file($issue->poster)){//如果海报图片没有下载
+                if($row['poster']) {
+                    $issue->save(['poster'=>myTools::downloadImage($row['poster'],null,true)]);
+                    if($output) $output->writeln('poster download '.$issue->date);
+                }
+
             }
         }
         return $downloadCount;

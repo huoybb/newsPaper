@@ -121,30 +121,32 @@ class Issues extends \App\myPlugins\myModel
 
     public function updateFromWeb()
     {
-        $this->getPagesFromWeb();
+        $this->getPagesFromWeb(null,true);
+        $this->getPagesFromWeb(null,true);
     }
 
-    public function getPagesFromWeb(OutputInterface $output = null)
+    public function getPagesFromWeb(OutputInterface $output = null,$downloadImage = false)
     {
         $pages = NewspaperParserFacade::getPageInfoForIssue($this->url);
         if(! count($pages)) throw new Exception('没有找到报纸的页面信息');
         foreach($pages as $page){
             if($output) $output->write($page['page_num'].' ');
-            $this->getPageImage($page);
+            $this->getPageImage($page,$downloadImage);
         }
+        if($output) $output->writeln('');
         $this->save(['pages'=>count($pages)]);
 
     }
-    public function getPageImage(array $page)
+    public function getPageImage(array $page,$downloadImage = false)
     {
-        $url = NewspaperParserFacade::getImageSrc($page['url']);
-        if(! $url) throw new Exception('没有找到图片的下载地址！');
-
-//        $pager = Pages::findOrNewByUrl($url);
         $pager = Pages::findOrNewByPageNumAndIssue($this->id,$page);
+        if(!$pager->url){
+            $pager->url = NewspaperParserFacade::getImageSrc($page['url']);
+            if(! $pager->url) throw new Exception('没有找到图片的下载地址！');
+        }
 
-        if(! $pager->src){
-            $src = myTools::downloadImage($url);
+        if(! $pager->id || ! $pager->src){
+            $src = myTools::downloadImage($pager->url,null,$downloadImage);//不下载图片
             $page_num = $page['page_num'];
             $issue_id = $this->id;
             $pager->save(compact('page_num','src','url','issue_id'));

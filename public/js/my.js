@@ -21,7 +21,7 @@
         Y: e.pageY
       };
       return $(this).mousemove(function(e) {
-        var Y, delta, end, yy;
+        var X, Y, delta, end, xx, yy;
         end = {
           X: e.pageX,
           Y: e.pageY
@@ -31,10 +31,13 @@
           yy: end.Y - start.Y
         };
         yy = $(this).scrollTop();
+        xx = $(this).scrollLeft();
         Y = yy - delta.yy;
+        X = xx - delta.xx;
         start.X = end.X;
         start.Y = end.Y;
-        return $(this).scrollTop(Y);
+        $(this).scrollTop(Y);
+        return $(this).scrollLeft(X);
       });
     }).mouseup(function(e) {
       $(this).css("cursor", "url(http://dn382/ZF1.5/images/openhand.cur), default");

@@ -51,10 +51,13 @@ $ ->
     $(this).mousemove (e)->
       end={X:e.pageX,Y:e.pageY}
       delta={xx:end.X-start.X,yy:end.Y-start.Y}
-      yy=$(this).scrollTop()
-      Y=yy-delta.yy
+      yy = $(this).scrollTop()
+      xx = $(this).scrollLeft()
+      Y = yy-delta.yy
+      X = xx-delta.xx
       start.X=end.X;start.Y=end.Y
       $(this).scrollTop(Y)
+      $(this).scrollLeft(X)
   .mouseup (e)->
     $(this).css("cursor","url(http://dn382/ZF1.5/images/openhand.cur), default")
     $(this).unbind("mousemove")

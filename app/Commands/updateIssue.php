@@ -19,14 +19,14 @@ class updateIssue extends Command
     public function configure()
     {
         $this->setName('updateIssue')
-            ->setDescription('update Issue by date')
+            ->setDescription('update Issue by issue_id')
             ->addArgument('issue',InputArgument::REQUIRED,'issue ID?');
     }
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $issue_id = (int) $input->getArgument('issue');
         $issue = \Issues::findFirst($issue_id);
-        $issue->getPagesFromWeb($output);
+        $issue->getPagesFromWeb($output,true);
         $output->writeln('done!');
     }
 
