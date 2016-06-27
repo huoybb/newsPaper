@@ -1,6 +1,7 @@
 <?php
 namespace App\myPlugins;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 
 /**
  * 这个对象将常见的一些工具集成在这个对象中
@@ -108,12 +109,13 @@ class myTools
 
         return $filename;
     }
-    public static function downloadImage($url,$uploadDir = null,$isGetImage = true){
-        if(!$isGetImage) return null;//是否需要下载图片？
-//        return null;
+    public static function downloadImage($url,$uploadDir = null){
 //        $url = urlencode($url);
         $url = preg_replace('|\s|','%20',$url);//解决url中有空格的问题
-        $file = file_get_contents($url);
+        $guzzle = new Client();
+        $file = $guzzle->request('get',$url)->getBody();
+//        $file = file_get_contents($url);
+        
         if($uploadDir == null){
             if(getMyEnv() == 'web') $uploadDir = 'files';
             if(getMyEnv() == 'cli') $uploadDir = 'public/files';

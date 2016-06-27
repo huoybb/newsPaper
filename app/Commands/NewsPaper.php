@@ -18,7 +18,7 @@ class NewsPaper extends Command
     public function configure()
     {
         $this->setName('getNewspaper')
-            ->setDescription('Download CanKaoXiaoXi NewsPaper!');
+            ->setDescription('Download Latest NewsPaper from Web!');
     }
     public function execute(InputInterface $input, OutputInterface $output)
     {

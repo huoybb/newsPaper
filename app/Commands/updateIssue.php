@@ -19,7 +19,7 @@ class updateIssue extends Command
 {
     public function configure()
     {
-        $this->setName('updateIssue')
+        $this->setName('getIssue')
             ->setDescription('update Issue by issue_id')
             ->addArgument('issue',InputArgument::REQUIRED,'issue ID?');
     }
