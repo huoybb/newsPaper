@@ -113,30 +113,36 @@ class myTools
 //        $url = urlencode($url);
         $url = preg_replace('|\s|','%20',$url);//解决url中有空格的问题
         $guzzle = new Client();
-        $file = $guzzle->request('get',$url)->getBody();
-//        $file = file_get_contents($url);
-        
-        if($uploadDir == null){
-            if(getMyEnv() == 'web') $uploadDir = 'files';
-            if(getMyEnv() == 'cli') $uploadDir = 'public/files';
+        try{
+            $file = $guzzle->request('get',$url)->getBody();
+            //        $file = file_get_contents($url);
+
+            if($uploadDir == null){
+                if(getMyEnv() == 'web') $uploadDir = 'files';
+                if(getMyEnv() == 'cli') $uploadDir = 'public/files';
+            }
+            $time = time();
+            $path = static::makePath($uploadDir,$time);
+
+            $ext = preg_replace('%^.*?(\.[\w]+)$%', "$1", basename($url)); //获取文件的后缀
+            $url = md5(basename($url));
+
+            $filename = $path . $time . $url . $ext;
+
+            if(!$file){
+                return null;
+            }
+            file_put_contents($filename,$file);
+
+            if(getMyEnv() == 'web') return 'public/'.$filename;
+            if(getMyEnv() == 'cli') return $filename;
+
+            return $filename;
+
+        }catch (\Exception $e){
+            echo 'could not download page: '.$url.PHP_EOL;
         }
-        $time = time();
-        $path = static::makePath($uploadDir,$time);
-
-        $ext = preg_replace('%^.*?(\.[\w]+)$%', "$1", basename($url)); //获取文件的后缀
-        $url = md5(basename($url));
-
-        $filename = $path . $time . $url . $ext;
-
-        if(!$file){
-            return null;
-        }
-        file_put_contents($filename,$file);
-
-        if(getMyEnv() == 'web') return 'public/'.$filename;
-        if(getMyEnv() == 'cli') return $filename;
-
-        return $filename;
+        return null;
     }
     /*
      * 接受任何编码，并将之变成UTF-8的编码
