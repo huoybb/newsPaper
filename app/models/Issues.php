@@ -74,6 +74,11 @@ class Issues extends \App\myPlugins\myModel
         return $instance;
     }
 
+    /**
+     * @param array $row
+     * @param $newspaperId
+     * @return Issues
+     */
     public static function findOrNewByDateAndNewsPaper(array $row, $newspaperId)
     {
         $instance = static::query()
@@ -81,8 +86,8 @@ class Issues extends \App\myPlugins\myModel
             ->andWhere('newspaper_id = :newspaper:',['newspaper'=>$newspaperId])
             ->execute()->getFirst();
         if(! $instance){
-            $instance = new static;
-            $instance->url = $row['url'];
+            $instance = new static($row);
+            $instance->newspaper_id = $newspaperId;
         }
         return $instance;
     }
@@ -131,27 +136,11 @@ class Issues extends \App\myPlugins\myModel
         if(! count($pages)) throw new Exception('没有找到报纸的页面信息');
         foreach($pages as $page){
             if($output) $output->write($page['page_num'].' ');
-            $this->getPageImage($page,$downloadImage);
+            $p = Pages::findOrNewByPageNumAndIssue($this->id,$page);
+            if($p->isNewOrLackingImage()) $p->getInfoAndImageFromWeb($downloadImage);
         }
         if($output) $output->writeln('');
         $this->save(['pages'=>count($pages)]);
-
-    }
-    public function getPageImage(array $page,$downloadImage = false)
-    {
-        $pager = Pages::findOrNewByPageNumAndIssue($this->id,$page);
-        if(!$pager->url){
-            $pager->url = NewspaperParserFacade::getImageSrc($page['url']);
-            if(! $pager->url) throw new Exception('没有找到图片的下载地址！');
-        }
-
-        if(! $pager->id || ! $pager->src){
-            $src = myTools::downloadImage($pager->url,null,$downloadImage);//不下载图片
-            $page_num = $page['page_num'];
-            $issue_id = $this->id;
-            $pager->save(compact('page_num','src','url','issue_id'));
-        }
-        
     }
 
     /**
@@ -189,8 +178,28 @@ class Issues extends \App\myPlugins\myModel
         return Newspapers::findFirst($this->newspaper_id);
     }
 
+    public function downloadPosterFromWeb()
+    {
+//        $url = NewspaperParserFacade::getImageSrc($this->url);
+        $this->poster = myTools::downloadImage($this->poster);
+        return $this->save();
+    }
 
+    public function downloadInfoAndImages($output,$downloadImages = false)
+    {
+        if($this->IsPosterImageLacking()) $this->downloadPosterFromWeb();
+        return $this->getPagesFromWeb($output,$downloadImages);
+    }
 
+    public function isNewOrLackingInfo()
+    {
+        return ! $this->id || ! $this->pages;
+    }
+
+    private function IsPosterImageLacking()
+    {
+        return $this->poster && !preg_match('|^public|',$this->poster);
+    }
 
 
 }

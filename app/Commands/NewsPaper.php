@@ -22,8 +22,10 @@ class NewsPaper extends Command
     }
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $paper = \Newspapers::findOrNewByName('深圳特区报');
-        $downloadCount = $paper->downloadIssuesFromWeb($output);
+        $downloadCount = 0;
+        foreach (\Newspapers::find() as $paper){
+            $downloadCount += $paper->downloadIssuesFromWeb($output);
+        }
         $output->writeln('download '.$downloadCount.' Issues');
     }
 }

@@ -62,15 +62,20 @@ class Pages extends \App\myPlugins\myModel
         return $instance;
     }
 
-    public static function findOrNewByPageNumAndIssue($issue_id, $page)
+    /**
+     * @param $issue_id
+     * @param array $page
+     * @return Pages
+     */
+    public static function findOrNewByPageNumAndIssue($issue_id, array $page)
     {
         $instance = static::query()
             ->where('issue_id = :issue:',['issue'=>$issue_id])
             ->andWhere('page_num = :num:',['num'=>$page['page_num']])
             ->execute()->getFirst();
         if(! $instance){
-            $instance = new static;
-            $instance->url = $page['url'];
+            $instance = new static($page);
+            $instance->issue_id = $issue_id;
         }
         return $instance;
     }
@@ -164,6 +169,29 @@ class Pages extends \App\myPlugins\myModel
         $file = $this->src;
         if(getMyEnv() == 'web') $file = preg_replace('|public/|','',$file);
         unlink($file);
+    }
+
+    public function getInfoAndImageFromWeb($downloadImage)
+    {
+        if($this->isImageUrlNeedParsing()){
+            $this->url = NewspaperParserFacade::getImageSrc($this->url);
+            if(! $this->url) throw new Exception('没有找到图片的下载地址！');
+        }
+
+        if(! $this->id || ! $this->src){
+            if($downloadImage) $this->src = myTools::downloadImage($this->url);
+            $this->save();
+        }
+    }
+
+    public function isNewOrLackingImage()
+    {
+        return !$this->id || !$this->src;
+    }
+
+    private function isImageUrlNeedParsing()
+    {
+        return preg_match('|.+html\s*$|',$this->url);
     }
 
 

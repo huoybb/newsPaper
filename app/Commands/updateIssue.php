@@ -9,6 +9,7 @@
 namespace App\Commands;
 
 
+use App\myPlugins\myTools;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,6 +27,9 @@ class updateIssue extends Command
     {
         $issue_id = (int) $input->getArgument('issue');
         $issue = \Issues::findFirst($issue_id);
+        if(!$issue->poster) {
+            $issue->downloadPosterFromWeb();
+        }
         $issue->getPagesFromWeb($output,true);
         $output->writeln('done!');
     }

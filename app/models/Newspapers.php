@@ -113,28 +113,18 @@ class Newspapers extends \App\myPlugins\myModel
     {
         set_time_limit(0);
         $issues = $this->getLatestIssuesFromWeb();
+
         $totalCount = count($issues);
         if(!$totalCount) throw new Exception('没有找到报纸的最近几期的信息');
-        $downloadCount = 0;
-
         if($output) $output->writeln("Have found {$totalCount} issues");
 
+        $downloadCount = 0;
         foreach($issues as $row){
-//            $issue = \Issues::findOrNewByUrl($row['url']);
             $issue = Issues::findOrNewByDateAndNewsPaper($row,$this->id);
-            if(! $issue->id || ! $issue->pages){ //如果没有下载过这一期，则
+            if($issue->isNewOrLackingInfo()){
                 if($output) $output->write('download Issue '.$row['date'].': ');
-                if($row['poster']) $row['poster'] = myTools::downloadImage($row['poster'],null,true);
-                $issue->save(array_merge($row,['newspaper_id'=>$this->id]));
-                $issue->getPagesFromWeb($output);
+                $issue->downloadInfoAndImages($output,true);
                 $downloadCount += 1;
-            }
-            if(! $issue->poster || ! is_file($issue->poster)){//如果海报图片没有下载
-                if($row['poster']) {
-                    $issue->save(['poster'=>myTools::downloadImage($row['poster'],null,true)]);
-                    if($output) $output->writeln('poster download '.$issue->date);
-                }
-
             }
         }
         return $downloadCount;
