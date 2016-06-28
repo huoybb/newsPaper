@@ -152,6 +152,7 @@ class Pages extends \App\myPlugins\myModel
     {
         $num = $this->page_num - 1;
         if($num == 0) $num = $this->getIssue()->pages;
+        if($num == null) $num =1;//@fixed  当没有下载完全的时候，修正一下
         return $num;
     }
 

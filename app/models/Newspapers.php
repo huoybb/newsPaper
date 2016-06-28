@@ -116,7 +116,7 @@ class Newspapers extends \App\myPlugins\myModel
 
         $totalCount = count($issues);
         if(!$totalCount) throw new Exception('没有找到报纸的最近几期的信息');
-        if($output) $output->writeln("Have found {$totalCount} issues");
+        if($output) $output->writeln(iconv('UTF-8','GBK',$this->title).",Have found {$totalCount} issues");
 
         $downloadCount = 0;
         foreach($issues as $row){
