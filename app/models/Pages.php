@@ -33,7 +33,11 @@ class Pages extends \App\myPlugins\myModel
      * @var string
      */
     public $url;
-
+    /**
+     *
+     * @var string
+     */
+    public $status;
     /**
      *
      * @var \Carbon\Carbon
@@ -190,10 +194,27 @@ class Pages extends \App\myPlugins\myModel
         return !$this->id || !$this->src;
     }
 
-    private function isImageUrlNeedParsing()
+    public function isImageUrlNeedParsing()
     {
         return preg_match('|.+html\s*$|',$this->url);
     }
+
+    public function hasGotURL()
+    {
+        return ! $this->isImageUrlNeedParsing();
+    }
+
+    public function setStatus()
+    {
+        if( $this->src ) $this->status = 'IMG';
+        if( ! $this->src && $this->hasGotURL() ) $this->status = 'URL';
+        if( $this->isImageUrlNeedParsing()) $this->status = 'HTML';
+    }
+    public function beforeSave()
+    {
+        $this->setStatus();//每次保存的时候，自动检查目前的状态
+    }
+
 
 
 }

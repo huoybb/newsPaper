@@ -33,5 +33,6 @@ $app = new \Symfony\Component\Console\Application('My Command Line Tools','0.5')
 $app->add(new \App\Commands\NewsPaper());
 $app->add(new \App\Commands\updateIssue());
 $app->add(new \App\Commands\getPage());
+$app->add(new \App\Commands\showStatistics());
 
 $app->run();

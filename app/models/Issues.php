@@ -45,7 +45,11 @@ class Issues extends \App\myPlugins\myModel
      * @var integer
      */
     public $newspaper_id;
-
+    /**
+     *
+     * @var string
+     */
+    public $status;
     /**
      *
      * @var string
@@ -200,6 +204,22 @@ class Issues extends \App\myPlugins\myModel
     {
         return $this->poster && !preg_match('|^public|',$this->poster);
     }
+
+    public function updateStatus()
+    {
+        $this->status = 'DONE';
+
+        if(! $this->pages) $this->status = 'TBD';
+
+        foreach($this->getPages() as $page){
+            if($page->status <> 'IMG') $this->status = 'TBD';
+        }
+    }
+    public function beforeSave()
+    {
+        $this->updateStatus();
+    }
+
 
 
 }
