@@ -22,14 +22,12 @@ class showStatistics extends Command
     }
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $TBD = \Issues::find('status = "TBD"')->count();
-        $Total = \Issues::find()->count();
-        $output->writeln("Issues need to download : {$TBD}/{$Total}, ".($Total - $TBD)." downloaded!");
+        $stat = new \Statistics();
+        $IssueStat = $stat->getIssueStat();
+        $output->writeln("Issues need to download : {$IssueStat['TBD']}/{$IssueStat['Total']}, {$IssueStat['Completed']} have been downloaded!");
 
-        $IMG = \Pages::find('status = "IMG"')->count();
-        $URL = \Pages::find('status = "URL"')->count();
-        $HTML =\Pages::find('status = "HTML"')->count();
-        $output->writeln("Pages :IMG({$IMG}),URL({$URL}),HTML({$HTML}), Total:".($IMG+$URL+$HTML));
+        $PageStat = $stat->getPageStat();
+        $output->writeln("Pages :IMG({$PageStat['IMG']}),URL({$PageStat['URL']}),HTML({$PageStat['HTML']}), Total: {$PageStat['Total']}, {$PageStat['Completed']} pages have been downloaded!");
     }
 
 }
