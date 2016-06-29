@@ -3,7 +3,7 @@
     参考: {{ page.getIssue().present().date }} 第{{ page.page_num }}版
 {% endblock %}
 {% block title %}
-    {{ page.present().title }} <a href="{{ url(['for':'pages.refresh','page':page.id]) }}">更新图片</a>
+    {{ page.present().title }} <a href="{{ url(['for':'fromWeb.refreshPage','page':page.id]) }}">更新图片</a>
 {% endblock %}
 {% block content %}
     <ul class="pagination">

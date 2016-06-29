@@ -30,7 +30,9 @@ class IssuesController extends \App\myPlugins\myController
 
     public function showPageAction(Issues $issue,Pages $page)
     {
-        if(! $page->src) $page->refreshPicFromWeb();
+//        if(! $page->src) $page->refreshPicFromWeb();
+//        dd($page);
+//        dd($issue);
         $this->view->page = $page;
         $this->view->issue = $issue;
     }

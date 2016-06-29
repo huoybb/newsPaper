@@ -10,7 +10,7 @@ class PagesController extends \App\myPlugins\myController
 
     public function showAction(Pages $page)
     {
-        if(! $page->src) $page->refreshPicFromWeb();
+//        if(! $page->src) $page->refreshPicFromWeb();
         $this->view->page = $page;
     }
 

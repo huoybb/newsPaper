@@ -130,4 +130,16 @@ class Newspapers extends \App\myPlugins\myModel
         return $downloadCount;
     }
 
+    public function getStat()
+    {
+
+        $DONE = Issues::query()
+            ->where('newspaper_id = :id:',['id'=>$this->id])
+            ->andWhere('status = :status:',['status'=>'DONE'])
+            ->execute()->count();
+        $total = Issues::count('newspaper_id = '.$this->id);
+        $TBD = $total - $DONE;
+        return [$this->title,$total,$DONE,$TBD];
+    }
+
 }

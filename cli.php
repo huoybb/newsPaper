@@ -34,5 +34,6 @@ $app->add(new \App\Commands\NewsPaper());
 $app->add(new \App\Commands\updateIssue());
 $app->add(new \App\Commands\getPage());
 $app->add(new \App\Commands\showStatistics());
+$app->add(new \App\Commands\route());
 
 $app->run();

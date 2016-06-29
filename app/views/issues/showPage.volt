@@ -3,8 +3,9 @@
     参考: {{ page.getIssue().present().date }} 第{{ page.page_num }}版
 {% endblock %}
 {% block title %}
-    <a href="{{ url(['for':'pages.refresh','page':page.id]) }}" class="badge">更新本页</a>
+    <a href="{{ url(['for':'fromWeb.refreshPage','page':page.id]) }}" class="badge">更新本页</a>
 {% endblock %}
+
 {% block content %}
     <img src="{{ page.present().src }}" alt="{{ page.page_num }}">
 

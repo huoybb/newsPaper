@@ -202,4 +202,30 @@ class myRouter extends Router{
         return $this->middlewares[$pattern];
     }
 
+    public function getTableData()
+    {
+        $header = ['name','pattern','path','httpMethods'];
+        $content = [];
+        foreach($this->getRoutes() as $route){
+            /** @var Router\Route $route */
+            $name = $route->getName();
+            $pattern = $route->getPattern();
+            $path = $this->getPathString($route->getPaths());
+            $httpMethods = $this->getHttpMethodsString($route->getHttpMethods());
+            $content[]=[$name,$pattern,$path,$httpMethods];
+        }
+        return [$header,$content];
+    }
+
+    private function getPathString(array $path)
+    {
+        return $path['controller'].'::'.$path['action'];
+    }
+
+    private function getHttpMethodsString($getHttpMethods)
+    {
+        if(is_array($getHttpMethods)) return '['.implode(',',$getHttpMethods).']';
+        return '['.$getHttpMethods.']';
+    }
+
 } 
