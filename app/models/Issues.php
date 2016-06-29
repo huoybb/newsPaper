@@ -144,7 +144,9 @@ class Issues extends \App\myPlugins\myModel
             if($p->isNewOrLackingImage()) $p->getInfoAndImageFromWeb($downloadImage);
         }
         if($output) $output->writeln('');
-        $this->save(['pages'=>count($pages)]);
+        $this->pages = count($pages);
+        $this->updateStatus();
+        $this->save();
     }
 
     /**
@@ -191,7 +193,7 @@ class Issues extends \App\myPlugins\myModel
 
     public function downloadInfoAndImages($output,$downloadImages = false)
     {
-        if($this->IsPosterImageLacking()) $this->downloadPosterFromWeb();
+        if($this->isPosterNeedDownlaod()) $this->downloadPosterFromWeb();
         return $this->getPagesFromWeb($output,$downloadImages);
     }
 
@@ -199,12 +201,7 @@ class Issues extends \App\myPlugins\myModel
     {
         return ! $this->id || ! $this->pages;
     }
-
-    private function IsPosterImageLacking()
-    {
-        return $this->poster && !preg_match('|^public|',$this->poster);
-    }
-
+    
     public function updateStatus()
     {
         $this->status = 'DONE';
@@ -215,11 +212,10 @@ class Issues extends \App\myPlugins\myModel
             if($page->status <> 'IMG') $this->status = 'TBD';
         }
     }
-    public function beforeSave()
+
+    public function isPosterNeedDownlaod()
     {
-        $this->updateStatus();
+        return $this->poster && ! preg_match('|^public|',$this->poster);
     }
-
-
 
 }

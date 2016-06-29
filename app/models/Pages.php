@@ -162,11 +162,7 @@ class Pages extends \App\myPlugins\myModel
 
     public function refreshPicFromWeb()
     {
-        set_time_limit(0);
-        $old = '../'.$this->src;
-        if(file_exists($old)) unlink($old);
-        $this->src = myTools::downloadImage($this->url);
-        $this->save();
+        $this->getInfoAndImageFromWeb(true);
 
     }
     public function beforeDelete()
@@ -183,8 +179,17 @@ class Pages extends \App\myPlugins\myModel
             if(! $this->url) throw new Exception('没有找到图片的下载地址！');
         }
 
-        if(! $this->id || ! $this->src){
-            if($downloadImage) $this->src = myTools::downloadImage($this->url);
+        if($this->hasDownloadedImage()){
+            $old = $this->src;
+            if(getMyEnv() == 'web') $old = '../'.$this->src;
+            if(file_exists($old)) unlink($old);
+        }
+
+        if($this->isNewOrLackingImage()){
+            if($downloadImage) {
+                $this->src = myTools::downloadImage($this->url);
+                $this->setStatus();
+            }
             $this->save();
         }
     }
@@ -198,6 +203,10 @@ class Pages extends \App\myPlugins\myModel
     {
         return preg_match('|.+html\s*$|',$this->url);
     }
+    private function hasDownloadedImage()
+    {
+        return (bool)$this->src;
+    }
 
     public function hasGotURL()
     {
@@ -210,10 +219,7 @@ class Pages extends \App\myPlugins\myModel
         if( ! $this->src && $this->hasGotURL() ) $this->status = 'URL';
         if( $this->isImageUrlNeedParsing()) $this->status = 'HTML';
     }
-    public function beforeSave()
-    {
-        $this->setStatus();//每次保存的时候，自动检查目前的状态
-    }
+
 
 
 

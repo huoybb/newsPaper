@@ -27,7 +27,7 @@ class updateIssue extends Command
     {
         $issue_id = (int) $input->getArgument('issue');
         $issue = \Issues::findFirst($issue_id);
-        if(!$issue->poster) {
+        if($issue->isPosterNeedDownlaod()) {
             $issue->downloadPosterFromWeb();
         }
         $issue->getPagesFromWeb($output,true);

@@ -13,6 +13,7 @@
     <div class="container">
         {% for issue in page.items  %}
             <div class="Card">
+                <span class="Card__updated-status">{{ issue.present().status }}</span>
                 <a href="{{ url(['for':'issues.showPage','issue':issue.id,'page':issue.getFirstPage().id]) }}">
                     {#<a href="{{ url(['for':'issues.show','issue':issue.id]) }}">#}
                     <img src="{{ issue.present().poster }}" alt="Poster" class="Card__image">
