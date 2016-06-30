@@ -8,9 +8,17 @@
         <a href="{{ issue.url }}">网站</a>
     </div>
 
-    <ul>
-        {% for page in issue.getPages()  %}
-            <li><a href="{{ url(['for':'issues.showPage','issue':issue.id,'page':page.id]) }}">{{ page.page_num }}</a></li>
-        {% endfor %}
-    </ul>
+    <hr>
+    <div class="row">
+        <div class="container">
+            {% for page in issue.getPages()  %}
+                <div class="Card">
+                    <a href="{{ url(['for':'issues.showPage','issue':issue.id,'page_num':page.page_num]) }}">
+                        <img src="{{ page.present().src }}" alt="Poster" class="Card__image">
+                    </a>
+                    <span>第{{ page.page_num }}版</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

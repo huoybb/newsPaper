@@ -18,13 +18,13 @@
     <img src="{{ page.present().src }}" alt="{{ page.page_num }}">
 
     <ul class="pagination">
-        <li class="prev"><a href="{{ url(['for':'issues.showPage','issue':issue.id,'page':page.prevPage().page_num]) }}"><<</a></li>
+        <li class="prev"><a href="{{ url(['for':'issues.showPage','issue':issue.id,'page_num':page.prevPage().page_num]) }}"><<</a></li>
         {% for p in page.getIssue().getPages()  %}
             <li {% if p.id == page.id %} class="active" {% endif %}>
-                <a href="{{ url(['for':'issues.showPage','issue':issue.id,'page':p.page_num]) }}">{{ p.page_num }}</a>
+                <a href="{{ url(['for':'issues.showPage','issue':issue.id,'page_num':p.page_num]) }}">{{ p.page_num }}</a>
             </li>
         {% endfor %}
-        <li class="next"><a href="{{ url(['for':'issues.showPage','issue':issue.id,'page':page.nextPage().page_num]) }}">>></a></li>
+        <li class="next"><a href="{{ url(['for':'issues.showPage','issue':issue.id,'page_num':page.nextPage().page_num]) }}">>></a></li>
     </ul>
 
     <script src="/js/keymaster.js" type="application/javascript"></script>
