@@ -28,12 +28,10 @@ class IssuesController extends \App\myPlugins\myController
         $this->redirectBack();
     }
 
-    public function showPageAction(Issues $issue,Pages $page)
+    public function showPageAction(Issues $issue,$page_num)
     {
 //        if(! $page->src) $page->refreshPicFromWeb();
-//        dd($page);
-//        dd($issue);
-        $this->view->page = $page;
+        $this->view->page = Pages::findOrNewByPageNumAndIssue($issue->id,['page_num'=>$page_num]);
         $this->view->issue = $issue;
     }
 

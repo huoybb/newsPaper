@@ -23,5 +23,14 @@ class issuesPresenter extends myPresenter
         return $this->entity->poster;
     }
 
+    public function pages()
+    {
+        if($this->entity->pages) return $this->entity->pages;
+        return \Pages::query()
+            ->where('issue_id = :issue:',['issue'=>$this->entity->getIssue()->id])
+            ->execute()->count();
+    }
+
+
 
 }

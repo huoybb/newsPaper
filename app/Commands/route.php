@@ -11,6 +11,7 @@ namespace App\Commands;
 
 use App\myPlugins\myRouter;
 use Phalcon\Di;
+use RouterFacade;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,16 +27,10 @@ class route extends Command
     
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $di = Di::getDefault();
-        $myroute = $di->get('router');
-        /** @var myRouter $myroute */
-        list($header,$content) = $myroute->getTableData();
+        list($header,$content) = RouterFacade::getTableData();
         $table = new Table($output);
         $table->setHeaders($header)
             ->setRows($content)
             ->render();
     }
-    
-    
-
 }

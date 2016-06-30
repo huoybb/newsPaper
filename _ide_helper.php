@@ -460,6 +460,11 @@ namespace {
 
     class RouterFacade extends myFacade{
         /**
+         * @return array
+         */
+        public static function getTableData(){}
+
+        /**
          * Handles routing information received from the rewrite engine
          * <code>
          * //Read the info from the rewrite engine

@@ -5,24 +5,6 @@
 {% block title %}
     <a href="{{ url(['for':'fromWeb.refreshPage','page':page.id]) }}" class="badge">更新本页</a>
 {% endblock %}
-
-{% block content %}
-    <img src="{{ page.present().src }}" alt="{{ page.page_num }}">
-
-    <ul class="pagination">
-        <li class="prev"><a href="{{ url(['for':'issues.showPage','issue':issue.id,'page':page.prevPage().id]) }}"><<</a></li>
-        {% for p in page.getIssue().getPages()  %}
-            <li {% if p.id == page.id %} class="active" {% endif %}>
-                <a href="{{ url(['for':'issues.showPage','issue':issue.id,'page':p.id]) }}">{{ p.page_num }}</a>
-            </li>
-        {% endfor %}
-        <li class="next"><a href="{{ url(['for':'issues.showPage','issue':issue.id,'page':page.nextPage().id]) }}">>></a></li>
-    </ul>
-
-    <script src="/js/keymaster.js" type="application/javascript"></script>
-    <script src="/js/my.js" type="application/javascript"></script>
-{% endblock %}
-
 {% block breadcrumbs %}
     <ol class="breadcrumb">
         <li><a href="{{ url(['for':'home']) }}">Home</a></li>
@@ -32,3 +14,20 @@
     </ol>
 
 {% endblock %}
+{% block content %}
+    <img src="{{ page.present().src }}" alt="{{ page.page_num }}">
+
+    <ul class="pagination">
+        <li class="prev"><a href="{{ url(['for':'issues.showPage','issue':issue.id,'page':page.prevPage().page_num]) }}"><<</a></li>
+        {% for p in page.getIssue().getPages()  %}
+            <li {% if p.id == page.id %} class="active" {% endif %}>
+                <a href="{{ url(['for':'issues.showPage','issue':issue.id,'page':p.page_num]) }}">{{ p.page_num }}</a>
+            </li>
+        {% endfor %}
+        <li class="next"><a href="{{ url(['for':'issues.showPage','issue':issue.id,'page':page.nextPage().page_num]) }}">>></a></li>
+    </ul>
+
+    <script src="/js/keymaster.js" type="application/javascript"></script>
+    <script src="/js/my.js" type="application/javascript"></script>
+{% endblock %}
+

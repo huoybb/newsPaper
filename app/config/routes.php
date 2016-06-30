@@ -11,14 +11,13 @@ $router->removeExtraSlashes(true);
 $router->notFound('index::notFound');
 
 $router->add('/','index::index')->setName('home');
-$router->add('/page/{page:[0-9]+}','index::index')->setName('home.page');
 
 $router->add('/newspapers/{newspaper:[0-9]+}','newspapers::show')->setName('newspapers.show');
 $router->add('/newspapers/{newspaper:[0-9]+}/page/{page:[0-9]+}','newspapers::show')->setName('newspapers.show.page');
 
 $router->add('/issues/{issue:[0-9]+}','issues::show')->setName('issues.show');
 $router->add('/issues/{issue:[0-9]+}/delete','issues::delete')->setName('issues.delete');
-$router->add('/issues/{issue:[0-9]+}/page/{page:[0-9]+}','issues::showPage')->setName('issues.showPage');
+$router->add('/issues/{issue:[0-9]+}/page/{page_num:[0-9]+}','issues::showPage')->setName('issues.showPage');
 
 $router->add('/pages/{page:[0-9]+}','pages::show')->setName('pages.show');
 

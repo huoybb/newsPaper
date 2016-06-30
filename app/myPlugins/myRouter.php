@@ -52,10 +52,11 @@ class myRouter extends Router{
      * @param array $middleware
      * @return \Phalcon\Mvc\Router\Route
      */
-    public function addx($pattern,$path,array $middleware=[])//给路由添加中间件
+    public function addx($pattern,$path,array $middleware=[],$httpMethods = null)//给路由添加中间件
     {
-        $this->middlewares[$pattern]=$middleware;
-        return $this->add($pattern,$path);
+        $route = $this->add($pattern,$path,$httpMethods);
+        $this->middlewares[$route->getRouteId()]=$middleware;
+        return $route;
     }
 
 
@@ -73,7 +74,6 @@ class myRouter extends Router{
         $route = $this->getMatchedRoute();
         if(null == $route) die('url地址无效，找不到对应的路由设置！');
 
-        $pattern = $route->getPattern();
 
         //对每个路由都进行验证的中间件！
         foreach($this->middlewaresForEveryRoute as $validator){
@@ -94,8 +94,8 @@ class myRouter extends Router{
             }
         }
 
-        if($this->hasMatchedMiddleWares($pattern)){
-            $middleWares = $this->getMiddleWares($pattern);
+        if($this->hasMatchedMiddleWares($route->getRouteId())){
+            $middleWares = $this->getMiddleWares($route->getRouteId());
             foreach($middleWares as $validator){
                 if($request->isPost()) $data = $request->getPost();
 //                dd($validator);
@@ -183,28 +183,32 @@ class myRouter extends Router{
 //--------------helper functions for Middleware-----------------------------------------
 
     /**判断是否存在对应的中间件
-     * @param $pattern
+     * @param $route_id
      * @return bool
      */
-    private function hasMatchedMiddleWares($pattern)
+    private function hasMatchedMiddleWares($route_id)
     {
-        return isset($this->middlewares[$pattern]);
+        return isset($this->middlewares[$route_id]);
     }
 
     /**获得指定的中间件字符串
-     * @param $pattern
+     * @param $route_id
      * @return array
      *
      *
      */
-    private function getMiddleWares($pattern)
+    private function getMiddleWares($route_id)
     {
-        return $this->middlewares[$pattern];
+        if(isset($this->middlewares[$route_id])) return $this->middlewares[$route_id];
+        return null;
     }
 
+    /**
+     * @return array
+     */
     public function getTableData()
     {
-        $header = ['name','pattern','path','httpMethods'];
+        $header = ['pattern','path','middleware','httpMethods','name'];
         $content = [];
         foreach($this->getRoutes() as $route){
             /** @var Router\Route $route */
@@ -212,7 +216,8 @@ class myRouter extends Router{
             $pattern = $route->getPattern();
             $path = $this->getPathString($route->getPaths());
             $httpMethods = $this->getHttpMethodsString($route->getHttpMethods());
-            $content[]=[$name,$pattern,$path,$httpMethods];
+            $middleWares = $this->getMiddleWaresString($route);
+            $content[]=[$pattern,$path,$middleWares,$httpMethods,$name];
         }
         return [$header,$content];
     }
@@ -225,7 +230,14 @@ class myRouter extends Router{
     private function getHttpMethodsString($getHttpMethods)
     {
         if(is_array($getHttpMethods)) return '['.implode(',',$getHttpMethods).']';
+        if(!$getHttpMethods) return null;
         return '['.$getHttpMethods.']';
+    }
+
+    private function getMiddleWaresString(Router\Route $route)
+    {
+        if(is_array($this->getMiddleWares($route->getRouteId()))) return '['.implode(',',$this->getMiddleWares($route->getRouteId())).']';
+        return null;
     }
 
 } 
