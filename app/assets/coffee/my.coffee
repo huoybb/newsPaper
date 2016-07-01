@@ -50,3 +50,12 @@ $ ->
         url = '/focus/add'
         $.post url,data
     e.preventDefault()
+#  设置偏移量 scrollY
+  myregexp = /http:\/\/newspaper[\s\S]zhaobing\/issues\/[0-9]+\/page\/[0-9]+\?Y=([0-9]+)/m
+  match = myregexp.exec(location.href)
+  if match isnt null
+    Y = match[1]
+    console.log Y 
+    $('body').scrollTop Y
+
+

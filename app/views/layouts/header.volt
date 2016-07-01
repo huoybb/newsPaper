@@ -38,7 +38,7 @@
                             {{ text_field("search",'class':'form-control','placeholder':'Search','value':search) }}
                             <button type="submit" class="btn btn-default">查询</button>
                     </form>
-                    <script src="/js/search.js"></script>
+                    {#<script src="/js/search.js"></script>#}
                 </li>
             </ul>
         </div>

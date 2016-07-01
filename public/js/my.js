@@ -1,5 +1,6 @@
 (function() {
   $(function() {
+    var Y, match, myregexp;
     if ($('.next a').length) {
       key('right', function() {
         return location.href = $('.next a').attr('href');
@@ -45,7 +46,7 @@
     }).mouseover(function(e) {
       return $(this).unbind('mousemove');
     });
-    return $('.setFocusAction').click(function(e) {
+    $('.setFocusAction').click(function(e) {
       vex.dialog.open({
         message: '请输入新闻标题',
         input: "<input name=\"title\" type=\"text\" placeholder=\"新闻标题\" required />\n<textarea name=\"description\" placeholder=\"描述\" rows='3' required />",
@@ -69,6 +70,13 @@
       });
       return e.preventDefault();
     });
+    myregexp = /http:\/\/newspaper[\s\S]zhaobing\/issues\/[0-9]+\/page\/[0-9]+\?Y=([0-9]+)/m;
+    match = myregexp.exec(location.href);
+    if (match !== null) {
+      Y = match[1];
+      console.log(Y);
+      return $('body').scrollTop(Y);
+    }
   });
 
 }).call(this);

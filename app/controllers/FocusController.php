@@ -2,6 +2,13 @@
 
 class FocusController extends \App\myPlugins\myController
 {
+    public function indexAction()
+    {
+        $this->view->focus = Focus::find();
+        
+    }
+
+
     public function addAction()
     {
         $data = $this->request->getPost();
