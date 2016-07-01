@@ -15,7 +15,7 @@ class issuesPresenter extends myPresenter
 {
     public function title()
     {
-        return preg_replace('/.+([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})$/sm', '$1', $this->entity->title);
+        return $this->entity->getNewspaper()->title.' '.preg_replace('/.+([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})$/sm', '$1', $this->entity->title);
     }
     public function poster()
     {

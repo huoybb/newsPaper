@@ -1,7 +1,14 @@
 {% extends 'index.volt' %}
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li><a href="{{ url(['for':'home']) }}">Home</a></li>
+        <li><a href="{{ url(['for':'newspapers.show','newspaper':issue.getNewsPaper().id]) }}">{{ issue.getNewsPaper().title }}</a></li>
+        <li class="active">{{ issue.present().date }}</li>
+    </ol>
+{% endblock %}
 {% block content %}
     <div class="page-header">
-        <h1>{{ issue.title }}</h1>
+        <h1>{{ issue.present().title }}</h1>
         操作：
         <a href="{{ url(['for':'issues.delete','issue':issue.id]) }}">删除</a>
         <a href="{{ url(['for':'fromWeb.updateIssue','issue':issue.id]) }}">更新</a>

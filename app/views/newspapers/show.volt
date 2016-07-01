@@ -1,7 +1,18 @@
 {% extends 'index.volt' %}
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li><a href="{{ url(['for':'home']) }}">Home</a></li>
+        <li class="active">{{ newspaper.title }}</li>
+    </ol>
+{% endblock %}
 {% block content %}
     <div class="page-header">
-        <h2>{{ newspaper.title }} <a href="{{ url(['for':'fromWeb.updateNewspaper','newspaper':newspaper.id]) }}">更新</a> <a href="{{ newspaper.url }}">网站</a></h2>
+        <h2>
+            {{ newspaper.title }}
+            <a href="{{ url(['for':'fromWeb.updateNewspaper','newspaper':newspaper.id]) }}">更新</a>
+            <a href="{{ newspaper.url }}">网站</a>
+            <a href="{{ url(['for':'newspapers.addIssue','newspaper':newspaper.id]) }}">手动增加</a>
+        </h2>
     </div>
     <nav>
         <ul class="pager">

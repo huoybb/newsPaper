@@ -14,6 +14,7 @@ $router->add('/','index::index')->setName('home');
 
 $router->add('/newspapers/{newspaper:[0-9]+}','newspapers::show')->setName('newspapers.show');
 $router->add('/newspapers/{newspaper:[0-9]+}/page/{page:[0-9]+}','newspapers::show')->setName('newspapers.show.page');
+$router->add('/newspapers/{newspaper:[0-9]+}/addIssue','newspapers::addIssue')->setName('newspapers.addIssue');
 
 $router->add('/issues/{issue:[0-9]+}','issues::show')->setName('issues.show');
 $router->add('/issues/{issue:[0-9]+}/delete','issues::delete')->setName('issues.delete');
