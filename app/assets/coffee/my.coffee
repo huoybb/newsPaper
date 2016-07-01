@@ -1,37 +1,3 @@
-#class pageMove
-#  constructor:(el)->
-#    @el = $(el)
-#    @el.mouseover =>
-#      @openhand()
-#    .mousedown (e)=>
-#      e.preventDefault()
-#      @closehand()
-#      start = {X:e.pageX,Y:e.pageY}
-#      @el.mouseover (e)=>
-#        Y = @getNewY(e,start)
-#        @el.scrollTop(Y)
-#    .mouseup =>
-#      @openhand().unbindMove()
-#    .mouseover =>
-#      @openhand().unbindMove()
-#
-#  openhand: ->
-#    @el.css("cursor","url(http://dn382/ZF1.5/images/openhand.cur), default")
-#    @
-#  closehand: ->
-#    @el.css("cursor","url(http://dn382/ZF1.5/images/closedhand.cur), default")
-#    @
-#  getNewY:(e,start)->
-#    end={X:e.pageX,Y:e.pageY}
-#    delta={xx:end.X-start.X,yy:end.Y-start.Y}
-#    yy=@el.scrollTop()
-#    yy-delta.yy
-#    start.X=end.X;start.Y=end.Y
-#  unbindMove:->
-#    @el.unbind 'mousemove'
-#    @
-
-
 $ ->
   # 前后导航键的设置，方便浏览
   if $('.next a').length
@@ -40,7 +6,7 @@ $ ->
   if $('.prev a').length
     key 'left',->
       location.href = $('.prev a').attr('href')
-#  new pageMove('body')
+#  设置鼠标拖动图片的功能，这个在pad或者没有鼠标时有用
   $('body')
   .mouseover ->
     $(this).css("cursor","url(http://dn382/ZF1.5/images/openhand.cur), default")
@@ -63,6 +29,24 @@ $ ->
     $(this).unbind("mousemove")
   .mouseover (e)->
     $(this).unbind('mousemove')
-
-
-
+#  设置弹出窗口，关注点输入
+  $('.setFocusAction').click (e)->
+    vex.dialog.open
+#      appendLocation: '.myContainer'
+      message: '请输入新闻标题'
+      input: """
+          <input name="title" type="text" placeholder="新闻标题" required />
+          <textarea name="description" placeholder="描述" rows='3' required />
+        """
+      buttons: [
+        $.extend({}, vex.dialog.buttons.YES, text: '确定')
+        $.extend({}, vex.dialog.buttons.NO, text: '取消')
+      ]
+      callback: (data) ->
+        return console.log('Cancelled') if data is false
+        data.Y = $(document).scrollTop()
+        data.url = location.href
+#        console.log data
+        url = '/focus/add'
+        $.post url,data
+    e.preventDefault()

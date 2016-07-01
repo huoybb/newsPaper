@@ -26,4 +26,6 @@ $router->add('/newspapers/{newspaper:[0-9]+}/updateFromWeb','newspapers::updateF
 $router->add('/issues/{issue:[0-9]+}/update','issues::update')->setName('fromWeb.updateIssue');
 $router->add('/pages/{page:[0-9]+}/refresh','pages::refresh')->setName('fromWeb.refreshPage');
 
+$router->addPost('/focus/add','focus::add')->setName('focus.add');
+
 return $router;

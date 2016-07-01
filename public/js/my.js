@@ -10,7 +10,7 @@
         return location.href = $('.prev a').attr('href');
       });
     }
-    return $('body').mouseover(function() {
+    $('body').mouseover(function() {
       return $(this).css("cursor", "url(http://dn382/ZF1.5/images/openhand.cur), default");
     }).mousedown(function(e) {
       var start;
@@ -44,6 +44,30 @@
       return $(this).unbind("mousemove");
     }).mouseover(function(e) {
       return $(this).unbind('mousemove');
+    });
+    return $('.setFocusAction').click(function(e) {
+      vex.dialog.open({
+        message: '请输入新闻标题',
+        input: "<input name=\"title\" type=\"text\" placeholder=\"新闻标题\" required />\n<textarea name=\"description\" placeholder=\"描述\" rows='3' required />",
+        buttons: [
+          $.extend({}, vex.dialog.buttons.YES, {
+            text: '确定'
+          }), $.extend({}, vex.dialog.buttons.NO, {
+            text: '取消'
+          })
+        ],
+        callback: function(data) {
+          var url;
+          if (data === false) {
+            return console.log('Cancelled');
+          }
+          data.Y = $(document).scrollTop();
+          data.url = location.href;
+          url = '/focus/add';
+          return $.post(url, data);
+        }
+      });
+      return e.preventDefault();
     });
   });
 
