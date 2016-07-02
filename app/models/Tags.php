@@ -70,4 +70,21 @@ class Tags extends \App\myPlugins\myModel
         return parent::findFirst($parameters);
     }
 
+    public function getFocus()
+    {
+        $rowSet = Focus::query()
+            ->leftJoin('Taggables','Taggables.taggable_type = "Focus" AND Taggables.taggable_id = Focus.id')
+            ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
+            ->columns(['Focus.*','Taggables.*'])
+            ->execute();
+        $result = [];
+        foreach($rowSet as $row){
+            $focus = $row->focus;
+            $focus->addTagTime = $row->taggables->created_at;
+            $result[] = $focus;
+        }
+        return $result;
+    }
+
+
 }

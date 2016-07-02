@@ -23,7 +23,7 @@
             <h2>
                 <span>拥有的标签：</span>
                 {% for mytag in focus.getTags()  %}
-                    <a href="#" class="btn btn-default">{{ mytag.name }}</a>
+                    <a href="{{ url(['for':'tags.show','tag':mytag.id]) }}" class="btn btn-default">{{ mytag.name }}</a>
                 {% endfor %}
             </h2>
         </div>
@@ -31,7 +31,7 @@
     <script src="/js/my.js" type="application/javascript"></script>
 {% endblock %}
 
-{% block sidebar %}
-    <h2>标签</h2>
+{#{% block sidebar %}#}
+    {#<h2>标签</h2>#}
 
-{% endblock %}
+{#{% endblock %}#}
