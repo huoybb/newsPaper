@@ -3,6 +3,7 @@
 class Focus extends \App\myPlugins\myModel
 {
 
+    use \App\models\taggableTrait;
     /**
      *
      * @var integer
@@ -35,13 +36,13 @@ class Focus extends \App\myPlugins\myModel
 
     /**
      *
-     * @var string
+     * @var \Carbon\Carbon
      */
     public $created_at;
 
     /**
      *
-     * @var string
+     * @var \Carbon\Carbon
      */
     public $updated_at;
 
@@ -98,6 +99,11 @@ class Focus extends \App\myPlugins\myModel
         return $url;
     }
 
-
+    public function addTag($tag)
+    {
+        if(! is_a($tag,Tags::class)) $tag = Tags::findOrCreateByName($tag);
+        Taggables::findOrCreateByObjects($tag,$this);
+        return $this;
+    }
 
 }

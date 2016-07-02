@@ -50,6 +50,24 @@ $ ->
         url = '/focus/add'
         $.post url,data
     e.preventDefault()
+  $('.addTag').click (e)->
+    vex.dialog.open
+      message: '请输入标签名称'
+      input: """
+          <input name="tag" type="text" placeholder="标签名称" required />
+      """
+      buttons: [
+        $.extend({}, vex.dialog.buttons.YES, text: '确定')
+        $.extend({}, vex.dialog.buttons.NO, text: '取消')
+      ]
+      callback: (data) ->
+        return console.log('Cancelled') if data is false
+        url = location.href
+        url += '/addTag'
+        $.post url,data,(result)-> # 为什么下面的函数没有执行呢？
+          console.log result
+          location.reload() if result is 'sucess'
+    e.preventDefault()
 #  设置偏移量 scrollY
   myregexp = /http:\/\/newspaper[\s\S]zhaobing\/issues\/[0-9]+\/page\/[0-9]+\?Y=([0-9]+)/m
   match = myregexp.exec(location.href)

@@ -4,7 +4,7 @@ class FocusController extends \App\myPlugins\myController
 {
     public function indexAction()
     {
-        $this->view->focus = Focus::find(['order'=>'id DESC']);
+        $this->view->focus = Focus::find(['order'=>'id DESC','limit'=>25]);
         
     }
 
@@ -20,6 +20,21 @@ class FocusController extends \App\myPlugins\myController
         Focus::saveNew($data);
         return $this->redirectBack();
     }
+
+    public function deleteAction(Focus $focus)
+    {
+        $focus->delete();
+        $this->redirectByRoute(['for'=>'focus.index']);
+    }
+
+    public function addTagAction(Focus $focus)
+    {
+        $tagName = $this->request->get('tag');
+        $focus->addTag($tagName);
+        return 'success';
+    }
+
+
 
     private function getPageIdFromUrl($url)
     {
