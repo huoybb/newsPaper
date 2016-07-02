@@ -102,12 +102,25 @@ $ ->
     console.log Y 
     $('body').scrollTop Y
 
-#  调整图片大小
-$ ->
+#  调整图片大小,如果图片超出窗口大小则调整适应屏幕宽度
+changImgSize = (img,width_img)->
+  width_standard = $('.myContainer .row').width()
+  width_max = $(window).width()-10
+  if width_img > width_max
+    img.width(width_max)
+    shift =  (width_max - width_standard) / 2
+  if width_max > width_img > width_standard
+    shift =  (width_img - width_standard) / 2
+  if width_standard > width_img
+    shift =  0
+  img.css('margin-left',-shift)
+$(window).load ->
   img = $('img')
-  if img.width() > 1386
-    img.width(1486)
-    img.css('margin-left',-100)
+  width_img = img.width()
+  changImgSize(img, width_img)
+  window.onresize = ->
+    changImgSize(img, width_img)
+
 
 # 搜索功能键的设置
 $ ->

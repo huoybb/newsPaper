@@ -1,4 +1,6 @@
 (function() {
+  var changImgSize;
+
   $(function() {
     if ($('.next a').length) {
       key('right', function() {
@@ -104,13 +106,31 @@
     }
   });
 
-  $(function() {
-    var img;
-    img = $('img');
-    if (img.width() > 1386) {
-      img.width(1486);
-      return img.css('margin-left', -100);
+  changImgSize = function(img, width_img) {
+    var shift, width_max, width_standard;
+    width_standard = $('.myContainer .row').width();
+    width_max = $(window).width() - 10;
+    if (width_img > width_max) {
+      img.width(width_max);
+      shift = (width_max - width_standard) / 2;
     }
+    if ((width_max > width_img && width_img > width_standard)) {
+      shift = (width_img - width_standard) / 2;
+    }
+    if (width_standard > width_img) {
+      shift = 0;
+    }
+    return img.css('margin-left', -shift);
+  };
+
+  $(window).load(function() {
+    var img, width_img;
+    img = $('img');
+    width_img = img.width();
+    changImgSize(img, width_img);
+    return window.onresize = function() {
+      return changImgSize(img, width_img);
+    };
   });
 
   $(function() {
