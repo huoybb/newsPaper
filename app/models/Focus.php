@@ -115,13 +115,17 @@ class Focus extends \App\myPlugins\myModel
 
     public function addTag($tag)
     {
-        if(! is_a($tag,Tags::class)) $tag = Tags::findOrCreateByName($tag);
+        if(is_string($tag)){
+            if(preg_match('|\s*|',$tag)) return null;
+            Tags::findOrCreateByName($tag);
+        }
+        if(! is_a($tag,Tags::class)) throw new Exception('Focus::addTag有问题，应该传入Tags对象类型参数');
         Taggables::findOrCreateByObjects($tag,$this);
         return $this;
     }
     public function addMultTags($tagsString)
     {
-        $tags = preg_split('|\s+|',$tagsString);
+        $tags = preg_split('|\s+|',trim($tagsString));
         foreach($tags as $tag){
             if(! preg_match('|\s+|',$tag)) $this->addTag($tag);
         }
