@@ -3,8 +3,9 @@
 class IssuesController extends \App\myPlugins\myController
 {
 
-    public function indexAction()
+    public function indexAction($page=1)
     {
+        $this->view->page = $this->getPaginator(Issues::find(['order'=>'date DESC']),15,$page);
 
     }
     public function showAction(Issues $issue)

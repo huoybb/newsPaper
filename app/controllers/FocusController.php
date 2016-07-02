@@ -2,10 +2,12 @@
 
 class FocusController extends \App\myPlugins\myController
 {
-    public function indexAction()
+    public function indexAction($page = 1)
     {
+
+        $this->view->page = $this->getPaginator(Focus::find(['order'=>'id DESC']),20,$page);
         $this->view->focus = Focus::find(['order'=>'id DESC','limit'=>25]);
-        
+
     }
 
     public function showAction(Focus $focus)
@@ -41,6 +43,19 @@ class FocusController extends \App\myPlugins\myController
         $focus->addComment($data);
         return 'success';
     }
+
+    public function showTagsAction(Focus $focus)
+    {
+        $this->view->focus = $focus;
+    }
+    
+    public function deleteTagAction(Focus $focus, Tags $tag)
+    {
+        $tag->deleteTaggable($focus);
+        return $this->redirectBack();
+    }
+    
+
 
 
 

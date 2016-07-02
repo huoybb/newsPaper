@@ -1,6 +1,14 @@
 {% extends 'index.volt' %}
 {% block content %}
-    <h1>关注新闻：<span class="badge">{{ focus | length }}</span></h1>
+    <h1>关注新闻：<span class="badge">{{ page.total_items }}</span></h1>
+
+    <nav>
+        <ul class="pager">
+            <li class="previous prev"><a href="{{ url(['for':'focus.index.page','page':page.before]) }}">Previous</a></li>
+            <li class="next"><a href="{{ url(['for':'focus.index.page','page':page.next]) }}">Next</a></li>
+        </ul>
+    </nav>
+
     <table class="table table-hover">
         <tr>
             <td>#</td>
@@ -10,9 +18,9 @@
             <td>创建</td>
             <td>更新</td>
         </tr>
-        {% for f in focus %}
+        {% for f in page.items %}
             <tr>
-                <td>{{ loop.index}}</td>
+                <td>{{ f.id}}</td>
                 <td><a href="{{ url(['for':'focus.show','focus':f.id]) }}">{{ f.title }}</a></td>
                 {#<td>{{ f.description }}</td>#}
                 <td><a href="{{ f.getNewsPaperUrl() }}">{{ f.getNewsPaperName() }}</a></td>
@@ -21,5 +29,6 @@
             </tr>
         {% endfor %}
     </table>
-
+    <script src="/js/keymaster.js" type="application/javascript"></script>
+    <script src="/js/my.js" type="application/javascript"></script>
 {% endblock %}

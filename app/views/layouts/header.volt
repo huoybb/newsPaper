@@ -7,7 +7,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
 
-                <li><a href="#">阅读</a></li>
+                <li><a href="/issues">阅读</a></li>
                 <li><a href="/focus">关注</a></li>
                 <li><a href="/tags">标签</a></li>
                 {#<li>#}

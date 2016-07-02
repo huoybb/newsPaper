@@ -1,5 +1,5 @@
 {% if commentOwner.hasAnyComments() %}
-    <h2>Comments:</h2>
+    <h2>评论:</h2>
     <ul>
         {% for comment in commentOwner.getComments() %}
             <li>

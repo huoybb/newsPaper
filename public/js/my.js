@@ -1,6 +1,6 @@
 (function() {
   $(function() {
-    var Y, match, myregexp;
+    var Y, img, match, myregexp;
     if ($('.next a').length) {
       key('right', function() {
         return location.href = $('.next a').attr('href');
@@ -53,12 +53,8 @@
           }
           url = location.href;
           url += '/addTag';
-          return $.post(url, data, function(result) {
-            console.log(result);
-            if (result === 'sucess') {
-              return location.reload();
-            }
-          });
+          $.post(url, data);
+          return setTimeout('location.reload();', 500);
         }
       });
       return e.preventDefault();
@@ -81,12 +77,8 @@
           }
           url = location.href;
           url += '/addComment';
-          return $.post(url, data, function(result) {
-            console.log(result);
-            if (result === 'sucess') {
-              return location.reload();
-            }
-          });
+          $.post(url, data);
+          return setTimeout('location.reload();', 500);
         }
       });
       return e.preventDefault();
@@ -96,7 +88,12 @@
     if (match !== null) {
       Y = match[1];
       console.log(Y);
-      return $('body').scrollTop(Y);
+      $('body').scrollTop(Y);
+    }
+    img = $('img');
+    if (img.width() > 1386) {
+      img.width(1486);
+      return img.css('margin-left', -100);
     }
   });
 

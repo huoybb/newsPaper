@@ -29,7 +29,8 @@ $ ->
 #    $(this).unbind("mousemove")
 #  .mouseover (e)->
 #    $(this).unbind('mousemove')
-#  设置弹出窗口，关注点输入
+
+  #  设置新闻关注
   $('.setFocusAction').click (e)->
     vex.dialog.open
 #      appendLocation: '.myContainer'
@@ -52,6 +53,7 @@ $ ->
         url = '/focus/add'
         $.post url,data
     e.preventDefault()
+#    添加标签
   $('.addTag').click (e)->
     vex.dialog.open
       message: '请输入标签名称'
@@ -66,10 +68,10 @@ $ ->
         return console.log('Cancelled') if data is false
         url = location.href
         url += '/addTag'
-        $.post url,data,(result)-> # 为什么下面的函数没有执行呢？
-          console.log result
-          location.reload() if result is 'sucess'
+        $.post url,data
+        setTimeout('location.reload();',500)
     e.preventDefault()
+#    添加评论
   $('.addComment').click (e)->
     vex.dialog.open
       message: '请输入评论的内容'
@@ -84,9 +86,8 @@ $ ->
         return console.log('Cancelled') if data is false
         url = location.href
         url += '/addComment'
-        $.post url,data,(result)-> # 为什么下面的函数没有执行呢？
-          console.log result
-          location.reload() if result is 'sucess'
+        $.post url,data
+        setTimeout('location.reload();',500)
     e.preventDefault()
 #  设置偏移量 scrollY
   myregexp = /http:\/\/newspaper[\s\S]zhaobing\/issues\/[0-9]+\/page\/[0-9]+\?Y=([0-9]+)/m
@@ -95,5 +96,11 @@ $ ->
     Y = match[1]
     console.log Y 
     $('body').scrollTop Y
+  img = $('img')
+#  调整图片大小
+  if img.width() > 1386
+    img.width(1486)
+    img.css('margin-left',-100)
+
 
 

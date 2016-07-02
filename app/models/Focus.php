@@ -115,16 +115,52 @@ class Focus extends \App\myPlugins\myModel
         return $this;
     }
 
-    public function addComment($data)
+    public function getNextFocus($tag = null)
     {
-        $data = array_merge($data,[
-            'user_id'=>1,//@todo 将来替换成auth的id
-            'commentable_type'=>get_class($this),
-            'commentable_id'=>$this->id,
-        ]);
-        Comments::saveNew($data);
-        return $this;
+        $instance = $this->getQuery($tag)
+            ->andWhere('Focus.id > :id:',['id'=>$this->id])
+            ->orderBy('Focus.id ASC')
+            ->execute()->getFirst();
+        if(!$instance) $instance = $this->getFirstFocus($tag);
+        return $instance;
     }
+    public function getPrevFocus($tag = null)
+    {
+        $instance = $this->getQuery($tag)
+            ->andWhere('Focus.id < :id:',['id'=>$this->id])
+            ->orderBy('Focus.id DESC')
+            ->execute()->getFirst();
+        if(!$instance) $instance = $this->getLastFocus($tag);
+        return $instance;
+    }
+
+    public function getFirstFocus($tag = null)
+    {
+        $query = $this->getQuery($tag);
+        return $query->orderBy('Focus.id')->execute()->getFirst();
+    }
+
+    public function getLastFocus($tag = null)
+    {
+        $query = $this->getQuery($tag);
+        return $query->orderBy('Focus.id DESC')->execute()->getFirst();
+    }
+    public function getQuery(Tags $tag = null)
+    {
+        $query = static::query()
+            ->limit(1);
+        if(!$tag) return $query;
+        return $query
+            ->leftJoin('Taggables','taggable_type = "Focus" AND taggable_id = Focus.id')
+            ->where('Taggables.tag_id = :tag:',['tag'=>$tag->id]);
+
+
+    }
+
+
+
+
+
 
 
 }

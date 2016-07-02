@@ -2,7 +2,7 @@
 
 class Tags extends \App\myPlugins\myModel
 {
-
+    use \App\models\CommentableTrait;
     /**
      *
      * @var integer
@@ -36,6 +36,17 @@ class Tags extends \App\myPlugins\myModel
             $instance = static::saveNew(['name'=>$tagName]);
         }
         return $instance;
+    }
+
+    public static function fatchAllWithCount()
+    {
+        $query = static::query()
+            ->leftJoin('Taggables','Taggables.tag_id = Tags.id')
+            ->groupBy('Tags.id')
+            ->columns(['Tags.id as id','Tags.name AS name','count(Taggables.id) AS count'])
+            ->orderBy('count DESC');
+
+        return $query->execute();
     }
 
     /**
@@ -72,19 +83,50 @@ class Tags extends \App\myPlugins\myModel
 
     public function getFocus()
     {
-        $rowSet = Focus::query()
-            ->leftJoin('Taggables','Taggables.taggable_type = "Focus" AND Taggables.taggable_id = Focus.id')
-            ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
-            ->columns(['Focus.*','Taggables.*'])
-            ->orderBy('Taggables.created_at DESC')
+        return $this->make('focus',function(){
+            $rowSet = Focus::query()
+                ->leftJoin('Taggables','Taggables.taggable_type = "Focus" AND Taggables.taggable_id = Focus.id')
+                ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
+                ->columns(['Focus.*','Taggables.*'])
+                ->orderBy('Taggables.created_at DESC')
+                ->execute();
+            $result = [];
+            foreach($rowSet as $row){
+                $focus = $row->focus;
+                $focus->addTagTime = $row->taggables->created_at;
+                $result[] = $focus;
+            }
+            return $result;
+        });
+    }
+
+    /**
+     * @return \Phalcon\Mvc\Model\Resultset
+     */
+    public function getTaggables()
+    {
+        return Taggables::query()
+            ->where('tag_id = :id:',['id'=>$this->id])
             ->execute();
-        $result = [];
-        foreach($rowSet as $row){
-            $focus = $row->focus;
-            $focus->addTagTime = $row->taggables->created_at;
-            $result[] = $focus;
-        }
-        return $result;
+    }
+
+    public function delete()
+    {
+        $taggables = $this->getTaggables();
+        if($taggables) $taggables->delete();
+        return parent::delete();
+    }
+
+    public function deleteTaggable(\App\myPlugins\myModel $focus)
+    {
+        $taggable = Taggables::query()
+            ->where('tag_id = :tag:',['tag'=>$this->id])
+            ->andWhere('taggable_type = :type:',['type'=>get_class($focus)])
+            ->andWhere('taggable_id = :id:',['id'=>$focus->id])
+            ->execute();
+//        @todo 是否需要仅仅删除当前用户的Taggable？
+        $taggable->delete();
+        if($this->getTaggables()->count() == 0) $this->delete();
     }
 
 

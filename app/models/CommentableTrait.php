@@ -10,6 +10,7 @@ namespace App\models;
 
 
 use App\myPlugins\myModel;
+use Comments;
 
 trait CommentableTrait
 {
@@ -29,6 +30,16 @@ trait CommentableTrait
     public function hasAnyComments()
     {
         return $this->getComments()->count();
+    }
+    public function addComment($data)
+    {
+        $data = array_merge($data,[
+            'user_id'=>1,//@todo 将来替换成auth的id
+            'commentable_type'=>get_class($this),
+            'commentable_id'=>$this->id,
+        ]);
+        Comments::saveNew($data);
+        return $this;
     }
 
 }

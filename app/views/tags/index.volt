@@ -11,7 +11,10 @@
     <h1>标签汇总</h1>
     <div class="row">
         {% for mytag in tags %}
-            <a href="{{ url(['for':'tags.show','tag':mytag.id]) }}" class="btn btn-default">{{ mytag.name }}</a>
+            <a href="{{ url(['for':'tags.show','tag':mytag.id]) }}" class="btn btn-default">
+                {{ mytag.name }}
+                <span class="badge">{{ mytag.count }}</span>
+            </a>
         {% endfor %}
     </div>
     <script src="/js/my.js" type="application/javascript"></script>
