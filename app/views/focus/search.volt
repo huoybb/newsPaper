@@ -3,6 +3,7 @@
     <ol class="breadcrumb">
         <li><a href="{{ url(['for':'home']) }}">Home</a></li>
         <li class="active">关注</li>
+        <li class="active">search:{{ search}}</li>
     </ol>
 {% endblock %}
 {% block content %}

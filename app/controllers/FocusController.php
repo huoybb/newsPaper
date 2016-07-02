@@ -54,6 +54,13 @@ class FocusController extends \App\myPlugins\myController
         $tag->deleteTaggable($focus);
         return $this->redirectBack();
     }
+
+    public function searchAction($search,$page = 1)
+    {
+        $this->view->search = $search;
+        $this->view->page = $this->getPaginator(Focus::search($search),25,$page);
+    }
+
     
 
 

@@ -47,6 +47,19 @@ class Focus extends \App\myPlugins\myModel
      */
     public $updated_at;
 
+    public static function search($search)
+    {
+        $query = static::query();
+
+        $keywords = preg_split('|\s+|',$search);
+        foreach($keywords as $key=>$word){
+            $query->andWhere('title like :search'.$key.':',['search'.$key=>'%'.$word.'%']);
+//                ->orWhere('description like :search'.$key.':',['search'.$key=>'%'.$word.'%']);
+        }
+
+        return $query->execute();
+    }
+
     /**
      * Returns table name mapped in the model.
      *

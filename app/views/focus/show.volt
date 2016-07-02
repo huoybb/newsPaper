@@ -3,7 +3,7 @@
 {% block breadcrumbs %}
     <ol class="breadcrumb">
         <li><a href="{{ url(['for':'home']) }}">Home</a></li>
-        <li><a href="{{ url(['for':'focus.index']) }}">关注点</a></li>
+        <li><a href="{{ url(['for':'focus.index']) }}">关注</a></li>
         <li class="active">{{ focus.title }}</li>
     </ol>
 {% endblock %}

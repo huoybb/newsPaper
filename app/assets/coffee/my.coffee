@@ -31,6 +31,7 @@ $ ->
 #    $(this).unbind('mousemove')
 
   #  设置新闻关注
+$ ->
   $('.setFocusAction').click (e)->
     vex.dialog.open
 #      appendLocation: '.myContainer'
@@ -54,6 +55,7 @@ $ ->
         $.post url,data
     e.preventDefault()
 #    添加标签
+$ ->
   $('.addTag').click (e)->
     vex.dialog.open
       message: '请输入标签名称'
@@ -72,6 +74,7 @@ $ ->
         setTimeout('location.reload();',500)
     e.preventDefault()
 #    添加评论
+$ ->
   $('.addComment').click (e)->
     vex.dialog.open
       message: '请输入评论的内容'
@@ -89,18 +92,27 @@ $ ->
         $.post url,data
         setTimeout('location.reload();',500)
     e.preventDefault()
+
 #  设置偏移量 scrollY
+$ ->
   myregexp = /http:\/\/newspaper[\s\S]zhaobing\/issues\/[0-9]+\/page\/[0-9]+\?Y=([0-9]+)/m
   match = myregexp.exec(location.href)
   if match isnt null
     Y = match[1]
     console.log Y 
     $('body').scrollTop Y
-  img = $('img')
+
 #  调整图片大小
+$ ->
+  img = $('img')
   if img.width() > 1386
     img.width(1486)
     img.css('margin-left',-100)
 
-
-
+# 搜索功能键的设置
+$ ->
+  $("#search-form").submit (e)->
+    keywords = $("#search").val().trim()
+    keywords = keywords.replace(/\//,' ') #去除搜索中的"/"，避免出现路由错误
+    location.href = "http://"+location.host+"/search/#{keywords}" if keywords isnt ''
+    e.preventDefault()
