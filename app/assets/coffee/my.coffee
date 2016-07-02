@@ -37,6 +37,8 @@ $ ->
       input: """
           <input name="title" type="text" placeholder="新闻标题" required />
           <textarea name="description" placeholder="描述" rows='3' required />
+          <input name="tags" type="text" placeholder="标签分类，以空格分开" required />
+
         """
       buttons: [
         $.extend({}, vex.dialog.buttons.YES, text: '确定')

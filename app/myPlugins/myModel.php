@@ -66,7 +66,7 @@ abstract class myModel extends Model{
     }
 
     //增加缓存功能，利用redis来做缓存，对于大的数据可以采用这个来也许更加方便,需要注意，这里用的压缩算法是igbinary，不是很常见的
-
+    
     static public function saveNew($data){
         $instance = new static();
         $instance->save($data);

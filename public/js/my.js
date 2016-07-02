@@ -14,7 +14,7 @@
     $('.setFocusAction').click(function(e) {
       vex.dialog.open({
         message: '请输入新闻标题',
-        input: "<input name=\"title\" type=\"text\" placeholder=\"新闻标题\" required />\n<textarea name=\"description\" placeholder=\"描述\" rows='3' required />",
+        input: "<input name=\"title\" type=\"text\" placeholder=\"新闻标题\" required />\n<textarea name=\"description\" placeholder=\"描述\" rows='3' required />\n<input name=\"tags\" type=\"text\" placeholder=\"标签分类，以空格分开\" required />\n",
         buttons: [
           $.extend({}, vex.dialog.buttons.YES, {
             text: '确定'

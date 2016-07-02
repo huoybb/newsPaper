@@ -105,5 +105,14 @@ class Focus extends \App\myPlugins\myModel
         Taggables::findOrCreateByObjects($tag,$this);
         return $this;
     }
+    public function addMultTags($tagsString)
+    {
+        $tags = preg_split('|\s+|',$tagsString);
+        foreach($tags as $tag){
+            if(! preg_match('|\s+|',$tag)) $this->addTag($tag);
+        }
+        return $this;
+    }
+
 
 }

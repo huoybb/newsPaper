@@ -76,6 +76,7 @@ class Tags extends \App\myPlugins\myModel
             ->leftJoin('Taggables','Taggables.taggable_type = "Focus" AND Taggables.taggable_id = Focus.id')
             ->where('Taggables.tag_id = :tag:',['tag'=>$this->id])
             ->columns(['Focus.*','Taggables.*'])
+            ->orderBy('Taggables.created_at DESC')
             ->execute();
         $result = [];
         foreach($rowSet as $row){

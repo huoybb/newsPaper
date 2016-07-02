@@ -1,6 +1,6 @@
 {% extends 'index.volt' %}
 {% block content %}
-    <h1>关注点：</h1>
+    <h1>关注新闻：<span class="badge">{{ focus | length }}</span></h1>
     <table class="table table-hover">
         <tr>
             <td>#</td>

@@ -17,7 +17,9 @@ class FocusController extends \App\myPlugins\myController
     {
         $data = $this->request->getPost();
         $data['page_id'] = $this->getPageIdFromUrl($data['url']);
-        Focus::saveNew($data);
+
+        Focus::saveNew($data)->addMultTags($this->request->getPost('tags'));
+
         return $this->redirectBack();
     }
 

@@ -8,7 +8,7 @@
             <ul class="nav navbar-nav">
 
                 <li><a href="#">阅读</a></li>
-                <li><a href="/focus">关注点</a></li>
+                <li><a href="/focus">关注</a></li>
                 <li><a href="/tags">标签</a></li>
                 {#<li>#}
                     {#<ul class="nav navbar-nav navbar-header">#}
@@ -29,7 +29,7 @@
 
 
             <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" class="setFocusAction">设置关注点</a></li>
+                    <li><a href="#" class="setFocusAction">设置关注</a></li>
                     <li><a href="#">注册</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
