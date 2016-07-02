@@ -70,6 +70,24 @@ $ ->
           console.log result
           location.reload() if result is 'sucess'
     e.preventDefault()
+  $('.addComment').click (e)->
+    vex.dialog.open
+      message: '请输入评论的内容'
+      input: """
+            <textarea name="content" placeholder="评论内容" rows='3' required />
+      """
+      buttons: [
+        $.extend({}, vex.dialog.buttons.YES, text: '确定')
+        $.extend({}, vex.dialog.buttons.NO, text: '取消')
+      ]
+      callback: (data) ->
+        return console.log('Cancelled') if data is false
+        url = location.href
+        url += '/addComment'
+        $.post url,data,(result)-> # 为什么下面的函数没有执行呢？
+          console.log result
+          location.reload() if result is 'sucess'
+    e.preventDefault()
 #  设置偏移量 scrollY
   myregexp = /http:\/\/newspaper[\s\S]zhaobing\/issues\/[0-9]+\/page\/[0-9]+\?Y=([0-9]+)/m
   match = myregexp.exec(location.href)

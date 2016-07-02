@@ -4,6 +4,7 @@ class Focus extends \App\myPlugins\myModel
 {
 
     use \App\models\taggableTrait;
+    use \App\models\CommentableTrait;
     /**
      *
      * @var integer
@@ -111,6 +112,17 @@ class Focus extends \App\myPlugins\myModel
         foreach($tags as $tag){
             if(! preg_match('|\s+|',$tag)) $this->addTag($tag);
         }
+        return $this;
+    }
+
+    public function addComment($data)
+    {
+        $data = array_merge($data,[
+            'user_id'=>1,//@todo 将来替换成auth的id
+            'commentable_type'=>get_class($this),
+            'commentable_id'=>$this->id,
+        ]);
+        Comments::saveNew($data);
         return $this;
     }
 

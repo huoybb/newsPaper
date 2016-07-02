@@ -63,6 +63,34 @@
       });
       return e.preventDefault();
     });
+    $('.addComment').click(function(e) {
+      vex.dialog.open({
+        message: '请输入评论的内容',
+        input: "<textarea name=\"content\" placeholder=\"评论内容\" rows='3' required />",
+        buttons: [
+          $.extend({}, vex.dialog.buttons.YES, {
+            text: '确定'
+          }), $.extend({}, vex.dialog.buttons.NO, {
+            text: '取消'
+          })
+        ],
+        callback: function(data) {
+          var url;
+          if (data === false) {
+            return console.log('Cancelled');
+          }
+          url = location.href;
+          url += '/addComment';
+          return $.post(url, data, function(result) {
+            console.log(result);
+            if (result === 'sucess') {
+              return location.reload();
+            }
+          });
+        }
+      });
+      return e.preventDefault();
+    });
     myregexp = /http:\/\/newspaper[\s\S]zhaobing\/issues\/[0-9]+\/page\/[0-9]+\?Y=([0-9]+)/m;
     match = myregexp.exec(location.href);
     if (match !== null) {

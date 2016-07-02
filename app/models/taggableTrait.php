@@ -27,7 +27,7 @@ trait taggableTrait
                 ->execute();
         });
     }
-    public function hasTags()
+    public function hasAnyTags()
     {
         return $this->getTags()->count();
     }

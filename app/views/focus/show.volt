@@ -16,18 +16,12 @@
         <a href="{{ url(['for':'focus.delete','focus':focus.id]) }}" class="btn btn-default">删除</a>
         <a href="#" class="btn btn-default">编辑</a>
         <a href="#" class="btn btn-default addTag">添加标签</a>
+        <a href="#" class="btn btn-default addComment">添加评论</a>
     </p>
     {{ partial('layouts/inlineNews',['scrollTop':focus.Y,'url':focus.getNewsPaperUrl(false)]) }}
-    {% if focus.hasTags() %}
-        <div class="row">
-            <h2>
-                <span>拥有的标签：</span>
-                {% for mytag in focus.getTags()  %}
-                    <a href="{{ url(['for':'tags.show','tag':mytag.id]) }}" class="btn btn-default">{{ mytag.name }}</a>
-                {% endfor %}
-            </h2>
-        </div>
-    {% endif %}
+    {{ partial('layouts/tags',['tagOwner':focus]) }}
+    {{ partial('layouts/comments',['commentOwner':focus]) }}
+
     <script src="/js/my.js" type="application/javascript"></script>
 {% endblock %}
 

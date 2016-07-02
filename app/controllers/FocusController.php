@@ -35,6 +35,13 @@ class FocusController extends \App\myPlugins\myController
         $focus->addTag($tagName);
         return 'success';
     }
+    public function addCommentAction(Focus $focus)
+    {
+        $data = $this->request->getPost();
+        $focus->addComment($data);
+        return 'success';
+    }
+
 
 
 
