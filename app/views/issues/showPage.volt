@@ -1,4 +1,4 @@
-{% extends 'index.volt' %}
+{% extends 'page.volt' %}
 {% block pageTitle %}
     参考: {{ page.getIssue().present().date }} 第{{ page.page_num }}版
 {% endblock %}

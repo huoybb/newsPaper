@@ -28,5 +28,6 @@ $router->add('/pages/{page:[0-9]+}/refresh','pages::refresh')->setName('fromWeb.
 
 $router->addGet('/focus','focus::index')->setName('focus.index');
 $router->addPost('/focus/add','focus::add')->setName('focus.add');
+$router->addGet('/focus/items/{focus:[0-9]+}','focus::show')->setName('focus.show');
 
 return $router;

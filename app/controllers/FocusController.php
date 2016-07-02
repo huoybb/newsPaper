@@ -4,10 +4,14 @@ class FocusController extends \App\myPlugins\myController
 {
     public function indexAction()
     {
-        $this->view->focus = Focus::find();
+        $this->view->focus = Focus::find(['order'=>'id DESC']);
         
     }
 
+    public function showAction(Focus $focus)
+    {
+        $this->view->focus = $focus;
+    }
 
     public function addAction()
     {

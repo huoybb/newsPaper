@@ -12,8 +12,8 @@
         </tr>
         {% for f in focus %}
             <tr>
-                <td>{{ f.id }}</td>
-                <td>{{ f.title }}</td>
+                <td>{{ loop.index}}</td>
+                <td><a href="{{ url(['for':'focus.show','focus':f.id]) }}">{{ f.title }}</a></td>
                 {#<td>{{ f.description }}</td>#}
                 <td><a href="{{ f.getNewsPaperUrl() }}">{{ f.getNewsPaperName() }}</a></td>
                 <td>{{ f.created_at }}</td>

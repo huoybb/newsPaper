@@ -89,11 +89,13 @@ class Focus extends \App\myPlugins\myModel
         return $newspaper->title.'::'.$issue->present()->date.'::第'.$page->page_num.'版';
     }
 
-    public function getNewsPaperUrl()
+    public function getNewsPaperUrl($withScrollTop = true)
     {
         $page = $this->page ? $this->page:$this->page = Pages::findFirst($this->page_id);
         $issue = $this->issue ? $this->issue : $this->issue = $page->getIssue();
-        return UrlFacade::get(['for'=>'issues.showPage','issue'=>$issue->id,'page_num'=>$page->page_num]).'?Y='.$this->Y;
+        $url = UrlFacade::get(['for'=>'issues.showPage','issue'=>$issue->id,'page_num'=>$page->page_num]);
+        if($withScrollTop) $url .= '?Y='.$this->Y;
+        return $url;
     }
 
 

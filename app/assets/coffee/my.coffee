@@ -7,28 +7,28 @@ $ ->
     key 'left',->
       location.href = $('.prev a').attr('href')
 #  设置鼠标拖动图片的功能，这个在pad或者没有鼠标时有用
-  $('body')
-  .mouseover ->
-    $(this).css("cursor","url(http://dn382/ZF1.5/images/openhand.cur), default")
-  .mousedown (e)->
-    e.preventDefault()
-    $(this).css("cursor","url(http://dn382/ZF1.5/images/closedhand.cur), default")
-    start = {X:e.pageX,Y:e.pageY}
-    $(this).mousemove (e)->
-      end={X:e.pageX,Y:e.pageY}
-      delta={xx:end.X-start.X,yy:end.Y-start.Y}
-      yy = $(this).scrollTop()
-      xx = $(this).scrollLeft()
-      Y = yy-delta.yy
-      X = xx-delta.xx
-      start.X=end.X;start.Y=end.Y
-      $(this).scrollTop(Y)
-      $(this).scrollLeft(X)
-  .mouseup (e)->
-    $(this).css("cursor","url(http://dn382/ZF1.5/images/openhand.cur), default")
-    $(this).unbind("mousemove")
-  .mouseover (e)->
-    $(this).unbind('mousemove')
+#  $('body')
+#  .mouseover ->
+#    $(this).css("cursor","url(http://dn382/ZF1.5/images/openhand.cur), default")
+#  .mousedown (e)->
+#    e.preventDefault()
+#    $(this).css("cursor","url(http://dn382/ZF1.5/images/closedhand.cur), default")
+#    start = {X:e.pageX,Y:e.pageY}
+#    $(this).mousemove (e)->
+#      end={X:e.pageX,Y:e.pageY}
+#      delta={xx:end.X-start.X,yy:end.Y-start.Y}
+#      yy = $(this).scrollTop()
+#      xx = $(this).scrollLeft()
+#      Y = yy-delta.yy
+#      X = xx-delta.xx
+#      start.X=end.X;start.Y=end.Y
+#      $(this).scrollTop(Y)
+#      $(this).scrollLeft(X)
+#  .mouseup (e)->
+#    $(this).css("cursor","url(http://dn382/ZF1.5/images/openhand.cur), default")
+#    $(this).unbind("mousemove")
+#  .mouseover (e)->
+#    $(this).unbind('mousemove')
 #  设置弹出窗口，关注点输入
   $('.setFocusAction').click (e)->
     vex.dialog.open
