@@ -19,7 +19,7 @@
         <a href="#" class="btn btn-danger addComment">添加评论</a>
     </p>
     {{ partial('layouts/tags',['tagOwner':focus]) }}
-    {{ partial('layouts/inlineNews',['scrollTop':focus.Y,'url':focus.getNewsPaperUrl(false)]) }}
+    {{ partial('layouts/inlineNews',['scrollTop':focus.Y,'url':focus.getNewsPaperUrl(false),'sourceInfo':focus.getNewsPaperName()]) }}
     {{ partial('layouts/comments',['commentOwner':focus]) }}
     <nav>
         <ul class="pager">

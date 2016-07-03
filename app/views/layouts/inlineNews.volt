@@ -1,5 +1,5 @@
 <div class="row container">
-    <h2>截图:<a href="{{ url }}?Y={{ scrollTop }}">点击浏览</a></h2>
+    <h2>截图:<a href="{{ url }}?Y={{ scrollTop }}">点击浏览  {{ sourceInfo }}</a></h2>
     <div class="inlineNews">
         <div class="inlineNews__box">
             <div  style="margin:-{{ scrollTop + 65 }}px 0px 0px -10px;">

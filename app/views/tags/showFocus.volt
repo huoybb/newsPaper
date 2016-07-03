@@ -1,4 +1,4 @@
-{% extends 'index.volt' %}
+{% extends 'focus/show.volt' %}
 
 {% block breadcrumbs %}
     <ol class="breadcrumb">
@@ -8,32 +8,3 @@
         <li class="active">{{ focus.title }}</li>
     </ol>
 {% endblock %}
-
-{% block content %}
-    <h1>关注点：{{ focus.title }}</h1>
-    <pre>    {{ focus.description }}</pre>
-    <p>
-        <span>赵兵@{{ focus.created_at.diffForHumans() }} </span>
-        <a href="{{ url(['for':'focus.delete','focus':focus.id]) }}" class="btn btn-default">删除</a>
-        <a href="#" class="btn btn-default">编辑</a>
-        <a href="#" class="btn btn-default addTag">添加标签</a>
-        <a href="#" class="btn btn-default addComment">添加评论</a>
-    </p>
-    <nav>
-        <ul class="pager">
-            <li class="previous prev"><a href="{{ url(['for':'tags.showFocus','tag':mytag.id,'focus':focus.getPrevFocus(mytag).id]) }}">Previous</a></li>
-            <li class="next"><a href="{{ url(['for':'tags.showFocus','tag':mytag.id,'focus':focus.getNextFocus(mytag).id]) }}">Next</a></li>
-        </ul>
-    </nav>
-    {{ partial('layouts/inlineNews',['scrollTop':focus.Y,'url':focus.getNewsPaperUrl(false)]) }}
-    {{ partial('layouts/tags',['tagOwner':focus]) }}
-    {{ partial('layouts/comments',['commentOwner':focus]) }}
-
-    <script src="/js/keymaster.js" type="application/javascript"></script>
-    <script src="/js/my.js" type="application/javascript"></script>
-{% endblock %}
-
-{#{% block sidebar %}#}
-    {#<h2>标签</h2>#}
-
-{#{% endblock %}#}
