@@ -15,18 +15,18 @@
         <span>赵兵@{{ focus.created_at.diffForHumans() }} </span>
         <a href="{{ url(['for':'focus.delete','focus':focus.id]) }}" class="btn btn-default">删除</a>
         <a href="#" class="btn btn-default">编辑</a>
-        <a href="#" class="btn btn-default addTag">添加标签</a>
-        <a href="#" class="btn btn-default addComment">添加评论</a>
+        <a href="#" class="btn btn-danger addTag">添加标签</a>
+        <a href="#" class="btn btn-danger addComment">添加评论</a>
     </p>
+    {{ partial('layouts/tags',['tagOwner':focus]) }}
+    {{ partial('layouts/inlineNews',['scrollTop':focus.Y,'url':focus.getNewsPaperUrl(false)]) }}
+    {{ partial('layouts/comments',['commentOwner':focus]) }}
     <nav>
         <ul class="pager">
             <li class="previous prev"><a href="{{ url(['for':'focus.show','focus':focus.getPrevFocus().id]) }}">Previous</a></li>
             <li class="next"><a href="{{ url(['for':'focus.show','focus':focus.getNextFocus().id]) }}">Next</a></li>
         </ul>
     </nav>
-    {{ partial('layouts/inlineNews',['scrollTop':focus.Y,'url':focus.getNewsPaperUrl(false)]) }}
-    {{ partial('layouts/tags',['tagOwner':focus]) }}
-    {{ partial('layouts/comments',['commentOwner':focus]) }}
 
     <script src="/js/keymaster.js" type="application/javascript"></script>
     <script src="/js/my.js" type="application/javascript"></script>

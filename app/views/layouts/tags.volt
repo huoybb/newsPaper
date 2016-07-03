@@ -1,9 +1,9 @@
 {% if tagOwner.hasAnyTags() %}
-    <div class="row">
+    <div class="row container">
         <h2>
-            <a href="{{ url(['for':'focus.showTags','focus':tagOwner.id]) }}"><span>拥有的标签</span></a>：
+            <a href="{{ url(['for':'focus.showTags','focus':tagOwner.id]) }}"><span>标签</span></a>：
             {% for mytag in tagOwner.getTags()  %}
-                <a href="{{ url(['for':'tags.show','tag':mytag.id]) }}" class="btn btn-default">{{ mytag.name }}</a>
+                <a href="{{ url(['for':'tags.show','tag':mytag.id]) }}" class="btn btn-warning">{{ mytag.name }}</a>
             {% endfor %}
         </h2>
     </div>

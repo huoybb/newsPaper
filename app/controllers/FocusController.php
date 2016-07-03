@@ -34,7 +34,7 @@ class FocusController extends \App\myPlugins\myController
     public function addTagAction(Focus $focus)
     {
         $tagName = $this->request->get('tag');
-        $focus->addTag($tagName);
+        $focus->addMultTags($tagName);
         return 'success';
     }
     public function addCommentAction(Focus $focus)
