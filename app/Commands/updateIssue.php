@@ -19,7 +19,7 @@ class updateIssue extends Command
 {
     public function configure()
     {
-        $this->setName('getIssue')
+        $this->setName('newspaper:getIssue')
             ->setDescription('update Issue by issue_id')
             ->addArgument('issue',InputArgument::REQUIRED,'issue ID?');
     }
@@ -33,6 +33,4 @@ class updateIssue extends Command
         $issue->getPagesFromWeb($output,true);
         $output->writeln('done!');
     }
-
-
 }

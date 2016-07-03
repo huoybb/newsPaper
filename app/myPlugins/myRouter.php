@@ -209,8 +209,10 @@ class myRouter extends Router{
     /**
      * @return array
      */
-    public function getTableData()
+    public function getTableData($filter=null,$order = null)
     {
+        $regex = '|'.$filter.'|';
+        
         $header = ['pattern','path','middleware','httpMethods','name'];
         $content = [];
         foreach($this->getRoutes() as $route){
@@ -220,9 +222,18 @@ class myRouter extends Router{
             $path = $this->getPathString($route->getPaths());
             $httpMethods = $this->getHttpMethodsString($route->getHttpMethods());
             $middleWares = $this->getMiddleWaresString($route);
-            $content[]=[$pattern,$path,$middleWares,$httpMethods,$name];
+//            $content[]=[$pattern,$path,$middleWares,$httpMethods,$name];
+            $content[]=compact('pattern','path','middleWares','httpMethods','name');
         }
-        return [$header,$content];
+        $content = collect($content);
+
+        if($order) $content = $content->sortBy($order);
+
+        if($filter) $content = $content->filter(function($route) use($regex){
+            return preg_match($regex,$route['name']);
+        });
+
+        return [$header,$content->toArray()];
     }
 
     private function getPathString(array $path)

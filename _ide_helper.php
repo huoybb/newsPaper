@@ -462,7 +462,7 @@ namespace {
         /**
          * @return array
          */
-        public static function getTableData(){}
+        public static function getTableData($filter = null,$order = null){}
 
         /**
          * Handles routing information received from the rewrite engine

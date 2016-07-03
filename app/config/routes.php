@@ -43,8 +43,8 @@ $router->addGet('/tags/{tag:[0-9]+}','tags::show')->setName('tags.show');
 $router->addGet('/tags/{tag:[0-9]+}/delete','tags::delete')->setName('tags.delete');
 $router->addPost('/tags/{tag:[0-9]+}/addComment','tags::addComment')->setName('tags.addComment');
 $router->addGet('/tags/{tag:[0-9]+}/focus/{focus:[0-9]+}','tags::showFocus')->setName('tags.showFocus');
-$router->addPost('/tags/{tag:[0-9]+}/focus/{focus:[0-9]+}/addTag','focus::addTag');
-$router->addPost('/tags/{tag:[0-9]+}/focus/{focus:[0-9]+}/addComment','focus::addComment');
+$router->addPost('/tags/{tag:[0-9]+}/focus/{focus:[0-9]+}/addTag','focus::addTag')->setName('focus.addTag.under.tags');
+$router->addPost('/tags/{tag:[0-9]+}/focus/{focus:[0-9]+}/addComment','focus::addComment')->setName('focus.addComment.under.tags');
 
 $router->addGet('/search/{search:[^/]+}','focus::search')->setName('focus.search');
 

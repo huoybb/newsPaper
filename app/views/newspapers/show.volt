@@ -10,7 +10,7 @@
         <h2>
             {{ newspaper.title }}
             <a href="{{ url(['for':'fromWeb.updateNewspaper','newspaper':newspaper.id]) }}">更新</a>
-            <a href="{{ newspaper.url }}">网站</a>
+            <a href="{{ newspaper.url }}" target="_blank">网站</a>
             <a href="{{ url(['for':'newspapers.addIssue','newspaper':newspaper.id]) }}">手动增加</a>
         </h2>
     </div>

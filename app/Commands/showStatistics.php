@@ -18,7 +18,7 @@ class showStatistics extends Command
 {
     public function configure()
     {
-        $this->setName('showStatistics')
+        $this->setName('newspaper:showStatistics')
             ->setDescription('Show Newspaper Statistics');
     }
     public function execute(InputInterface $input, OutputInterface $output)

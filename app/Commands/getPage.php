@@ -18,7 +18,7 @@ class getPage extends Command
 {
     public function configure()
     {
-        $this->setName('getPage')
+        $this->setName('newspaper:getPage')
             ->setDescription('Download a page image from web by page_id')
             ->addArgument('page',InputArgument::REQUIRED,'page_id ? ');
     }
