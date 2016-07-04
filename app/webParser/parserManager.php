@@ -14,19 +14,25 @@ class parserManager implements newspaperParserInterface
     /**
      * @var array 将所有的webParser都放在这，统一管理
      */
-    protected $parsers = [
-        'http://www.hqck.net/'  => hqcknet::class,
-        'http://www.abbao.cn/'  => abbaocn::class,
-        'http://www.jdqu.com'   => jdqucom::class,
-    ];
+    protected $parsers ;
+
+    /**
+     * parserManager constructor.
+     * @param array $parsers
+     */
+    public function __construct(array $parsers)
+    {
+        $this->parsers = $parsers;
+    }
+
 
     /**
      * @param $url
      * @return newspaperParserInterface
-     * @throws \Exception
      */
     public function getParser($url)
     {
+        if(! $url) throw new \Exception('url is null, please check your newspaper\'s url');
         foreach ($this->parsers as $pattern => $parser){
             if(preg_match('|'.$pattern.'|',$url)) return new $parser;
         }
