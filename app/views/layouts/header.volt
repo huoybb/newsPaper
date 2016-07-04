@@ -28,7 +28,9 @@
 
 
             <ul class="nav navbar-nav navbar-right">
+                {% if router.getMatchedRoute().getName() is 'issues.showPage' %}
                     <li><a href="#" class="setFocusAction">设置关注</a></li>
+                {% endif %}
                     <li><a href="#">注册</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

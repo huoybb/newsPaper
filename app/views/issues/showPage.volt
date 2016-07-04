@@ -16,7 +16,6 @@
 {% endblock %}
 {% block content %}
     <img src="{{ page.present().src }}" alt="{{ page.page_num }}">
-    {{ partial('layouts/focusList',['focuses':page.getFocuses()]) }}
 
     <ul class="pagination">
         <li class="prev"><a href="{{ url(['for':'issues.showPage','issue':issue.id,'page_num':page.prevPage().page_num]) }}"><<</a></li>
@@ -27,6 +26,8 @@
         {% endfor %}
         <li class="next"><a href="{{ url(['for':'issues.showPage','issue':issue.id,'page_num':page.nextPage().page_num]) }}">>></a></li>
     </ul>
+
+    {{ partial('layouts/focusList',['focuses':page.getFocuses()]) }}
 
     <script src="/js/keymaster.js" type="application/javascript"></script>
     <script src="/js/my.js" type="application/javascript"></script>

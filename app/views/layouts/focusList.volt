@@ -1,4 +1,4 @@
-{% if focuses %}
+{% if focuses.count() %}
     <table class="table table-hover">
         <tr>
             <td>#</td>

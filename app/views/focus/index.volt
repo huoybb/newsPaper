@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
     <h1>关注新闻：<span class="badge">{{ page.total_items }}</span></h1>
-    {{ partial('layouts/focusList',['focuses':page.items]) }}
+    {{ partial('layouts/focusList',['focuses':myTools.collection(page.items)]) }}
     <nav>
         <ul class="pager">
             <li class="previous prev"><a href="{{ url(['for':'focus.index.page','page':page.before]) }}">Previous</a></li>

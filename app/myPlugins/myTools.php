@@ -205,6 +205,11 @@ class myTools
     {
         return \Newspapers::find();
     }
+    public function collection(array $vars)
+    {
+        return collect($vars);
+    }
+
 
 
 
