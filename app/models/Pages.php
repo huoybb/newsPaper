@@ -13,7 +13,7 @@ class Pages extends \App\myPlugins\myModel
 
     /**
      *
-     * @var integer
+     * @var string
      */
     public $page_num;
 
@@ -188,7 +188,7 @@ class Pages extends \App\myPlugins\myModel
         if($this->isNewOrLackingImage()){
             if($downloadImage) {
                 $this->src = myTools::downloadImage($this->url);
-                $this->setStatus();
+                $this->setStatus();//这里怎么能够将几种状态显示出来呢？还是需要进一步的调整
             }
             $this->save();
         }

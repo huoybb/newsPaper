@@ -24,16 +24,22 @@ class abbaocn implements newspaperParserInterface
     {
         $crawler = myCrawler::getCrawler($url);
         $issues = [];
-        $crawler->filter('.dy-pic ul li')->each(function($row) use (&$issues){
-            /** @var Crawler $row */
-            if($row->filter('.scpic a img')->count()){
-                $url = 'http://www.abbao.cn' . $row->filter('.scpic a')->attr('href');
-                $poster = $row->filter('.scpic a img')->attr('_lazysrc');
-                $title = $this->getCleanText($row->filter('div.ctext > div.p_txt')->text());
-                $date = $this->getDateFromTitle($title);
-                $issues[]= compact('url','poster','title','date');
-            }
-        });
+        $selectors = [
+            '.bzjs-pic',//最新一期的位置
+            '.dy-pic ul li',//其余第一页面的位置
+        ];
+        foreach($selectors as $selector){
+            $crawler->filter($selector)->each(function($row) use (&$issues){
+                /** @var Crawler $row */
+                if($row->filter('.scpic a img')->count()){
+                    $url = 'http://www.abbao.cn' . $row->filter('.scpic a')->attr('href');
+                    $poster = $row->filter('.scpic a img')->attr('_lazysrc');
+                    $title = $this->getCleanText($row->filter('div.ctext > div.p_txt')->text());
+                    $date = $this->getDateFromTitle($title);
+                    $issues[]= compact('url','poster','title','date');
+                }
+            });
+        }
         return $issues;
     }
 
@@ -88,7 +94,7 @@ class abbaocn implements newspaperParserInterface
         $crawler = myCrawler::getCrawler($url);
         $crawler->filter('div.dytext > a')->each(function ($row) use(&$pages) {
             /** @var Crawler $row */
-            $page_num = $row->text();
+            $page_num = $this->getPage_num($row->text());
             $url = 'http://www.abbao.cn' . $row->attr('href');
             $pages[] = compact('page_num','url');
         });
@@ -110,5 +116,13 @@ class abbaocn implements newspaperParserInterface
         }
 
         return $result;
+    }
+    private function getPage_num($text)
+    {
+        if (preg_match('/([A-Z0-9]+).*/sm', $text, $regs)) {
+            $result = $regs[1];
+            return $result;
+        }
+        throw new \Exception('could not page_num');
     }
 }
