@@ -7,24 +7,23 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
 
-                <li><a href="/issues">阅读</a></li>
+                <li>
+                    <ul class="nav navbar-nav navbar-header">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">报纸 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                {% for row in myTools.getNewspapers()  %}
+                                    <li><a href="{{ url(['for':'newspapers.show','newspaper':row.id]) }}">{{ row.title }}</a></li>
+                                {% endfor %}
+                                <li role="separator" class="divider"></li>
+                                <li><a href="{{ url(['for':'home.statistics']) }}">统计数字</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
                 <li><a href="/focus">关注</a></li>
                 <li><a href="/tags">标签</a></li>
-                {#<li>#}
-                    {#<ul class="nav navbar-nav navbar-header">#}
-                        {#<li class="dropdown">#}
-                            {#<a href="/skills" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">技能 <span class="caret"></span></a>#}
-                            {#<ul class="dropdown-menu">#}
-                                {#{% for row in myTools.getSkills()  %}#}
-                                    {#<li><a href="{{ url(['for':'skills.show','name':row.name]) }}">{{ row.name }}</a></li>#}
-                                {#{% endfor %}#}
-                                {#<li role="separator" class="divider"></li>#}
-                                {#<li><a href="/skills">技能首页</a></li>#}
-                            {#</ul>#}
-                        {#</li>#}
-                    {#</ul>#}
-                {#</li>#}
-
             </ul>
 
 

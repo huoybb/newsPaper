@@ -10,11 +10,10 @@ namespace App\serviceProviders;
 
 
 use App\myPlugins\myProvider;
-use myTools;
+use App\myPlugins\myTools;
 
 class myToolsProvider extends myProvider
 {
-
     public function register($name)
     {
         $this->di->setShared($name,function(){

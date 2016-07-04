@@ -1,4 +1,10 @@
 {% extends 'index.volt' %}
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li><a href="{{ url(['for':'home']) }}">Home</a></li>
+        <li class="active">统计数字</li>
+    </ol>
+{% endblock %}
 {% block content %}
     <ul>
         {% for n in newspapers  %}

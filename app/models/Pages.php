@@ -220,7 +220,10 @@ class Pages extends \App\myPlugins\myModel
         if( $this->isImageUrlNeedParsing()) $this->status = 'HTML';
     }
 
-
+    public function getFocuses()
+    {
+        return Focus::query()->where('page_id = :id:',['id'=>$this->id])->execute();
+    }
 
 
 }

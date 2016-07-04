@@ -5,7 +5,7 @@ class IssuesController extends \App\myPlugins\myController
 
     public function indexAction($page=1)
     {
-        $this->view->page = $this->getPaginator(Issues::find(['order'=>'date DESC']),15,$page);
+        $this->view->page = $this->getPaginator(Issues::find(['order'=>'date DESC,id DESC']),15,$page);
 
     }
     public function showAction(Issues $issue)
@@ -35,6 +35,13 @@ class IssuesController extends \App\myPlugins\myController
         $this->view->page = Pages::findOrNewByPageNumAndIssue($issue->id,['page_num'=>$page_num]);
         $this->view->issue = $issue;
     }
+    public function showFocusAction(Issues $issue,$page_num)
+    {
+        $page = Pages::findOrNewByPageNumAndIssue($issue->id,['page_num'=>$page_num]);
+        $focuses = $page->getFocuses();
+        dd($focuses->toArray());
+    }
+
 
 
 

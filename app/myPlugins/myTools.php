@@ -201,5 +201,11 @@ class myTools
         return implode(' ',$words);
     }
 
+    public function getNewspapers()
+    {
+        return \Newspapers::find();
+    }
+
+
 
 }

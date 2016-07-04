@@ -156,7 +156,7 @@ class Issues extends \App\myPlugins\myModel
     {
         return Pages::query()
             ->where('issue_id = :issue:',['issue'=>$this->id])
-            ->orderBy('page_num')
+            ->orderBy('id ASC')
             ->execute();
     }
 

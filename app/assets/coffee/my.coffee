@@ -92,6 +92,12 @@ $ ->
         $.post url,data
         setTimeout('location.reload();',500)
     e.preventDefault()
+#   添加关注点的显示
+$ ->
+  $('.showFocus').click (e)->
+#    这里需要将来做，看看怎么实现从外部的数据json数据，然后显示在这个跳出的窗口中
+    e.preventDefault()
+
 
 #  设置偏移量 scrollY
 $ ->
