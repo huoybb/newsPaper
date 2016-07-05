@@ -23,10 +23,12 @@ class NewsPaper extends Command
     }
     public function execute(InputInterface $input, OutputInterface $output)
     {
-//        $paper = \Newspapers::findOrNewByName('深圳晶报');
-//        $issues = $paper->getLatestIssuesFromWeb();
-//        dd($issues);
-
+//        $issues = collect(\Issues::find());
+//        $result = $issues->filter(function($key,$issue){
+//            return $issue->newspaper_id == 1;
+//        });
+//
+//        dd($result);
 
         $downloadCount = 0;
         foreach (\Newspapers::find() as $paper){

@@ -9,17 +9,17 @@ require 'vendor/autoload.php';
 /**
  * Read the configuration
  */
-$config = include  "/app/config/config.php";
+$config = include  "app/config/config.php";
 
 /**
  * Read auto-loader
  */
-include  "/app/config/loader.php";
+include  "app/config/loader.php";
 
 /**
  * Read services
  */
-include  "/app/config/services.php";
+include  "app/config/services.php";
 
 
 function getMyEnv()
