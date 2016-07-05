@@ -22,6 +22,7 @@ class TagsController extends \App\myPlugins\myController
 
     public function showFocusAction(Tags $tag, Focus $focus)
     {
+//        dd($focus->getNextFocus($tag)->toArray());
         $this->view->mytag = $tag;
         $this->view->focus = $focus;
     }

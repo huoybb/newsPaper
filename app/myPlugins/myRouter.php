@@ -211,7 +211,7 @@ class myRouter extends Router{
      */
     public function getTableData($filter=null,$order = null)
     {
-        $regex = '|'.$filter.'|';
+        $regex = '|'.$filter.'|i';
         
         $header = ['pattern','path','middleware','httpMethods','name'];
         $content = [];
