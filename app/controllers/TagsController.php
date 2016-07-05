@@ -11,6 +11,7 @@ class TagsController extends \App\myPlugins\myController
     public function showAction(Tags $tag)
     {
 //        dd($tag->getFocus()->toArray());
+//        dd($this->router->getMatchedRoute()->getName());
         $this->view->mytag = $tag;
     }
     public function addCommentAction(Tags $tag)

@@ -96,7 +96,7 @@ class Tags extends \App\myPlugins\myModel
                 $focus->addTagTime = $row->taggables->created_at;
                 $result[] = $focus;
             }
-            return $result;
+            return collect($result);
         });
     }
 

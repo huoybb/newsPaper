@@ -22,7 +22,6 @@ $router->addGet('/issues/page/{page:[0-9]+}','issues::index')->setName('issues.i
 $router->addGet('/issues/{issue:[0-9]+}','issues::show')->setName('issues.show');
 $router->addGet('/issues/{issue:[0-9]+}/delete','issues::delete')->setName('issues.delete');
 $router->addGet('/issues/{issue:[0-9]+}/page/{page_num:[0-9ABab]+}','issues::showPage')->setName('issues.showPage');
-$router->addGet('/issues/{issue:[0-9]+}/page/{page_num:[0-9ABab]+}/showFocus','issues::showFocus')->setName('issues.showFocus');
 
 $router->addGet('/pages/{page:[0-9]+}','pages::show')->setName('pages.show');
 

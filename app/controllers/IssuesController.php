@@ -35,16 +35,6 @@ class IssuesController extends \App\myPlugins\myController
         $this->view->page = Pages::findOrNewByPageNumAndIssue($issue->id,['page_num'=>$page_num]);
         $this->view->issue = $issue;
     }
-    public function showFocusAction(Issues $issue,$page_num)
-    {
-        $page = Pages::findOrNewByPageNumAndIssue($issue->id,['page_num'=>$page_num]);
-        $focuses = $page->getFocuses();
-        dd($focuses->toArray());
-    }
-
-
-
-
 
 }
 

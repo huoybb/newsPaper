@@ -18,23 +18,8 @@
         <a href="#" class="btn btn-danger addComment">添加评论</a>
     </p>
     <div class="row container">
-        <h2>关注点 <span class="badge">{{ mytag.getFocus() | length }}</span></h2>
-        <table class="table table-hover">
-            <tr>
-                <td>#</td>
-                <td>关注点</td>
-                <td>报纸</td>
-                <td>更新</td>
-            </tr>
-            {% for focus in mytag.getFocus()  %}
-                <tr>
-                    <td>{{ loop.index }}</td>
-                    <td><a href="{{ url(['for':'tags.showFocus','tag':mytag.id,'focus':focus.id]) }}">{{ focus.title }}</a></td>
-                    <td><a href="{{ focus.getNewsPaperUrl() }}">{{ focus.getNewsPaperName() }}</a></td>
-                    <td>{{ focus.addTagTime }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+        <h2>关注点 <span class="badge">{{ mytag.getFocus().count() }}</span></h2>
+        {{ partial('layouts/focuslist',['focuses':mytag.getFocus()]) }}
     </div>
     {{ partial('layouts/comments',['commentOwner':mytag]) }}
     <script src="/js/my.js" type="application/javascript"></script>
