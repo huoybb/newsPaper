@@ -31,7 +31,11 @@ class IssuesController extends \App\myPlugins\myController
     public function showPageAction(Issues $issue,$page_num)
     {
 //        if(! $page->src) $page->refreshPicFromWeb();
+//        dd($issue->getFirstPage());
+//        $page = Pages::findOrNewByPageNumAndIssue($issue->id,['page_num'=>$page_num]);
+//        dd($page->getNextPageNum());
         $this->view->page = Pages::findOrNewByPageNumAndIssue($issue->id,['page_num'=>$page_num]);
+
         $this->view->issue = $issue;
     }
 

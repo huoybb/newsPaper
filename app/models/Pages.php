@@ -148,16 +148,33 @@ class Pages extends \App\myPlugins\myModel
     
     public function getNextPageNum()
     {
-        $num = $this->page_num +1;
-        if($num > $this->getIssue()->present()->pages) $num = 1;
-        return $num;
+        $collection = collect($this->getIssue()->getPages());
+        $page_num = $this->page_num;
+        $num = $collection->search(function($item) use($page_num) {
+            return $page_num == $item['page_num'];
+        });
+        $key = $num+1 <  $collection->count() ? $num+1 : 0;
+        return $collection[$key]['page_num'];
+
+//        $num = $this->page_num + 1;
+//        if($num > $this->getIssue()->present()->pages) $num = 1;
+//        return $num;
     }
     public function getPrevPageNum()
     {
-        $num = $this->page_num - 1;
-        if($num == 0) $num = $this->getIssue()->present()->pages;
-        if($num == null) $num =1;//@fixed  当没有下载完全的时候，修正一下
-        return $num;
+        $collection = collect($this->getIssue()->getPages());
+        $page_num = $this->page_num;
+        $num = $collection->search(function($item) use($page_num) {
+            return $page_num == $item['page_num'];
+        });
+        $key = $num-1 >= 0 ? $num-1 : $collection->count() - 1;
+        return $collection[$key]['page_num'];
+
+
+//        $num = $this->page_num - 1;
+//        if($num == 0) $num = $this->getIssue()->present()->pages;
+//        if($num == null) $num =1;//@fixed  当没有下载完全的时候，修正一下
+//        return $num;
     }
 
     public function refreshPicFromWeb()
@@ -201,7 +218,7 @@ class Pages extends \App\myPlugins\myModel
 
     public function isImageUrlNeedParsing()
     {
-        return preg_match('|.+html\s*$|',$this->url);
+        return ! preg_match('%.+(gif)|(png)|(jpe?g)\s*$%i',$this->url);
     }
     private function hasDownloadedImage()
     {

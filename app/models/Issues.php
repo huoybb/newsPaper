@@ -167,7 +167,8 @@ class Issues extends \App\myPlugins\myModel
     {
         return Pages::query()
             ->where('issue_id = :issue:',['issue'=>$this->id])
-            ->andWhere('page_num = :num:',['num'=>1])
+            ->orderBy('page_num ASC')
+            ->limit(1)
             ->execute()->getFirst();
 
     }
