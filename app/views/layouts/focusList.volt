@@ -14,6 +14,8 @@
                 <td>
                     {% if router.getMatchedRoute().getName() is 'tags.show' %}
                         <a href="{{ url(['for':'tags.showFocus','tag':mytag.id,'focus':f.id]) }}">{{ f.title }}</a>
+                    {% elseif router.getMatchedRoute().getName() is 'focus.search' %}
+                        <a href="{{ url(['for':'focus.search.showItem','focus':f.id,'search':search]) }}">{{ f.title }}</a>
                     {% else %}
                         <a href="{{ url(['for':'focus.show','focus':f.id]) }}">{{ f.title }}</a>
                     {% endif %}

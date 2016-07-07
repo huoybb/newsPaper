@@ -61,11 +61,12 @@ class FocusController extends \App\myPlugins\myController
         $this->view->page = $this->getPaginator(Focus::search($search),25,$page);
     }
 
-    
-
-
-
-
+    public function showSearchItemAction($search,Focus $focus)
+    {
+        $focus->setCollection(Focus::search($search));
+        $this->view->focus = $focus;
+        $this->view->search = $search;
+    }
 
     private function getPageIdFromUrl($url)
     {

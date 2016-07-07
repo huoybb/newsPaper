@@ -47,6 +47,11 @@ class Focus extends \App\myPlugins\myModel
      */
     public $updated_at;
 
+    /**
+     * @var null|\Illuminate\Support\Collection
+     */
+    protected $collection = null;
+
     public static function search($search)
     {
         $query = static::query();
@@ -133,6 +138,11 @@ class Focus extends \App\myPlugins\myModel
 
     public function getNextFocus($tag = null)
     {
+        if($this->collection){
+            $key = $this->getCurrentKeyFromCollection();
+            $next = $key+1 < collect($this->collection)->count() ? $key+1 : 0;
+            return $this->collection[$next];
+        }
         $instance = $this->getQuery($tag)
             ->andWhere('Focus.id > :id:',['id'=>$this->id])
             ->orderBy('Focus.id ASC')
@@ -142,6 +152,11 @@ class Focus extends \App\myPlugins\myModel
     }
     public function getPrevFocus($tag = null)
     {
+        if($this->collection){
+            $key = $this->getCurrentKeyFromCollection();
+            $prev = $key > 0  ? $key-1 : collect($this->collection)->count()-1;
+            return $this->collection[$prev];
+        }
         $instance = $this->getQuery($tag)
             ->andWhere('Focus.id < :id:',['id'=>$this->id])
             ->orderBy('Focus.id DESC')
@@ -173,10 +188,17 @@ class Focus extends \App\myPlugins\myModel
 
     }
 
+    public function setCollection($collection)
+    {
+        $this->collection = $collection;
+    }
 
-
-
-
+    private function getCurrentKeyFromCollection()
+    {
+        return collect($this->collection)->search(function($item){
+            return $this->id == $item['id'];
+        });
+    }
 
 
 }
