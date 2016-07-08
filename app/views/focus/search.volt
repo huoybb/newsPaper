@@ -7,14 +7,17 @@
     </ol>
 {% endblock %}
 {% block content %}
-    <h1>关注新闻：<span class="badge">{{ page.total_items }}</span></h1>
+    <h1>搜索：{{ search }}<span class="badge">{{ page.total_items }}</span></h1>
 
-    <nav>
-        <ul class="pager">
-            <li class="previous prev"><a href="{{ url(['for':'focus.index.page','page':page.before]) }}">Previous</a></li>
-            <li class="next"><a href="{{ url(['for':'focus.index.page','page':page.next]) }}">Next</a></li>
-        </ul>
-    </nav>
+
+    {% if page.total_pages > 1 %}
+        <nav>
+            <ul class="pager">
+                <li class="previous prev"><a href="{{ url(['for':'focus.search.page','page':page.before,'search':search]) }}">Previous</a></li>
+                <li class="next"><a href="{{ url(['for':'focus.search.page','page':page.next,'search':search]) }}">Next</a></li>
+            </ul>
+        </nav>
+    {% endif %}
 
     {{ partial('layouts/focuslist',['focuses':myTools.collection(page.items)]) }}
 

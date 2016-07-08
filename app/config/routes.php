@@ -48,6 +48,7 @@ $router->addPost('/tags/{tag:[0-9]+}/focus/{focus:[0-9]+}/addTag','focus::addTag
 $router->addPost('/tags/{tag:[0-9]+}/focus/{focus:[0-9]+}/addComment','focus::addComment')->setName('focus.addComment.under.tags');
 
 $router->addGet('/search/{search:[^/]+}','focus::search')->setName('focus.search');
+$router->addGet('/search/{search:[^/]+}/page/{page:[0-9]+}','focus::search')->setName('focus.search.page');
 $router->addGet('/search/{search:[^/]+}/{focus:[0-9]+}','focus::showSearchItem')->setName('focus.search.showItem');
 
 return $router;
