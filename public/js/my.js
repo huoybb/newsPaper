@@ -96,6 +96,12 @@
   });
 
   $(function() {
+    return $('.showFocus').click(function(e) {
+      return e.preventDefault();
+    });
+  });
+
+  $(function() {
     var Y, match, myregexp;
     myregexp = /http:\/\/newspaper[\s\S]zhaobing\/issues\/[0-9]+\/page\/[0-9]+\?Y=([0-9]+)/m;
     match = myregexp.exec(location.href);

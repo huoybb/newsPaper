@@ -18,5 +18,7 @@
         {% endfor %}
     </div>
     <script src="/js/my.js" type="application/javascript"></script>
+    <script src="/js/tag.filter.js" type="application/javascript"></script>
+
 {% endblock %}
 
