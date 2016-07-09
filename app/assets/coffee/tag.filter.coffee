@@ -4,8 +4,7 @@ $ ->
     $('a.btn')
     .hide()
     .filter ->
-  #    keywords = $(this).text().toUpperCase()+' '+$('a',this).data('keywords').toUpperCase()
-      keywords = $(this).text().toUpperCase()
+      keywords = $(this).text().toUpperCase() + ' '+$(this).data('keywords').toUpperCase()
       keywords.match(key)
     .show()
 

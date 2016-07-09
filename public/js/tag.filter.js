@@ -5,7 +5,7 @@
       key = $.trim($(this).val()).toUpperCase().replace(/\s+/g, "|");
       return $('a.btn').hide().filter(function() {
         var keywords;
-        keywords = $(this).text().toUpperCase();
+        keywords = $(this).text().toUpperCase() + ' ' + $(this).data('keywords').toUpperCase();
         return keywords.match(key);
       }).show();
     });

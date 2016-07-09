@@ -20,6 +20,16 @@ class TagsController extends \App\myPlugins\myController
         $tag->addComment($data);
         return 'success';
     }
+    public function editAction(Tags $tag)
+    {
+        if($this->request->isPost()){
+            $data = $this->request->getPost();
+            $tag->save($data);
+            return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag->id]);
+        }
+        $this->view->mytag = $tag;
+        $this->view->form = (new \App\forms\tagForm($tag))->getForm();
+    }
 
     public function showFocusAction(Tags $tag, Focus $focus)
     {

@@ -14,7 +14,7 @@
     <p>
         <span>赵兵@{{ mytag.created_at.diffForHumans() }} </span>
         <a href="{{ url(['for':'tags.delete','tag':mytag.id]) }}" class="btn btn-default">删除</a>
-        <a href="#" class="btn btn-default">编辑</a>
+        <a href="{{ url(['for':'tags.edit','tag':mytag.id]) }}" class="btn btn-default">编辑</a>
         <a href="#" class="btn btn-danger addComment">添加评论</a>
     </p>
     <div class="row container">

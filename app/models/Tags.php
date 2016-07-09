@@ -14,16 +14,24 @@ class Tags extends \App\myPlugins\myModel
      * @var string
      */
     public $name;
+    /**
+     * @var string
+     */
+    public $description;
+    /**
+     * @var string
+     */
+    public $keywords;
 
     /**
      *
-     * @var string
+     * @var \Carbon\Carbon
      */
     public $created_at;
 
     /**
      *
-     * @var string
+     * @var \Carbon\Carbon
      */
     public $updated_at;
 
@@ -43,7 +51,7 @@ class Tags extends \App\myPlugins\myModel
         $query = static::query()
             ->leftJoin('Taggables','Taggables.tag_id = Tags.id')
             ->groupBy('Tags.id')
-            ->columns(['Tags.id as id','Tags.name AS name','count(Taggables.id) AS count'])
+            ->columns(['Tags.id as id','Tags.name AS name','Tags.keywords AS keywords','count(Taggables.id) AS count'])
             ->orderBy('count DESC');
 
         return $query->execute();

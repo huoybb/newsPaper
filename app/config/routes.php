@@ -42,6 +42,7 @@ $router->addGet('/focus/items/{focus:[0-9]+}/tags/{tag:[0-9]+}/delete','focus::d
 $router->addGet('/tags','tags::index')->setName('tags.index');
 $router->addGet('/tags/{tag:[0-9]+}','tags::show')->setName('tags.show');
 $router->addGet('/tags/{tag:[0-9]+}/delete','tags::delete')->setName('tags.delete');
+$router->add('/tags/{tag:[0-9]+}/edit','tags::edit')->setName('tags.edit');
 $router->addPost('/tags/{tag:[0-9]+}/addComment','tags::addComment')->setName('tags.addComment');
 $router->addGet('/tags/{tag:[0-9]+}/focus/{focus:[0-9]+}','tags::showFocus')->setName('tags.showFocus');
 $router->addPost('/tags/{tag:[0-9]+}/focus/{focus:[0-9]+}/addTag','focus::addTag')->setName('focus.addTag.under.tags');
