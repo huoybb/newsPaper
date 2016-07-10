@@ -10,7 +10,8 @@
 
 {% block content %}
     <h1>标签：{{ mytag.name }}</h1>
-    <pre>    标签的描述，这个需要后续增加</pre>
+    <pre>    {{ mytag.description }}</pre>
+    <div class="row container">关键词：{{ mytag.keywords }}</div>
     <p>
         <span>赵兵@{{ mytag.created_at.diffForHumans() }} </span>
         <a href="{{ url(['for':'tags.delete','tag':mytag.id]) }}" class="btn btn-default">删除</a>

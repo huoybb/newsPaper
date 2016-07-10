@@ -24,6 +24,7 @@
 
                 <li><a href="/focus">关注</a></li>
                 <li><a href="/tags">标签</a></li>
+                <li><a href="/comments">评论</a></li>
             </ul>
 
 
