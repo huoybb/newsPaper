@@ -9,18 +9,21 @@
 namespace App\forms;
 
 
+use App\myPlugins\myForm;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
 
-class issueForm
+class issueForm extends myForm
 {
-    public static function buildForm(){
-        $form = new Form();
-        $form->add(new Text('Issue_Date'))
-            ->add(new Text('Issue_Poster_URL'))
-            ->add(new Text('URL'))
-            ->add(new Submit('Submit'));
-        return $form;
-    }
+    protected $exludedFields = [
+        'created_at',
+        'updated_at',
+        'id',
+        'pages',
+        'newspaper_id',
+        'title',
+        'status',
+    ];
+
 }

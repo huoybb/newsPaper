@@ -28,18 +28,20 @@ class NewspapersController extends \App\myPlugins\myController
     public function addIssueAction(Newspapers $newspaper)
     {
         if($this->request->isPost()){
-            $data = $this->request->getPost();
-            $my = [];
-            $my['date']=\Carbon\Carbon::createFromTimestamp(strtotime($data['Issue_Date']))->toDateString();
-            $my['poster']=$data['Issue_Poster_URL'];
-            $my['title']=$newspaper->title.' '.$data['Issue_Date'];
-            $my['url']=$data['URL'];
-            $my['newspaper_id'] = $newspaper->id;
-            Issues::saveNew($my);
+            $data = $this->getRequestIssueData($this->request->getPost(),$newspaper);
+            Issues::saveNew($data);
             return $this->redirectBack();
         }
-        $this->view->form = \App\forms\issueForm::buildForm();
+        $this->view->form = new \App\forms\issueForm(new Issues());
         $this->view->newspaper = $newspaper;
+    }
+
+    private function getRequestIssueData(array $data, Newspapers $newspaper)
+    {
+        $data['date']=\Carbon\Carbon::createFromTimestamp(strtotime($data['date']))->toDateString();
+        $data['title']=$newspaper->title.' '.$data['date'];
+        $data['newspaper_id'] = $newspaper->id;
+        return $data;
     }
 
 

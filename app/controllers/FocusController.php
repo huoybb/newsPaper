@@ -30,6 +30,18 @@ class FocusController extends \App\myPlugins\myController
         $focus->delete();
         $this->redirectByRoute(['for'=>'focus.index']);
     }
+    
+    public function editAction(Focus $focus)
+    {
+        if($this->request->isPost()){
+            $data = $this->request->getPost();
+            $focus->save($data);
+            $this->redirectByRoute(['for'=>'focus.show','focus'=>$focus->id]);
+        }
+        $this->view->focus = $focus;
+        $this->view->form = new \App\forms\focusForm($focus);
+    }
+    
 
     public function addTagAction(Focus $focus)
     {

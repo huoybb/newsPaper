@@ -12,12 +12,16 @@
                 {{ form(null, "method": "post","id":"comment-form") }}
                 <!--content Form Input-->
                 <div class="form-group">
-                    <lable>Issue Date</lable>
-                    {{ form.render('Issue_Date',['class':'form-control']) }}
-                    <lable>Poster URL</lable>
-                    {{ form.render('Issue_Poster_URL',['class':'form-control']) }}
-                    <lable>Issue URL</lable>
-                    {{ form.render('URL',['class':'form-control']) }}
+                    {% for field in form.fields  %}
+                        <label for="{{ field}}">{{ field}}</label>
+                        {{ form.render(field,['class':'form-control']) }}
+                    {% endfor %}
+                    {#<lable>Issue Date</lable>#}
+                    {#{{ form.render('Issue_Date',['class':'form-control']) }}#}
+                    {#<lable>Poster URL</lable>#}
+                    {#{{ form.render('Issue_Poster_URL',['class':'form-control']) }}#}
+                    {#<lable>Issue URL</lable>#}
+                    {#{{ form.render('URL',['class':'form-control']) }}#}
                     {#{% if errors %}#}
                         {#{% for message in errors.filter('content') %}#}
                             {#<div class="alert alert-danger">{{ message.getMessage() }}</div>#}
@@ -27,7 +31,7 @@
                 </div>
                 <!--Comment Form Submit Button-->
                 <div class="form-group">
-                    {{ form.render('Submit',['class':'btn btn-primary form-control']) }}
+                    {{ form.render('增加',['class':'btn btn-primary form-control']) }}
                 </div>
                 {{ endform() }}
             </div>

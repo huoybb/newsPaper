@@ -28,7 +28,7 @@ class TagsController extends \App\myPlugins\myController
             return $this->redirectByRoute(['for'=>'tags.show','tag'=>$tag->id]);
         }
         $this->view->mytag = $tag;
-        $this->view->form = (new \App\forms\tagForm($tag))->getForm();
+        $this->view->form = new \App\forms\tagForm($tag);
     }
 
     public function showFocusAction(Tags $tag, Focus $focus)
