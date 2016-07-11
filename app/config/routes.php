@@ -54,5 +54,6 @@ $router->addGet('/search/{search:[^/]+}/page/{page:[0-9]+}','focus::search')->se
 $router->addGet('/search/{search:[^/]+}/{focus:[0-9]+}','focus::showSearchItem')->setName('focus.search.showItem');
 
 $router->addGet('/comments','comments::index')->setName('comments.index');
+$router->addGet('/comments/{page:[0-9]+}','comments::index')->setName('comments.index.page');
 
 return $router;

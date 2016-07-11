@@ -77,4 +77,10 @@ class Comments extends \App\myPlugins\myModel
         return parent::findFirst($parameters);
     }
 
+    public function commentable()
+    {
+        $modelName = $this->commentable_type;
+        return $modelName::findFirst($this->commentable_id);
+    }
+
 }

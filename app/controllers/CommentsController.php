@@ -3,10 +3,12 @@
 class CommentsController extends \App\myPlugins\myController
 {
 
-    public function indexAction()
+    public function indexAction($page = 1)
     {
-        $comments = Comments::find(['limit'=>10,'order'=>'id DESC']);
-        dd($comments->toArray());
+        $builder = ModelsManager::createBuilder()->from(Comments::class)->orderBy('id DESC');
+        $page = $this->getPaginatorByQueryBuilder($builder,20,$page);
+        $this->view->comments = $page->items;
+        $this->view->page = $page;
     }
 
 }

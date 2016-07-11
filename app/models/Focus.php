@@ -5,6 +5,7 @@ class Focus extends \App\myPlugins\myModel
 
     use \App\models\taggableTrait;
     use \App\models\CommentableTrait;
+
     /**
      *
      * @var integer
