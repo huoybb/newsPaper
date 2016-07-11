@@ -86,6 +86,10 @@ class abbaocn implements newspaperParserInterface
             $date = Carbon::createFromTimestamp(strtotime($shortDate))->toDateString();
             return $date;
         }
+        if(preg_match('/.+今日.+/',$title)){
+            $date = Carbon::now()->toDateString();
+            return $date;
+        }
         throw new \Exception('Could not parse date info from Parser');
     }
 
