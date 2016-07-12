@@ -28,6 +28,7 @@ class myRouter extends Router{
 
     public $serviceProvider = [];
 
+    protected $stack = [];
     /**
      * myRouter constructor.
      */
@@ -58,10 +59,28 @@ class myRouter extends Router{
     public function addx($pattern,$path,array $middleware=[],$httpMethods = null)//给路由添加中间件
     {
         $route = $this->add($pattern,$path,$httpMethods);
+        if(!empty($this->stack)) $middleware = array_merge($middleware,$this->stack[0]);
         $this->middlewares[$route->getRouteId()]=$middleware;
+
         return $route;
     }
 
+    public function addPost($pattern, $path = null,array $middleware=[] )
+    {
+        return $this->addx($pattern,$path,$middleware,'POST');
+    }
+
+    public function addGet($pattern, $path = null,array $middleware=[] )
+    {
+        return $this->addx($pattern,$path,$middleware,'GET');
+    }
+
+    public function group(array $middleware,$callback)
+    {
+        $this->addMiddlewareToStack($middleware);
+        if(is_callable($callback)) call_user_func($callback,$this);
+        $this->popMiddlewareFromStack();
+    }
 
     /**中间件过滤检查：
      * 1、识别出适用所有路由的中间件，
@@ -252,6 +271,16 @@ class myRouter extends Router{
     {
         if(is_array($this->getMiddleWares($route->getRouteId()))) return '['.implode(',',$this->getMiddleWares($route->getRouteId())).']';
         return null;
+    }
+
+    private function addMiddlewareToStack($middleware)
+    {
+        array_unshift($this->stack,$middleware);
+    }
+
+    private function popMiddlewareFromStack()
+    {
+        array_pop($this->stack);
     }
 
 } 
