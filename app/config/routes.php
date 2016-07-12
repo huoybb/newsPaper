@@ -61,12 +61,4 @@ $router->addx('/login','auth::login')->setName('login');
 $router->addx('/logout','auth::logout')->setName('logout');
 
 
-$router->addGet('/comments','comments::index')->setName('comments.index');
-$router->addGet('/comments/{page:[0-9]+}','comments::index')->setName('comments.index.page');
-
-$router->addx('/login','auth::login')->setName('login');
-$router->addx('/logout','auth::logout')->setName('logout');
-
-
-
 return $router;

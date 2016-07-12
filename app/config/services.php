@@ -15,6 +15,7 @@ $providers = [
     'db'                =>\App\serviceProviders\dbProvider::class,
     'modelsMetadata'    =>\App\serviceProviders\modelsMetadataProvider::class,
     'flash'             =>\App\serviceProviders\flashProvider::class,
+    'crypt'             =>\App\serviceProviders\cryptProvider::class,
     'session'           =>\App\serviceProviders\sessionProvider::class,
     'security'          =>\App\serviceProviders\securityProvider::class,
     'cookies'           =>\App\serviceProviders\cookiesProvider::class,
