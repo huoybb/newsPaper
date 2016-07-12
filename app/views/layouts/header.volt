@@ -35,11 +35,11 @@
                             <li><a href="{{ url(['for':'comments.index']) }}">最新评论</a></li>
                             <li><a href="#">统计数字</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">退出登录</a></li>
+                            <li><a href="{{ url(['for':'logout']) }}">退出登录</a></li>
                         </ul>
                     </li>
                 {% else %}
-                    <li><a href="#">登录</a></li>
+                    <li><a href="{{ url(['for':'login']) }}">登录</a></li>
                     <li><a href="#">注册</a></li>
                 {% endif %}
                 {% if router.getMatchedRoute().getName() is 'issues.showPage' %}

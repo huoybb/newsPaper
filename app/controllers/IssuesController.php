@@ -6,6 +6,7 @@ class IssuesController extends \App\myPlugins\myController
     public function indexAction($page=1)
     {
 //        AuthFacade::loginByUserId(1);
+//        dd($this->di->get('router'));
         $this->view->page = $this->getPaginator(Issues::find(['order'=>'date DESC,id DESC']),15,$page);
     }
     public function showAction(Issues $issue)

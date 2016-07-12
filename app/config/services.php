@@ -16,6 +16,7 @@ $providers = [
     'modelsMetadata'    =>\App\serviceProviders\modelsMetadataProvider::class,
     'flash'             =>\App\serviceProviders\flashProvider::class,
     'session'           =>\App\serviceProviders\sessionProvider::class,
+    'security'          =>\App\serviceProviders\securityProvider::class,
     'cookies'           =>\App\serviceProviders\cookiesProvider::class,
     'router'            =>\App\serviceProviders\routerProvider::class,
     'eventsManager'     =>\App\serviceProviders\eventsManagerProvider::class,

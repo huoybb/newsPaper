@@ -58,4 +58,7 @@ $router->addPost('/search/{search:[^/]+}/focus/{focus:[0-9]+}/addTag','focus::ad
 $router->addGet('/comments','comments::index')->setName('comments.index');
 $router->addGet('/comments/{page:[0-9]+}','comments::index')->setName('comments.index.page');
 
+$router->add('/login','auth::login')->setName('login');
+$router->add('/logout','auth::logout')->setName('logout');
+
 return $router;
