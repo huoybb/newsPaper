@@ -33,10 +33,11 @@ class route extends Command
     {
         $filter = $input->getArgument('filter');
         $order = $input->getOption('order');
-        list($header,$content) = RouterFacade::getTableData($filter,$order);
+        list($header,$content,$total,$filtered) = RouterFacade::getTableData($filter,$order);
         $table = new Table($output);
         $table->setHeaders($header)
             ->setRows($content)
             ->render();
+        $output->writeln("Routes statistics, total:{$total},showed:{$filtered}");
     }
 }

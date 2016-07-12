@@ -46,12 +46,14 @@ $router->addGet('/tags/{tag:[0-9]+}/delete','tags::delete')->setName('tags.delet
 $router->add('/tags/{tag:[0-9]+}/edit','tags::edit')->setName('tags.edit');
 $router->addPost('/tags/{tag:[0-9]+}/addComment','tags::addComment')->setName('tags.addComment');
 $router->addGet('/tags/{tag:[0-9]+}/focus/{focus:[0-9]+}','tags::showFocus')->setName('tags.showFocus');
-$router->addPost('/tags/{tag:[0-9]+}/focus/{focus:[0-9]+}/addTag','focus::addTag')->setName('focus.addTag.under.tags');
-$router->addPost('/tags/{tag:[0-9]+}/focus/{focus:[0-9]+}/addComment','focus::addComment')->setName('focus.addComment.under.tags');
+$router->addPost('/tags/{tag:[0-9]+}/focus/{focus:[0-9]+}/addTag','focus::addTag')->setName('tags.showFocus.addTag');
+$router->addPost('/tags/{tag:[0-9]+}/focus/{focus:[0-9]+}/addComment','focus::addComment')->setName('tags.showFocus.addComment');
 
 $router->addGet('/search/{search:[^/]+}','focus::search')->setName('focus.search');
 $router->addGet('/search/{search:[^/]+}/page/{page:[0-9]+}','focus::search')->setName('focus.search.page');
-$router->addGet('/search/{search:[^/]+}/{focus:[0-9]+}','focus::showSearchItem')->setName('focus.search.showItem');
+$router->addGet('/search/{search:[^/]+}/focus/{focus:[0-9]+}','focus::showSearchItem')->setName('focus.search.showItem');
+$router->addPost('/search/{search:[^/]+}/focus/{focus:[0-9]+}/addComment','focus::addComment')->setName('focus.search.showItem.addComment');
+$router->addPost('/search/{search:[^/]+}/focus/{focus:[0-9]+}/addTag','focus::addTag')->setName('focus.search.showItem.addTag');
 
 $router->addGet('/comments','comments::index')->setName('comments.index');
 $router->addGet('/comments/{page:[0-9]+}','comments::index')->setName('comments.index.page');

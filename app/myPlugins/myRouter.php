@@ -233,7 +233,7 @@ class myRouter extends Router{
             return preg_match($regex,$route['name']);
         });
 
-        return [$header,$content->toArray()];
+        return [$header,$content->toArray(),count($this->getRoutes()),$content->count()];
     }
 
     private function getPathString(array $path)
