@@ -5,7 +5,7 @@
             <li>
                 <div>
             <span>
-                by <a href="#">赵兵</a>
+                by <a href="#">{{ comment.user().name }}</a>
             </span>
                     --
             <span>

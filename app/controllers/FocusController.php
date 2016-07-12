@@ -19,6 +19,7 @@ class FocusController extends \App\myPlugins\myController
     {
         $data = $this->request->getPost();
         $data['page_id'] = $this->getPageIdFromUrl($data['url']);
+        $data['user_id'] = AuthFacade::user()->id;
 
         Focus::saveNew($data)->addMultTags($this->request->getPost('tags'));
 
@@ -27,7 +28,7 @@ class FocusController extends \App\myPlugins\myController
 
     public function deleteAction(Focus $focus)
     {
-        $focus->delete();
+        $focus->delete(); //@todo 需要将其下的东西也一并删除
         $this->redirectByRoute(['for'=>'focus.index']);
     }
     

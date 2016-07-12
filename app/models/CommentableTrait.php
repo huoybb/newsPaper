@@ -33,8 +33,9 @@ trait CommentableTrait
     }
     public function addComment($data)
     {
+        $user = \AuthFacade::user();
         $data = array_merge($data,[
-            'user_id'=>1,//@todo 将来替换成auth的id
+            'user_id'=>$user->id,
             'commentable_type'=>get_class($this),
             'commentable_id'=>$this->id,
         ]);

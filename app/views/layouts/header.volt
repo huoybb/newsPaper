@@ -24,17 +24,31 @@
 
                 <li><a href="/focus">关注</a></li>
                 <li><a href="/tags">标签</a></li>
-                <li><a href="/comments">评论</a></li>
             </ul>
 
-
             <ul class="nav navbar-nav navbar-right">
+
+                {% if auth.isLogin() %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth.user().name }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url(['for':'comments.index']) }}">最新评论</a></li>
+                            <li><a href="#">统计数字</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">退出登录</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="#">登录</a></li>
+                    <li><a href="#">注册</a></li>
+                {% endif %}
                 {% if router.getMatchedRoute().getName() is 'issues.showPage' %}
                     <li><a href="#" class="setFocusAction">设置关注</a></li>
                 {% endif %}
-                    <li><a href="#">注册</a></li>
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
+
                 <li>
                     <form id="search-form" class="navbar-form navbar-left" role="search">
                             {{ text_field("search",'class':'form-control','placeholder':'Search','value':search) }}

@@ -39,7 +39,7 @@
         <h1>关注点：{{ focus.title }}</h1>
         <pre>    {{ focus.description }}</pre>
         <p>
-            <span>赵兵@{{ focus.created_at.diffForHumans() }} </span>
+            <span>{{ focus.user().name }}@{{ focus.created_at.diffForHumans() }} </span>
             <a href="{{ url(['for':'focus.delete','focus':focus.id]) }}" class="btn btn-default">删除</a>
             <a href="{{ url(['for':'focus.edit','focus':focus.id]) }}" class="btn btn-default">编辑</a>
             <a href="#" class="btn btn-danger addTag">添加标签</a>

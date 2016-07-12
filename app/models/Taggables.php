@@ -2,6 +2,7 @@
 
 class Taggables extends \App\myPlugins\myModel
 {
+    use \App\models\belongToUserTrait;
 
     /**
      *
@@ -41,16 +42,19 @@ class Taggables extends \App\myPlugins\myModel
 
     public static function findOrCreateByObjects(Tags $tag,Focus $focus)
     {
+        $user = AuthFacade::user();
         $instance = static::query()
             ->where('tag_id = :tag:',['tag'=>$tag->id])
             ->andWhere('taggable_type = :type:',['type'=>get_class($focus)])
             ->andWhere('taggable_id = :id:',['id'=>$focus->id])
+            ->andWhere('user_id = :user:',['user'=>$user->id])
             ->execute()->getFirst();
         if(! $instance){
             $instance = static::saveNew([
                 'tag_id'        =>$tag->id,
                 'taggable_type' =>get_class($focus),
-                'taggable_id'   =>$focus->id
+                'taggable_id'   =>$focus->id,
+                'user_id'       =>$user->id,
             ]);
         }
         return $instance;

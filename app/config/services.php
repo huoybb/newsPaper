@@ -16,9 +16,12 @@ $providers = [
     'modelsMetadata'    =>\App\serviceProviders\modelsMetadataProvider::class,
     'flash'             =>\App\serviceProviders\flashProvider::class,
     'session'           =>\App\serviceProviders\sessionProvider::class,
+    'cookies'           =>\App\serviceProviders\cookiesProvider::class,
     'router'            =>\App\serviceProviders\routerProvider::class,
     'eventsManager'     =>\App\serviceProviders\eventsManagerProvider::class,
     'dispatcher'        =>\App\serviceProviders\dispatcherProvider::class,
+    'auth'              =>\App\serviceProviders\authProvider::class,
+
 
     //下面是自主加载的服务
     'newspaperparser'   =>\App\serviceProviders\newpaperparserProvider::class,//获取报纸信息的服务；

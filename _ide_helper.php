@@ -253,75 +253,16 @@ namespace {
     }
 
     class AuthFacade extends myFacade {
-
-        public static function save(array $params = []){}
+        public static function login(Users $user){}
+        public static function isLogin(){}
+        public static function logout(){}
         /**
-         * @param Files $file
-         * @return bool
-         */
-        public static function wantToRead(Files $file){}
-        /**
-         * @param Files $file
-         * @return bool
-         */
-        public static function reading(Files $file){}
-        /**
-         * @param Files $file
-         * @return bool
-         */
-        public static function done(Files $file){}
-        /**
-         * @param string $status
-         * @param string $isActive
-         * @return \Phalcon\Mvc\Model\ResultsetInterface
-         */
-        public static function getReadingList($status,$isActive = true){}
-
-        /**
-         *获取当前用户的通知项目
-         * @return \Phalcon\Mvc\Model\Resultset\Complex
-         */
-        public static function getNotifications(){}
-
-        /**获取当前用户的未读通知项目
-         * @return Phalcon\Mvc\Model\Resultset\Complex
-         */
-        public static function getUnreadNotifications(){}
-
-        /**
-         * @param Notification $notification
-         * @return bool
-         */
-        public static function readNotification(Notification $notification){}
-
-        /**
-         * @param Notification $notification
-         * @return string
-         */
-        public static function getNotificationObjectType(Notification $notification){}
-
-        /**
-         * @param \myModel $object
-         * @return boolean
-         */
-        public static function isSubscribedTo(\myModel $object){}
-
-        /**
-         * @return Subscriber[]
-         */
-        public static function getSubscribedObjects(){}
-
-        /**
-         * @param \myModel $$object
          * @return Users
          */
-        public static function subscribe(\myModel $object){}
+        public static function user(){}
+        public static function loginByUserId($user_id,$remember_me = false){}
+        public static function getFacadeAccessor(){}
 
-        /**
-         * @param \myModel $$object
-         * @return Users
-         */
-        public static function unsubscribe(\myModel $object){}
     }
 
     class SecurityFacade extends myFacade{

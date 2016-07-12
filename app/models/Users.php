@@ -1,8 +1,7 @@
 <?php
 
-class Comments extends \App\myPlugins\myModel
+class Users extends \App\myPlugins\myModel
 {
-    use \App\models\belongToUserTrait;
 
     /**
      *
@@ -14,25 +13,13 @@ class Comments extends \App\myPlugins\myModel
      *
      * @var string
      */
-    public $content;
-
-    /**
-     *
-     * @var integer
-     */
-    public $user_id;
+    public $name;
 
     /**
      *
      * @var string
      */
-    public $commentable_type;
-
-    /**
-     *
-     * @var integer
-     */
-    public $commentable_id;
+    public $password;
 
     /**
      *
@@ -47,20 +34,26 @@ class Comments extends \App\myPlugins\myModel
     public $updated_at;
 
     /**
+     *
+     * @var string
+     */
+    public $notes;
+
+    /**
      * Returns table name mapped in the model.
      *
      * @return string
      */
     public function getSource()
     {
-        return 'comments';
+        return 'users';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Comments[]
+     * @return Users[]
      */
     public static function find($parameters = null)
     {
@@ -71,17 +64,11 @@ class Comments extends \App\myPlugins\myModel
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Comments
+     * @return Users
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
-    }
-
-    public function commentable()
-    {
-        $modelName = $this->commentable_type;
-        return $modelName::findFirst($this->commentable_id);
     }
 
 }
