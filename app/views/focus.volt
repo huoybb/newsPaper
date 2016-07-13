@@ -40,10 +40,17 @@
         <pre>    {{ focus.description }}</pre>
         <p>
             <span>{{ focus.user().name }}@{{ focus.created_at.diffForHumans() }} </span>
-            <a href="{{ url(['for':'focus.delete','focus':focus.id]) }}" class="btn btn-default">删除</a>
-            <a href="{{ url(['for':'focus.edit','focus':focus.id]) }}" class="btn btn-default">编辑</a>
-            <a href="#" class="btn btn-danger addTag">添加标签</a>
-            <a href="#" class="btn btn-danger addComment">添加评论</a>
+            {% if gate.allows('delete',focus) %}
+                <a href="{{ url(['for':'focus.delete','focus':focus.id]) }}" class="btn btn-default">删除</a>
+            {% endif %}
+            {% if gate.allows('edit',focus) %}
+                <a href="{{ url(['for':'focus.edit','focus':focus.id]) }}" class="btn btn-default">编辑</a>
+            {% endif %}
+            {% if gate.allows('addTag',auth.user()) AND gate.allows('addComment',auth.user()) %}
+                <a href="#" class="btn btn-danger addTag">添加标签</a>
+                <a href="#" class="btn btn-danger addComment">添加评论</a>
+            {% endif %}
+
         </p>
         {{ partial('layouts/tags',['tagOwner':focus]) }}
         {{ partial('layouts/inlineNews',['scrollTop':focus.Y,'url':focus.getNewsPaperUrl(false),'sourceInfo':focus.getNewsPaperName()]) }}

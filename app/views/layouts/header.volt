@@ -42,7 +42,7 @@
                     <li><a href="{{ url(['for':'login']) }}">登录</a></li>
                     <li><a href="#">注册</a></li>
                 {% endif %}
-                {% if router.getMatchedRoute().getName() is 'issues.showPage' %}
+                {% if gate.allows('addFocus',auth.user()) %}
                     <li><a href="#" class="setFocusAction">设置关注</a></li>
                 {% endif %}
 

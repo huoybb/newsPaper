@@ -44,10 +44,6 @@ class myRouter extends Router{
 
     }
 
-    public function addMiddlewaresForEveryRoute(array $middleware=[])
-    {
-        $this->middlewaresForEveryRoute = $middleware;
-    }
 
     /**
      * 主要是增加了一个中间件的功能，利用short syntax来增加中间件，这样的好处是路由、中间件在一起，便于管理
@@ -60,7 +56,8 @@ class myRouter extends Router{
     {
         $route = $this->add($pattern,$path,$httpMethods);
         if(!empty($this->stack)) $middleware = array_merge($middleware,$this->stack[0]);
-        $this->middlewares[$route->getRouteId()]=$middleware;
+
+        $this->setRouteMiddlewares($route,$middleware);
 
         return $route;
     }
@@ -96,29 +93,10 @@ class myRouter extends Router{
         $route = $this->getMatchedRoute();
         if(null == $route) die('url地址无效，找不到对应的路由设置！');
 
-
-        //对每个路由都进行验证的中间件！
-        foreach($this->middlewaresForEveryRoute as $validator){
-            $data = null;
-            if(preg_match('|.*:.*|',$validator)) {//此处设置了可以带中间件参数
-                list($validator,$data) = explode(':',$validator);
-                $data = $dispatcher->getParam($data);
-            }
-
-            /** @var myValidation $validator */
-            $validator = new $validator;
-
-            if(!in_array($route->getName(),$validator->excludedRoutes) and !$validator->isValid($data)){
-                $url = $validator->getRedirectedUrl();
-//                    dd($url);
-                $response->redirect($url,true);
-                return false;
-            }
-        }
-
         if($this->hasMatchedMiddleWares($route->getRouteId())){
             $middleWares = $this->getMiddleWares($route->getRouteId());
             foreach($middleWares as $validator){
+
                 if($request->isPost()) $data = $request->getPost();
 //                dd($validator);
                 if(preg_match('|[^:]+:[^:]+|',$validator)){
@@ -202,36 +180,15 @@ class myRouter extends Router{
         if(isset($this->serviceProvider[$key])) return $this->serviceProvider[$key];
         return $key;
     }
-//--------------helper functions for Middleware-----------------------------------------
 
-    /**判断是否存在对应的中间件
-     * @param $route_id
-     * @return bool
-     */
-    private function hasMatchedMiddleWares($route_id)
-    {
-        return isset($this->middlewares[$route_id]);
-    }
-
-    /**获得指定的中间件字符串
-     * @param $route_id
-     * @return array
-     *
-     *
-     */
-    private function getMiddleWares($route_id)
-    {
-        if(isset($this->middlewares[$route_id])) return $this->middlewares[$route_id];
-        return null;
-    }
-
+//---------------命令行中的关于路由的表格生成所需数据-----------
     /**
      * @return array
      */
     public function getTableData($filter=null,$order = null)
     {
         $regex = '|'.$filter.'|i';
-        
+
         $header = ['pattern','path','middleware','httpMethods','name'];
         $content = [];
         foreach($this->getRoutes() as $route){
@@ -253,6 +210,28 @@ class myRouter extends Router{
         });
 
         return [$header,$content->toArray(),count($this->getRoutes()),$content->count()];
+    }
+//--------------helper functions for Middleware-----------------------------------------
+
+    /**判断是否存在对应的中间件
+     * @param $route_id
+     * @return bool
+     */
+    private function hasMatchedMiddleWares($route_id)
+    {
+        return isset($this->middlewares[$route_id]);
+    }
+
+    /**获得指定的中间件字符串
+     * @param $route_id
+     * @return array
+     *
+     *
+     */
+    private function getMiddleWares($route_id)
+    {
+        if(isset($this->middlewares[$route_id])) return $this->middlewares[$route_id];
+        return null;
     }
 
     private function getPathString(array $path)
@@ -281,6 +260,12 @@ class myRouter extends Router{
     private function popMiddlewareFromStack()
     {
         array_pop($this->stack);
+    }
+
+    private function setRouteMiddlewares(Router\RouteInterface $route, $middleware)
+    {
+        $this->middlewares[$route->getRouteId()]=$middleware;
+        return $this;
     }
 
 } 

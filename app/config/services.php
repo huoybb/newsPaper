@@ -23,6 +23,7 @@ $providers = [
     'eventsManager'     =>\App\serviceProviders\eventsManagerProvider::class,
     'dispatcher'        =>\App\serviceProviders\dispatcherProvider::class,
     'auth'              =>\App\serviceProviders\authProvider::class,
+    'gate'              =>\App\serviceProviders\gateProvider::class,
 
 
     //下面是自主加载的服务
