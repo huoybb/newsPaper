@@ -38,10 +38,10 @@ class myAuth implements InjectionAwareInterface
         return $this;
     }
 
-    public function login(Users $user)
+    public function login(Users $user,$rememberMe = false)
     {
         $this->user = $user;
-        $this->registerSession($user);
+        $this->registerSession($user,$rememberMe);
         return $this;
     }
     public function isLogin()

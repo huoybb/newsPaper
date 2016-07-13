@@ -5,10 +5,6 @@ class IssuesController extends \App\myPlugins\myController
 
     public function indexAction($page=1)
     {
-//        AuthFacade::loginByUserId(1);
-//        dd($this->di->get('router'));
-//        CookieFacade::set('myName','赵兵',0);
-//        dd(CookieFacade::get('myName'));
         $this->view->page = $this->getPaginator(Issues::find(['order'=>'date DESC,id DESC']),15,$page);
     }
     public function showAction(Issues $issue)

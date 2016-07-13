@@ -253,7 +253,7 @@ namespace {
     }
 
     class AuthFacade extends myFacade {
-        public static function login(Users $user){}
+        public static function login(Users $user,$rememberMe = false){}
         public static function isLogin(){}
         public static function logout(){}
         /**

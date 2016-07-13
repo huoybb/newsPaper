@@ -10,7 +10,7 @@ class AuthController extends \App\myPlugins\myController
             $password = $this->request->get('password');
             $user = Users::findFirst(['name = "'.$name.'"']);
             if( $user AND $this->security->checkHash($password,$user->password)){
-                AuthFacade::login($user);
+                AuthFacade::login($user,true);
                 FlashFacade::success("欢迎{$user->name}回来");
                 return $this->redirectByRoute(['for'=>'home']);
             }

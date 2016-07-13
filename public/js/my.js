@@ -103,7 +103,7 @@
 
   $(function() {
     var Y, match, myregexp;
-    myregexp = /http:\/\/newspaper[\s\S]zhaobing\/issues\/[0-9]+\/page\/[0-9]+\?Y=([0-9]+)/m;
+    myregexp = /\/issues\/[0-9]+\/page\/[0-9A-Z]+\?Y=([0-9]+)/m;
     match = myregexp.exec(location.href);
     if (match !== null) {
       Y = match[1];
