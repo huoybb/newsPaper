@@ -9,14 +9,11 @@ use App\myPlugins\myGate;
 
 $gate = new myGate();
 $policies = [
-    Focus::class => \App\policies\focusPolicy::class,
-    Users::class =>\App\policies\userPolicy::class,
-//    Comments::class     =>  \policies\commentsPolicy::class,
-//    Tags::class         =>  \policies\tagsPolicy::class,
-
-
+    Focus::class        =>  \App\policies\focusPolicy::class,
+    Users::class        =>  \App\policies\userPolicy::class,
+    Comments::class     =>  \App\policies\commentPolicy::class,
+    Tags::class         =>  \App\policies\tagPolicy::class,
 ];
-
 
 $gate->register($policies);
 

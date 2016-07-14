@@ -1,5 +1,7 @@
 {% extends 'focus.volt' %}
-
+{% block pageTitle %}
+    关注：{{ focus.title }}
+{% endblock %}
 {% block breadcrumbs %}
     <ol class="breadcrumb">
         <li><a href="{{ url(['for':'home']) }}">Home</a></li>

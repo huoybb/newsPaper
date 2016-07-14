@@ -8,21 +8,51 @@
 {% endblock %}
 
 {% block content %}
-    <h1>登录</h1>
 
-{{ form('method': 'post') }}
-    <div class="form-group">
-        <label for="name">Name</label>
-        {{ text_field("name", "size": 32,'class':'form-control') }}
 
-        <label for="password">Password</label>
-        {{ password_field("password", "size": 30,'class':'form-control') }}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Login</div>
+                <div class="panel-body">
+                    {{ flash.output() }}
+                    {{ form("method": "post","class":"form-horizontal","role":"form") }}
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Name</label>
+                        <div class="col-md-6">
+                            {{ form.render('name',['class':"form-control"]) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Password</label>
+                        <div class="col-md-6">
+                            {{ form.render('password',['class':"form-control"]) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            <div class="checkbox">
+                                <label>
+                                    {{ form.render('remember') }} Remember Me
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            {{ form.render('Login',['class':"btn btn-primary"]) }}
+                            <a class="btn btn-link" href="#">Forgot Your Password?</a>
+                        </div>
+                    </div>
+                    {{ endform() }}
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        {{ submit_button('确认','class':'btn btn-primary form-control') }}
-    </div>
 
-{{ endform() }}
 
     <script src="/js/my.js" type="application/javascript"></script>
 {% endblock %}

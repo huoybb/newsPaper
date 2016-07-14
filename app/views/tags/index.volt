@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>标签汇总</h1>
+    <h1>标签汇总 <span class="badge">{{ tags.count() }}</span></h1>
     <div class="row">
         {% for mytag in tags %}
             <a href="{{ url(['for':'tags.show','tag':mytag.id]) }}" class="btn btn-default" data-keywords="{{ mytag.keywords }}">

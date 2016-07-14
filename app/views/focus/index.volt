@@ -1,4 +1,7 @@
 {% extends 'index.volt' %}
+{% block pageTitle %}
+    我的报纸-关注新闻列表
+{% endblock %}
 {% block breadcrumbs %}
     <ol class="breadcrumb">
         <li><a href="{{ url(['for':'home']) }}">Home</a></li>

@@ -11,10 +11,10 @@
             <span>
                 at: {{ comment.updated_at.diffForHumans() }}
             </span>
-                    {#{% if auth.has(comment) %}#}
+                    {% if gate.allows('editAndDelete',comment) %}
                         <span><a href="#">edit</a></span>
                         <span><a href="#">delete</a></span>
-                    {#{% endif %}#}
+                    {% endif %}
                 </div>
                 <div>
                     {{comment.content|nl2br}}
