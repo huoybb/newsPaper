@@ -96,28 +96,8 @@ class myRouter extends Router{
         if($this->hasMatchedMiddleWares($route->getRouteId())){
             $middleWares = $this->getMiddleWares($route->getRouteId());
             foreach($middleWares as $validator){
-
-                if($request->isPost()) $data = $request->getPost();
-//                dd($validator);
-                if(preg_match('|[^:]+:[^:]+|',$validator)){
-                    list($validator,$data) = explode(':',$validator);
-                    $data = $dispatcher->getParam($data);
-                }
-
-                if(preg_match('|.*Rules$|',$validator)){
-                    if(!$request->isPost()) continue;//避免出现get下的错误
-                    $rules = new $validator();
-                    $validator = (new myValidation())->take($rules);
-                }else{
-                    $validator = new $validator();
-                }
-
-                if(!$validator->isValid($data)){
-                    $url = $validator->getRedirectedUrl();
-//                    dd($url);
-                    $response->redirect($url,true);
-                    return false;
-                }
+                $validator = new $validator;
+                if(! $validator->isValid()) return false;
             }
         }
         return true;
