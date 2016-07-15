@@ -10,8 +10,10 @@
     <div class="page-header">
         <h1>{{ issue.present().title }}</h1>
         操作：
-        <a href="{{ url(['for':'issues.delete','issue':issue.id]) }}">删除</a>
-        <a href="{{ url(['for':'fromWeb.updateIssue','issue':issue.id]) }}">更新</a>
+        {% if gate.allows('deleteAndUpdate',issue) %}
+            <a href="{{ url(['for':'issues.delete','issue':issue.id]) }}">删除</a>
+            <a href="{{ url(['for':'fromWeb.updateIssue','issue':issue.id]) }}">更新</a>
+        {% endif %}
         <a href="{{ issue.url }}">网站</a>
     </div>
 

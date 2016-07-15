@@ -13,6 +13,7 @@ $policies = [
     Users::class        =>  \App\policies\userPolicy::class,
     Comments::class     =>  \App\policies\commentPolicy::class,
     Tags::class         =>  \App\policies\tagPolicy::class,
+    Issues::class       =>  \App\policies\issuePolicy::class,
 ];
 
 $gate->register($policies);
