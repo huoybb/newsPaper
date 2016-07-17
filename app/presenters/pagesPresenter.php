@@ -25,7 +25,9 @@ class pagesPresenter extends myPresenter
 
     public function showfileName()
     {
-        return basename($this->entity->src);
+        $filename = basename($this->entity->src);
+        $filename = $result = preg_replace('/([0-9a-z]+)\.[a-z]+/sm', '$1', $filename);
+        return $filename;
     }
 
 
