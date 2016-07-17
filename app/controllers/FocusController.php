@@ -83,7 +83,7 @@ class FocusController extends \App\myPlugins\myController
 
     private function getPageIdFromUrl($url)
     {
-        if (preg_match('%http://newspaper.zhaobing/issues/([0-9]+)/page/([AB0-9]+)%sm', $url, $regs)) {
+        if (preg_match('%/issues/([0-9]+)/page/([A-Z0-9]+)%sm', $url, $regs)) {
             $issue = $regs[1];
             $page_num = $regs[2];
             $page = Pages::findOrNewByPageNumAndIssue($issue,['page_num'=>$page_num]);
