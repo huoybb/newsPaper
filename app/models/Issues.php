@@ -154,10 +154,12 @@ class Issues extends \App\myPlugins\myModel
      */
     public function getPages()
     {
-        return Pages::query()
-            ->where('issue_id = :issue:',['issue'=>$this->id])
-            ->orderBy('id ASC')
-            ->execute();
+        return $this->make('pages',function(){
+            return Pages::query()
+                ->where('issue_id = :issue:',['issue'=>$this->id])
+                ->orderBy('id ASC')
+                ->execute();
+        });
     }
 
     /**
@@ -218,5 +220,16 @@ class Issues extends \App\myPlugins\myModel
     {
         return $this->poster && ! preg_match('|^public|',$this->poster);
     }
+
+    public function getFocuses()
+    {
+        return Focus::query()
+            ->leftJoin('Pages','page_id = Pages.id')
+            ->leftJoin('Issues','Issues.id = Pages.issue_id')
+            ->where('Issues.id = :id:',['id'=>$this->id])
+            ->orderBy('Pages.id')
+            ->execute();
+    }
+
 
 }

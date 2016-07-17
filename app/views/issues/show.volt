@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
     <div class="page-header">
-        <h1>{{ issue.present().title }}</h1>
+        <h1>{{ issue.present().title }} 共{{ issue.getPages().count() }}版</h1>
         操作：
         {% if gate.allows('deleteAndUpdate',issue) %}
             <a href="{{ url(['for':'issues.delete','issue':issue.id]) }}">删除</a>
@@ -18,6 +18,7 @@
     </div>
 
     <hr>
+    {{ partial('layouts/focusList',['focuses':issue.getFocuses()]) }}
     <div class="row">
         <div class="container">
             {% for page in issue.getPages()  %}
@@ -30,4 +31,5 @@
             {% endfor %}
         </div>
     </div>
+    <script src="/js/my.js" type="application/javascript"></script>
 {% endblock %}

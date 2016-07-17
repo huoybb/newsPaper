@@ -32,7 +32,8 @@ class myAuth implements InjectionAwareInterface
             $this->loginByUserId($this->session->get('auth'));
         }else{
             if($this->cookies->has('auth')){
-                $this->loginByUserId($this->cookies->get('auth')->getValue());
+                $this->loginByUserId($this->cookies->get('auth')->getValue(),true);
+                \FlashFacade::notice('欢迎'.$this->user()->name.'回来');
             }
         }
         return $this;

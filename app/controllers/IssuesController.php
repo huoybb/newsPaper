@@ -12,6 +12,7 @@ class IssuesController extends \App\myPlugins\myController
 //        $issue->delete();
 //        set_time_limit(0);
 //        $issue->getPagesFromWeb();
+//        dd($issue->getFocuses()->toArray());
         $this->view->issue = $issue;
     }
 
