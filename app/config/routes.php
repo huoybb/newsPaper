@@ -57,6 +57,8 @@ $router->group([isLogin::class],function(myRouter $router){
 
     $router->addGet('/comments','comments::index')->setName('comments.index');
     $router->addGet('/comments/{page:[0-9]+}','comments::index')->setName('comments.index.page');
+    $router->addGet('/comments/item/{comment:[0-9]+}/delete','comments::delete')->setName('comments.delete');
+    $router->addx('/comments/item/{comment:[0-9]+}/edit','comments::edit')->setName('comments.edit');
 
     $router->addx('/logout','auth::logout')->setName('logout');
 

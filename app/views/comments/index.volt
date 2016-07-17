@@ -18,7 +18,12 @@
                             <a href="{{ commentRow.commentable().present().url }}">
                                 {{ commentRow.commentable().present().title }}
                             </a>
-                            <span>@ {{ commentRow.updated_at.diffForHumans() }}</span></h4>
+                            <span>@ {{ commentRow.updated_at.diffForHumans() }}</span>
+                        {% if gate.allows('editAndDelete',commentRow) %}
+                            <span><a href="{{ url(['for':'comments.edit','comment':commentRow.id]) }}">编辑</a></span>
+                            <span><a href="{{ url(['for':'comments.delete','comment':commentRow.id]) }}">删除</a></span>
+                        {% endif %}
+                        </h4>
                     </div>
                     <div>
                         <pre>{{commentRow.content|nl2br}}</pre>

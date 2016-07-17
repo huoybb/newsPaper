@@ -12,8 +12,8 @@
                 at: {{ comment.updated_at.diffForHumans() }}
             </span>
                     {% if gate.allows('editAndDelete',comment) %}
-                        <span><a href="#">edit</a></span>
-                        <span><a href="#">delete</a></span>
+                        <span><a href="{{ url(['for':'comments.edit','comment':comment.id]) }}">edit</a></span>
+                        <span><a href="{{ url(['for':'comments.delete','comment':comment.id]) }}">delete</a></span>
                     {% endif %}
                 </div>
                 <div>

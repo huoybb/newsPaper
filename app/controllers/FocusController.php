@@ -54,7 +54,8 @@ class FocusController extends \App\myPlugins\myController
     {
         $data = $this->request->getPost();
         $focus->addComment($data);
-        return 'success';
+        if($this->request->isAjax()) return 'success';
+        return $this->redirectBack();
     }
 
     public function showTagsAction(Focus $focus)

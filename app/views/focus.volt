@@ -54,6 +54,7 @@
         </p>
         {{ partial('layouts/tags',['tagOwner':focus]) }}
         {{ partial('layouts/inlineNews',['scrollTop':focus.Y,'url':focus.getNewsPaperUrl(false),'sourceInfo':focus.getNewsPaperName()]) }}
+        {{ partial('layouts/commentform') }}
         {{ partial('layouts/comments',['commentOwner':focus]) }}
 
         {% block nav %}{% endblock %}

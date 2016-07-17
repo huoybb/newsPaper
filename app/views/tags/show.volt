@@ -26,6 +26,7 @@
         <h2>关注点 <span class="badge">{{ mytag.getFocus().count() }}</span></h2>
         {{ partial('layouts/focuslist',['focuses':mytag.getFocus()]) }}
     </div>
+    {{ partial('layouts/commentform') }}
     {{ partial('layouts/comments',['commentOwner':mytag]) }}
     <script src="/js/my.js" type="application/javascript"></script>
 {% endblock %}

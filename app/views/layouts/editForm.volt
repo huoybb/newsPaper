@@ -2,7 +2,11 @@
     {% for item in form.fields %}
         <div class="form-group">
             <label for="{{ item }}">{{ item }}</label>
-            {{ form.render(item,['class':'form-control']) }}<br/>
+            {% if true %}
+                {{ form.render(item,['class':'form-control','rows':4]) }}<br/>
+            {% else %}
+                {{ form.render(item,['class':'form-control']) }}<br/>
+            {% endif %}
         </div>
     {% endfor %}
     <div class="form-group">

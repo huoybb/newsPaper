@@ -18,7 +18,8 @@ class TagsController extends \App\myPlugins\myController
     {
         $data = $this->request->getPost();
         $tag->addComment($data);
-        return 'success';
+        if($this->request->isAjax()) return 'success';
+        return $this->redirectBack();
     }
     public function editAction(Tags $tag)
     {
