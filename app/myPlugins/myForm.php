@@ -18,6 +18,7 @@ use Tags;
 class myForm extends Form
 {
     protected $exludedFields = [];
+    protected $only = [];
 
     /**
      * tagForm constructor.
@@ -34,14 +35,12 @@ class myForm extends Form
         $fields = [];
         $metaDataTypes = $model->getModelsMetaData()->getDataTypes($model);
         foreach ($metaDataTypes as $column => $dataType) {
-            if (!in_array($column, $this->exludedFields)) {
-                if ($dataType <> 6) {
-                    $this->add(new Text($column));
-                } else {
-                    $this->add(new TextArea($column));
+            if(count($this->only)){
+                if(in_array($column, $this->only)){
+                    $fields[] = $this->addElement($column,$dataType);
                 }
-
-                $fields[] = $column;
+            }elseif(!in_array($column, $this->exludedFields)) {
+                $fields[] = $this->addElement($column,$dataType);
             };
         }
 
@@ -52,5 +51,16 @@ class myForm extends Form
         } else {
             $this->add(new Submit('增加'));
         }
+    }
+
+    private function addElement($column, $dataType)
+    {
+        if ($dataType <> 6) {
+            $this->add(new Text($column));
+        } else {
+            $this->add(new TextArea($column));
+        }
+
+        return $column;
     }
 }

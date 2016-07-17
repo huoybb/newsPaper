@@ -13,10 +13,9 @@ use App\myPlugins\myForm;
 
 class focusForm extends myForm
 {
-    protected $exludedFields = [
-        'created_at',
-        'updated_at',
-        'id',
-        'page_id',
+    protected $only = [
+        'title',
+        'description',
+        'Y',
     ];
 }
