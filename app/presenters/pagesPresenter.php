@@ -23,4 +23,10 @@ class pagesPresenter extends myPresenter
         return '参考消息  '.$this->entity->getIssue()->present()->date.' 第'.$this->entity->page_num.'版';
     }
 
+    public function showfileName()
+    {
+        return basename($this->entity->src);
+    }
+
+
 }
