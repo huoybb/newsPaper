@@ -27,6 +27,9 @@
                         <img src="{{ page.present().src }}" alt="Poster" class="Card__image">
                     </a>
                     <span>第{{ page.page_num }}版</span>
+                    {% if page.hasColumn() %}
+                        <span><a href="#">{{ page.present().columnTitle }}</a></span>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>

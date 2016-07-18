@@ -54,6 +54,24 @@ $ ->
         url = '/focus/add'
         $.post url,data
     e.preventDefault()
+
+#   设置报纸版面栏目名称
+$ ->
+  $('.setPageTitleAction').click (e)->
+    vex.dialog.open
+      message:'请输入版面栏目的名称'
+      input:"""
+          <input name="colunmTitle" type="text" placeholder="版面栏目标题" required />
+        """
+      buttons: [
+        $.extend({}, vex.dialog.buttons.YES, text: '确定')
+        $.extend({}, vex.dialog.buttons.NO, text: '取消')
+      ]
+      callback: (data) ->
+        return console.log('Cancelled') if data is false
+        url = location.href + '/addPageTitle'
+        $.post url,data
+    e.preventDefault()
 #    添加标签
 $ ->
   $('.addTag').click (e)->

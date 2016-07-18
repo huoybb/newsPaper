@@ -39,6 +39,18 @@ class IssuesController extends \App\myPlugins\myController
 
         $this->view->issue = $issue;
     }
+    public function addPageTitleAction(Issues $issue,$page_num)
+    {
+        $newspaper = $issue->getNewsPaper();
+        $columnTitle = $this->request->get('colunmTitle');
+        $column = Columns::findOrNewByNewspaperAndTitle($newspaper,$columnTitle);
+
+        $page = Pages::findOrNewByPageNumAndIssue($issue->id,['page_num'=>$page_num]);
+        $page->save(['column_id'=>$column->id]);
+        if($this->request->isAjax()) return 'success';
+        return $this->redirectBack();
+    }
+
 
 }
 

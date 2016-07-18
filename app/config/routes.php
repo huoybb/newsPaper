@@ -22,6 +22,7 @@ $router->group([isLogin::class],function(myRouter $router){
     $router->addGet('/issues/{issue:[0-9]+}','issues::show')->setName('issues.show');
     $router->addGet('/issues/{issue:[0-9]+}/delete','issues::delete')->setName('issues.delete');
     $router->addGet('/issues/{issue:[0-9]+}/page/{page_num:[0-9A-Za-z]+}','issues::showPage')->setName('issues.showPage');
+    $router->addPost('/issues/{issue:[0-9]+}/page/{page_num:[0-9A-Za-z]+}/addPageTitle','issues::addPageTitle')->setName('issues.addPageTitle');
 
     $router->addGet('/pages/{page:[0-9]+}','pages::show')->setName('pages.show');
 

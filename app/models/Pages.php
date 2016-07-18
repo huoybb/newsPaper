@@ -39,6 +39,12 @@ class Pages extends \App\myPlugins\myModel
      */
     public $status;
     /**
+     * 报纸栏目的id
+     * @var integer
+     */
+    public $column_id;
+
+    /**
      *
      * @var \Carbon\Carbon
      */
@@ -241,6 +247,17 @@ class Pages extends \App\myPlugins\myModel
     {
         return Focus::query()->where('page_id = :id:',['id'=>$this->id])->execute();
     }
+
+    public function hasColumn()
+    {
+        return (bool) $this->column_id;
+    }
+    public function getColumn()
+    {
+        return Columns::findFirst($this->column_id);
+    }
+
+
 
 
 }

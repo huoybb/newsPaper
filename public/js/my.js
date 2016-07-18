@@ -42,6 +42,31 @@
   });
 
   $(function() {
+    return $('.setPageTitleAction').click(function(e) {
+      vex.dialog.open({
+        message: '请输入版面栏目的名称',
+        input: "<input name=\"colunmTitle\" type=\"text\" placeholder=\"版面栏目标题\" required />",
+        buttons: [
+          $.extend({}, vex.dialog.buttons.YES, {
+            text: '确定'
+          }), $.extend({}, vex.dialog.buttons.NO, {
+            text: '取消'
+          })
+        ],
+        callback: function(data) {
+          var url;
+          if (data === false) {
+            return console.log('Cancelled');
+          }
+          url = location.href + '/addPageTitle';
+          return $.post(url, data);
+        }
+      });
+      return e.preventDefault();
+    });
+  });
+
+  $(function() {
     return $('.addTag').click(function(e) {
       vex.dialog.open({
         message: '请输入标签名称',
