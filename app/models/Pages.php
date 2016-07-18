@@ -254,7 +254,9 @@ class Pages extends \App\myPlugins\myModel
     }
     public function getColumn()
     {
-        return Columns::findFirst($this->column_id);
+        return $this->make('column',function (){
+            return Columns::findFirst($this->column_id);
+        });
     }
 
 

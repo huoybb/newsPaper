@@ -19,20 +19,6 @@
 
     <hr>
     {{ partial('layouts/focusList',['focuses':issue.getFocuses()]) }}
-    <div class="row">
-        <div class="container">
-            {% for page in issue.getPages()  %}
-                <div class="Card">
-                    <a href="{{ url(['for':'issues.showPage','issue':issue.id,'page_num':page.page_num]) }}">
-                        <img src="{{ page.present().src }}" alt="Poster" class="Card__image">
-                    </a>
-                    <span>第{{ page.page_num }}版</span>
-                    {% if page.hasColumn() %}
-                        <span><a href="#">{{ page.present().columnTitle }}</a></span>
-                    {% endif %}
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+    {{ partial('layouts/pageList2',['pages':issue.getPages()]) }}
     <script src="/js/my.js" type="application/javascript"></script>
 {% endblock %}

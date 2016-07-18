@@ -78,4 +78,27 @@ class Columns extends \App\myPlugins\myModel
         return parent::findFirst($parameters);
     }
 
+    public function getNewsPaper()
+    {
+        return $this->make('newspaper',function(){
+            return Newspapers::findFirst($this->newspaper_id);
+        });
+    }
+
+    /**
+     * @return Pages
+     */
+    public function getPages()
+    {
+        return $this->make('pages',function (){
+            return Pages::query()
+                ->leftJoin('Issues','Issues.id = Pages.issue_id')
+                ->where('column_id = :column:',['column'=>$this->id])
+                ->orderBy('Issues.date DESC')
+                ->execute();
+        });
+    }
+
+
+
 }
