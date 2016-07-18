@@ -57,9 +57,16 @@ class Pages extends \App\myPlugins\myModel
     public $updated_at;
 
     /**
+     * 翻页循环的collection
+     * @var \Illuminate\Support\Collection
+     */
+    protected $collection = null;
+    /**
      * @param $url
      * @return Pages
      */
+
+
     public static function findOrNewByUrl($url)
     {
         $instance = static::query()
@@ -135,11 +142,28 @@ class Pages extends \App\myPlugins\myModel
      */
     public function nextPage()
     {
+        if($this->collection){
+            $id = $this->id;
+            $num = $this->collection->search(function($item) use($id){
+                return $id == $item['id'];
+            });
+            $key = $num+1 <  $this->collection->count() ? $num+1 : 0;
+            return (object)$this->collection[$key];
+        }
+
         return $this->getPageByPageNum($this->getNextPageNum());
     }
 
     public function prevPage()
     {
+        if($this->collection){
+            $id = $this->id;
+            $num = $this->collection->search(function($item) use($id){
+                return $id == $item['id'];
+            });
+            $key = $num-1 >= 0 ? $num-1 : $this->collection->count() - 1;
+            return (object)$this->collection[$key];
+        }
         return $this->getPageByPageNum($this->getPrevPageNum());
     }
 
@@ -154,6 +178,8 @@ class Pages extends \App\myPlugins\myModel
     
     public function getNextPageNum()
     {
+
+
         $collection = collect($this->getIssue()->getPages());
         $page_num = $this->page_num;
         $num = $collection->search(function($item) use($page_num) {
@@ -168,6 +194,7 @@ class Pages extends \App\myPlugins\myModel
     }
     public function getPrevPageNum()
     {
+
         $collection = collect($this->getIssue()->getPages());
         $page_num = $this->page_num;
         $num = $collection->search(function($item) use($page_num) {
@@ -258,6 +285,15 @@ class Pages extends \App\myPlugins\myModel
             return Columns::findFirst($this->column_id);
         });
     }
+
+    /**
+     *设置翻页的collection，
+     */
+    public function setCollection($collection)
+    {
+        $this->collection  = collect($collection);
+    }
+
 
 
 

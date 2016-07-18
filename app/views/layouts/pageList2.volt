@@ -5,8 +5,8 @@
                 <a href="
                 {% if router.getMatchedRoute().getName() is 'issues.show' %}
                    {{ url(['for':'issues.showPage','issue':issue.id,'page_num':page.page_num]) }}
-                {% else %}
-                    #
+                {% elseif router.getMatchedRoute().getName() is 'columns.show' %}
+                    {{ url(['for':'columns.showPage','column':column.id,'page':page.id]) }}
                 {% endif %}
                 ">
                     <img src="{{ page.present().src }}" alt="Poster" class="Card__image">

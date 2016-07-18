@@ -64,6 +64,7 @@ $router->group([isLogin::class],function(myRouter $router){
     $router->addx('/logout','auth::logout')->setName('logout');
 
     $router->addGet('/columns/{column:[0-9]+}','columns::show')->setName('columns.show');
+    $router->addGet('/columns/{column:[0-9]+}/page/{page:[0-9]+}','columns::showPage')->setName('columns.showPage');
 
 });
 

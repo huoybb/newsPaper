@@ -9,6 +9,14 @@ class ColumnsController extends \App\myPlugins\myController
         $this->view->column = $column;
     }
 
+    public function showPageAction(Columns $column, Pages $page)
+    {
+        $page->setCollection($column->getPages());
+        $this->view->column = $column;
+        $this->view->page = $page;
+    }
+
+
 
 }
 
