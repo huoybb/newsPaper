@@ -2,6 +2,7 @@
 namespace App\myPlugins;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use Pages;
 
 /**
  * 这个对象将常见的一些工具集成在这个对象中
@@ -209,6 +210,15 @@ class myTools
     {
         return collect($vars);
     }
+
+    public static function getColumns(Pages $page)
+    {
+        $Issue = $page->getIssue();
+        return \Columns::query()
+            ->where('newspaper_id = :id:',['id'=>$Issue->newspaper_id])
+            ->execute();
+    }
+
 
 
 

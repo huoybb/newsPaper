@@ -44,8 +44,9 @@
                 {% endif %}
                 {% if gate.allows('addFocus',auth.user()) %}
                     <li><a href="#" class="setFocusAction">设置关注</a></li>
-                    <li><a href="#" class="setPageTitleAction">设置栏目名称</a></li>
-
+                {% endif %}
+                {% if gate.allows('setColumnName',auth.user()) %}
+                    <li><a href="#" class="setPageTitleAction">设置栏目</a></li>
                 {% endif %}
 
             </ul>

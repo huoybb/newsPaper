@@ -142,4 +142,14 @@ class Newspapers extends \App\myPlugins\myModel
         return [$this->title,$total,$DONE,$TBD];
     }
 
+    public function getColumns()
+    {
+        return $this->make('columns',function(){
+            return Columns::query()
+                ->where('newspaper_id = :id:',['id'=>$this->id])
+                ->execute();
+        });
+    }
+
+
 }

@@ -17,8 +17,16 @@ class userPolicy
 {
     public function addFocus($auth,\Users $user)
     {
-        return $user && \RouterFacade::getMatchedRoute()->getName() == 'issues.showPage';
+        $routeName = \RouterFacade::getMatchedRoute()->getName();
+        return $user && ( $routeName == 'issues.showPage' || $routeName == 'columns.showPage');
     }
+
+    public function setColumnName($auth,\Users $user)
+    {
+        $routeName = \RouterFacade::getMatchedRoute()->getName();
+        return $user && ( $routeName == 'issues.showPage');
+    }
+
     public function addTag($auth,\Users $user)
     {
         return $user;

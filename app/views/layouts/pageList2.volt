@@ -12,7 +12,9 @@
                     <img src="{{ page.present().src }}" alt="Poster" class="Card__image">
                 </a>
                 <span>第{{ page.page_num }}版</span>
-                {% if page.hasColumn() %}
+                {% if router.getMatchedRoute().getName() is 'columns.show' %}
+                    <span><a href="#">{{ page.getIssue().date }}</a></span>
+                {% elseif page.hasColumn() %}
                     <span><a href="{{ url(['for':'columns.show','column':page.getColumn().id]) }}">{{ page.getColumn().title }}</a></span>
                 {% endif %}
             </div>

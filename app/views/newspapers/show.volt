@@ -20,7 +20,9 @@
             <li class="next"><a href="{{ url(['for':'newspapers.show.page','newspaper':newspaper.id,'page':page.next]) }}">Next</a></li>
         </ul>
     </nav>
-
+    {% if newspaper.getColumns() %}
+        {{ partial('layouts/columnList',['columns':newspaper.getColumns()]) }}
+    {% endif %}
     {{ partial('layouts/pageList') }}
     <script src="/js/keymaster.js" type="application/javascript"></script>
     <script src="/js/my.js" type="application/javascript"></script>

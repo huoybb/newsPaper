@@ -90,6 +90,10 @@ class FocusController extends \App\myPlugins\myController
             $page = Pages::findOrNewByPageNumAndIssue($issue,['page_num'=>$page_num]);
             return $page->id;
         }
+        if (preg_match('%/columns/[0-9]+/page/([0-9]+)%sm', $url, $regs)) {
+            $page_id = $regs[1];
+            return $page_id;
+        }
         throw new Exception('没有找到对应的page_id');
     }
 }
