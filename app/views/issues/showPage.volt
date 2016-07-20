@@ -2,9 +2,6 @@
 {% block pageTitle %}
     参考: {{ page.getIssue().present().date }} 第{{ page.page_num }}版
 {% endblock %}
-{% block title %}
-    <a href="{{ url(['for':'fromWeb.refreshPage','page':page.id]) }}" class="badge">更新本页</a>
-{% endblock %}
 {% block breadcrumbs %}
     <ol class="breadcrumb">
         <li><a href="{{ url(['for':'home']) }}">Home</a></li>
@@ -14,6 +11,7 @@
         {% if page.hasColumn() %}
             <li><a href="{{ url(['for':'columns.showPage','column':page.getColumn().id,'page':page.id]) }}">{{ page.getColumn().title }}</a></li>
         {% endif %}
+        <li><a href="{{ url(['for':'fromWeb.refreshPage','page':page.id]) }}" class="badge">更新本页</a></li>
     </ol>
 
 {% endblock %}

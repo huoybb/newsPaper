@@ -46,6 +46,27 @@ class Columns extends \App\myPlugins\myModel
         return $instance;
     }
 
+    public static function findByDateAndPageNum($newspaper_id,$date, $page_num)
+    {
+        if($newspaper_id == 1){//如果是参考消息
+            $columns = [
+                'workDay'=>[
+                    1=>'头版',2=>'新闻热点',3=>'时事纵横',4=>'经济广角',5=>'财经透视',6=>'军事瞭望',7=>'科技前沿',8=>'社会扫描',9=>'文体看台',10=>'参考论坛',11=>'特别报道',12=>'副刊天地',13=>'海峡两岸',14=>'海外视角',15=>'观察中国',16=>'中国大地'
+                ],
+                'restDay'=>[ 1=>'头版',2=>'新闻热点',3=>'时事纵横',4=>'经济广角',5=>'军事瞭望',6=>'社会扫描',7=>'科技前沿',8=>'中国大地'
+                ]
+            ];
+            $dayOfWeek = \Carbon\Carbon::createFromTimestamp(strtotime($date))->dayOfWeek;
+            if(($dayOfWeek == 0 || $dayOfWeek == 6) && $page_num <= 8) $columnName = $columns['restDay'][$page_num];
+            if($page_num <= 16 && !($dayOfWeek == 0 || $dayOfWeek == 6)) $columnName = $columns['workDay'][$page_num];
+            if(isset($columnName)) return static::query()
+                ->where('title = :title:',['title'=>$columnName])
+                ->andWhere('newspaper_id = :newspaper:',['newspaper'=>$newspaper_id])
+                ->execute()->getFirst();
+        }
+        return null;
+    }
+
     /**
      * Returns table name mapped in the model.
      *

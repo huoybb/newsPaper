@@ -5,6 +5,13 @@ class IssuesController extends \App\myPlugins\myController
 
     public function indexAction($page=1)
     {
+//        set_time_limit(0);
+//        foreach(Newspapers::findFirst(1)->getIssues() as $issue){
+//            foreach ($issue->getPages() as $page){
+//                $page->setColumn();
+//            }
+//        }
+//        dd('done!');
         $this->view->page = $this->getPaginator(Issues::find(['order'=>'date DESC,id DESC']),15,$page);
     }
     public function showAction(Issues $issue)

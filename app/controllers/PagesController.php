@@ -16,6 +16,7 @@ class PagesController extends \App\myPlugins\myController
 
     public function refreshAction(Pages $page)
     {
+//        dd($page);
         $page->refreshPicFromWeb();
         $this->redirectBack();
     }

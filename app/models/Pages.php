@@ -240,8 +240,11 @@ class Pages extends \App\myPlugins\myModel
                 $this->src = myTools::downloadImage($this->url);
                 $this->setStatus();//这里怎么能够将几种状态显示出来呢？还是需要进一步的调整
             }
-            $this->save();
         }
+
+        $this->setColumn();
+
+        $this->save();
     }
 
     public function isNewOrLackingImage()
@@ -294,8 +297,13 @@ class Pages extends \App\myPlugins\myModel
         $this->collection  = collect($collection);
     }
 
-
-
+    public function setColumn()
+    {
+        if($this->getIssue()->getNewsPaper()->title == '参考消息'){
+            $this->column_id = Columns::findByDateAndPageNum($this->getIssue()->newspaper_id,$this->getIssue()->date,$this->page_num)->id;
+            $this->save();
+        }
+    }
 
 
 }
