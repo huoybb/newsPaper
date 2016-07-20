@@ -18,7 +18,9 @@
     </div>
 
     <hr>
-    {{ partial('layouts/focusList',['focuses':issue.getFocuses()]) }}
+    <h3>关注</h3>
+    {{ partial('layouts/focusListForIssue',['focuses':issue.getFocuses()]) }}
+    <h3>版面</h3>
     {{ partial('layouts/pageList2',['pages':issue.getPages()]) }}
     <script src="/js/my.js" type="application/javascript"></script>
 {% endblock %}

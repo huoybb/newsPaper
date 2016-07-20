@@ -189,6 +189,14 @@ class Focus extends \App\myPlugins\myModel
 
 
     }
+    public function getPage()
+    {
+        return $this->make('page',function (){
+            return Pages::findFirst($this->page_id);
+        });
+    }
+
+
 
     public function setCollection($collection)
     {
