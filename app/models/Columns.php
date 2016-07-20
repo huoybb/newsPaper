@@ -120,6 +120,14 @@ class Columns extends \App\myPlugins\myModel
         });
     }
 
+    public function getPagesQuery()
+    {
+        return ModelsManager::createBuilder()
+            ->from('Pages')
+            ->leftJoin('Issues','Issues.id = Pages.issue_id')
+            ->where('column_id = :column:',['column'=>$this->id])
+            ->orderBy('Issues.date DESC');
+    }
 
 
 }
