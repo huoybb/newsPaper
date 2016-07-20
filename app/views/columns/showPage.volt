@@ -19,11 +19,11 @@
 
     <ul class="pagination">
         <li class="prev"><a href="{{ url(['for':'columns.showPage','column':column.id,'page':page.prevPage().id]) }}"><<</a></li>
-        {% for p in column.getPages()  %}
-            <li {% if p.id == page.id %} class="active" {% endif %}>
-                <a href="{{ url(['for':'columns.showPage','column':column.id,'page':p.id]) }}">{{ p.id }}</a>
-            </li>
-        {% endfor %}
+        {#{% for p in column.getPages()  %}#}
+            {#<li {% if p.id == page.id %} class="active" {% endif %}>#}
+                {#<a href="{{ url(['for':'columns.showPage','column':column.id,'page':p.id]) }}">{{ p.id }}</a>#}
+            {#</li>#}
+        {#{% endfor %}#}
         <li class="next"><a href="{{ url(['for':'columns.showPage','column':column.id,'page':page.nextPage().id]) }}">>></a></li>
     </ul>
 
